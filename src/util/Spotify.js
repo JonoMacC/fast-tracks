@@ -1,5 +1,5 @@
 const clientID = "422c54dd67644e2689eb3dd9e1c4a765";
-const redirectURI = "http://open-mist.surge.sh";
+const redirectURI = "https://open-mist.surge.sh";
 
 let accessToken;
 
