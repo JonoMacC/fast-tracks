@@ -1,8 +1,8 @@
 // using the test build values, change to production build values before committing
-// clientID = '422c54dd67644e2689eb3dd9e1c4a765';
-// redirectURI = 'https://open-mist.surge.sh';
-const clientID = "4e5b8764e3a640378085424ed547c2ad";
-const redirectURI = "http://localhost:3000/";
+const clientID = "422c54dd67644e2689eb3dd9e1c4a765";
+const redirectURI = "https://open-mist.surge.sh";
+// const clientID = "4e5b8764e3a640378085424ed547c2ad";
+// const redirectURI = "http://localhost:3000/";
 
 let accessToken;
 
