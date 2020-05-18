@@ -33,7 +33,8 @@ h2 {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  font-family: "Work Sans", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-weight: 500;
   color: #fff;
 }

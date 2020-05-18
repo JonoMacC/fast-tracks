@@ -1,6 +1,7 @@
 import React from "react";
 
 import "./Track.css";
+import Player from "../Player/Player";
 
 class Track extends React.Component {
   constructor(props) {
@@ -37,6 +38,14 @@ class Track extends React.Component {
   render() {
     return (
       <div className="Track">
+        <Player
+          img={this.props.track.imageSrc}
+          preview={this.props.track.preview}
+          album={this.props.track.album}
+          onPlay={this.props.onPlay}
+          onStop={this.props.onStop}
+          isPlaying={this.props.isPlaying}
+        />
         <div className="Track-information">
           <h3>{this.props.track.name}</h3>
           <p>
