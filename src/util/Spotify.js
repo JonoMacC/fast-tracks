@@ -1,8 +1,13 @@
-// using the test build values, change to production build values before committing
-const clientID = "422c54dd67644e2689eb3dd9e1c4a765";
-const redirectURI = "https://open-mist.surge.sh";
-// const clientID = "4e5b8764e3a640378085424ed547c2ad";
-// const redirectURI = "http://localhost:3000/";
+// Set the clientID and the redirectURI to appropriate values depending
+// on whether in development mode or in production
+const clientID =
+  process.env.NODE_ENV === "development"
+    ? process.env.REACT_APP_TEST_CLIENT_ID
+    : process.env.REACT_APP_CLIENT_ID;
+const redirectURI =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3000/"
+    : "https://open-mist.surge.sh";
 
 let accessToken;
 
