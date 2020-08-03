@@ -25,7 +25,6 @@ class App extends React.Component {
       playlistTracks: [],
       trackIsPlaying: false,
       trackHasEnded: false,
-      trackIsNew: true,
       stopAllTracks: true,
       trackListIsOpen: true,
       theme: "light",
@@ -81,7 +80,6 @@ class App extends React.Component {
       currentTrack: "",
       trackIsPlaying: false,
       trackHasEnded: false,
-      trackIsNew: true,
       stopAllTracks: true,
     });
   }
@@ -109,7 +107,6 @@ class App extends React.Component {
       suggestedTracks: tracks,
       trackIsPlaying: false,
       trackHasEnded: false,
-      trackIsNew: true,
     });
   }
 
@@ -134,7 +131,6 @@ class App extends React.Component {
     this.setState({
       trackIsPlaying: true,
       currentTrack: track,
-      trackIsNew: false,
       stopAllTracks: false,
     });
   }

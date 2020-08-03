@@ -3,6 +3,7 @@
   height: 100%;
   padding: 0 8px;
   overflow-y: scroll;
+  /* overflow: hidden; */
   visibility: hidden;
   display: none;
   grid-area: 2 / 1 / span 1 / span 1;
@@ -15,6 +16,7 @@
 
 .TrackListScrollContainer {
   padding: 16px 0 112px 0;
+  /* overflow-y: scroll; */
 }
 
 .TrackList {

@@ -65,8 +65,23 @@ const Spotify = {
     const accessToken = Spotify.getAccessToken();
     const headers = { Authorization: `Bearer ${accessToken}` };
 
+    const terms = [
+      "Tycho",
+      "The%20Dots",
+      "Tiger%20&%20Woods",
+      "Scattle",
+      "Plaid",
+      "Elsiane",
+      "Gramatik",
+      "Spoonbill",
+      "Parov%20Stelar",
+    ];
+
+    const index = Math.floor(Math.random() * terms.length);
+    const term = terms[index];
+
     return fetch(
-      `https://api.spotify.com/v1/search?type=track&q=Tycho&limit=5`,
+      `https://api.spotify.com/v1/search?type=track&q=${term}&limit=5`,
       { headers: headers }
     )
       .then((response) => {
