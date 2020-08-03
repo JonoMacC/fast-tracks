@@ -120,6 +120,10 @@ button:focus {
   display: none;
 }
 
+.overlay {
+  backdrop-filter: blur(32px);
+}
+
 /* Media queries for larger screens */
 /* Most mobile devices and up */
 @media all and (min-width: 360px) {
