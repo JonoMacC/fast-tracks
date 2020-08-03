@@ -7,7 +7,7 @@ const clientID =
 const redirectURI =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3000/"
-    : "https://open-mist.surge.sh";
+    : process.env.REACT_APP_REDIRECT_URI;
 
 let accessToken;
 
