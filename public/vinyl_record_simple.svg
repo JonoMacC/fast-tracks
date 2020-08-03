@@ -1,0 +1,65 @@
+<svg width="625" height="625" viewBox="0 0 625 625" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0)">
+<circle cx="312.5" cy="312.5" r="283.5" fill="#1D1F21"/>
+<circle opacity="0.5" cx="313" cy="313" r="169" stroke="url(#paint0_angular)" stroke-width="18"/>
+<circle opacity="0.5" cx="313" cy="313" r="235" stroke="url(#paint1_angular)" stroke-width="18"/>
+<circle opacity="0.5" cx="313" cy="313" r="140.25" stroke="#676C74" stroke-width="1.5"/>
+<circle opacity="0.5" cx="313" cy="313" r="160.25" stroke="#676C74" stroke-width="1.5"/>
+<circle opacity="0.5" cx="313" cy="313" r="177.25" stroke="#676C74" stroke-width="1.5"/>
+<circle opacity="0.5" cx="313" cy="313" r="194.25" stroke="#676C74" stroke-width="1.5"/>
+<circle opacity="0.5" cx="313" cy="313" r="213.25" stroke="#676C74" stroke-width="1.5"/>
+<circle opacity="0.5" cx="313" cy="313" r="227.25" stroke="#676C74" stroke-width="1.5"/>
+<circle opacity="0.5" cx="313" cy="313" r="244.25" stroke="#676C74" stroke-width="1.5"/>
+<circle opacity="0.5" cx="313" cy="313" r="260.25" stroke="#676C74" stroke-width="1.5"/>
+<circle cx="312.5" cy="312.5" r="279.5" stroke="#727B84" stroke-width="8"/>
+<circle cx="313" cy="313" r="124" fill="url(#paint2_angular)"/>
+<circle cx="313" cy="313" r="124" fill="url(#paint3_angular)"/>
+<circle cx="313" cy="313" r="94.5" fill="#F9CF00" stroke="#E0A203"/>
+<circle cx="313" cy="313" r="6.25" fill="#BAB1AA" stroke="#E0A203" stroke-width="0.5"/>
+<circle cx="481.328" cy="329.553" r="9.5" transform="rotate(60 481.328 329.553)" fill="white"/>
+<circle cx="515.711" cy="335.106" r="9.5" transform="rotate(60 515.711 335.106)" fill="white"/>
+<circle cx="546.862" cy="339.061" r="9.5" transform="rotate(60 546.862 339.061)" fill="white"/>
+<circle cx="313" cy="313" r="169" transform="rotate(60 313 313)" stroke="url(#paint4_angular)" stroke-width="18"/>
+<circle cx="313" cy="313" r="204" transform="rotate(60 313 313)" stroke="url(#paint5_angular)" stroke-width="20"/>
+<circle cx="313" cy="313" r="235" transform="rotate(60 313 313)" stroke="url(#paint6_angular)" stroke-width="18"/>
+</g>
+<defs>
+<radialGradient id="paint0_angular" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(313 313) rotate(-20.908) scale(190.547)">
+<stop offset="0.00827795" stop-color="#343434"/>
+<stop offset="0.325065" stop-color="#262626" stop-opacity="0"/>
+<stop offset="0.652023" stop-color="#262626" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint1_angular" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(313 313) rotate(-20.908) scale(261.199)">
+<stop offset="0.00827795" stop-color="#262626"/>
+<stop offset="0.325065" stop-color="#262626" stop-opacity="0"/>
+<stop offset="0.593797" stop-opacity="0"/>
+<stop offset="0.652023" stop-color="#262626" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint2_angular" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(313 313) rotate(16.7336) scale(159.765)">
+<stop offset="0.000334566" stop-color="#494F52"/>
+<stop offset="0.0392336" stop-color="#323232"/>
+</radialGradient>
+<radialGradient id="paint3_angular" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(313 313) rotate(7.35238) scale(125.028)">
+<stop offset="0.31857"/>
+<stop offset="0.759293" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint4_angular" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(313 313) rotate(-20.4064) scale(179.249)">
+<stop offset="0.57895" stop-color="white" stop-opacity="0"/>
+<stop offset="0.904104" stop-color="white"/>
+<stop offset="0.910051" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint5_angular" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(313 313) rotate(-20.4064) scale(215.502)">
+<stop offset="0.577683" stop-color="white" stop-opacity="0"/>
+<stop offset="0.906595" stop-color="white"/>
+<stop offset="0.910051" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="paint6_angular" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(313 313) rotate(-20.4064) scale(245.712)">
+<stop offset="0.578937" stop-color="white" stop-opacity="0"/>
+<stop offset="0.906595" stop-color="white"/>
+<stop offset="0.910051" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+<clipPath id="clip0">
+<rect width="625" height="625" fill="white"/>
+</clipPath>
+</defs>
+</svg>
