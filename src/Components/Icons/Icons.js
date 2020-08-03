@@ -1,114 +1,67 @@
-import React from 'react';
+import React from "react";
+import { IconContext } from "react-icons";
+import {
+  MdPlayArrow,
+  MdPause,
+  MdCancel,
+  MdAddCircleOutline,
+  MdRemoveCircleOutline,
+  MdBrightnessMedium,
+  MdDone,
+  MdClear,
+  MdExpandMore,
+  MdSkipNext,
+  MdAlbum,
+  MdAccountCircle,
+  MdQueueMusic,
+  MdSave,
+} from "react-icons/md";
 
-const Icons = {
-    // Pause button
-    <svg
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
->
-    <path
-        d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-        stroke="white"
-        stroke-opacity="0.6"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-    />
-    <path
-        d="M10 15V9"
-        stroke="white"
-        stroke-width="2"
-        stroke-linecap="square"
-    />
-    <path
-        d="M14 15V9"
-        stroke="white"
-        stroke-width="2"
-        stroke-linecap="square"
-        stroke-linejoin="round"
-    />
-</svg>
-
-
-// Play button
-<svg
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
->
-    <path
-        d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-        stroke="white"
-        stroke-opacity="0.6"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-    />
-    <path
-        d="M10 8L16 12L10 16V8Z"
-        fill="white"
-        stroke="white"
-        stroke-linecap="square"
-    />
-</svg>
-
-
-// Add track button
-<svg
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
->
-    <path
-        d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-        stroke="white"
-        stroke-opacity="0.6"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-    />
-    <path
-        d="M12 8V16"
-        stroke="white"
-        stroke-opacity="0.6"
-        stroke-linecap="square"
-    />
-    <path
-        d="M8 12H16"
-        stroke="white"
-        stroke-opacity="0.6"
-        stroke-linecap="square"
-    />
-</svg>
-
-// Remove track button
-<svg
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
->
-    <path
-        d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-        stroke="white"
-        stroke-opacity="0.6"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-    />
-    <path
-        d="M8 12H16"
-        stroke="white"
-        stroke-opacity="0.6"
-        stroke-linecap="square"
-    />
-</svg>
+function getIcon(name) {
+  switch (name) {
+    case "play":
+      return <MdPlayArrow />;
+    case "pause":
+      return <MdPause />;
+    case "cancel":
+      return <MdCancel />;
+    case "add":
+      return <MdAddCircleOutline />;
+    case "remove":
+      return <MdRemoveCircleOutline />;
+    case "dark-mode":
+      return <MdBrightnessMedium />;
+    case "add-track":
+      return <MdDone />;
+    case "discard":
+      return <MdClear />;
+    case "dropdown":
+      return <MdExpandMore />;
+    case "get-tracks":
+      return <MdSkipNext />;
+    case "profile":
+      return <MdAccountCircle />;
+    case "album":
+      return <MdAlbum />;
+    case "playlist":
+      return <MdQueueMusic />;
+    case "save":
+      return <MdSave />;
+    default:
+      return null;
+  }
 }
-    
 
-export default Icons
-
+export const Icon = (props) => {
+  const { name, color, size } = props;
+  return (
+    <IconContext.Provider
+      value={{
+        color: color,
+        style: { width: size, height: size },
+      }}
+    >
+      {getIcon(name)}
+    </IconContext.Provider>
+  );
+};

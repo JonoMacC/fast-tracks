@@ -1,3 +1,35 @@
+.TrackListContainer {
+  width: 100%;
+  height: 100%;
+  padding: 0 8px;
+  overflow-y: scroll;
+  visibility: hidden;
+  display: none;
+  grid-area: 2 / 1 / span 1 / span 1;
+}
+
+.TrackListContainer[isopen="true"] {
+  visibility: visible;
+  display: block;
+}
+
+.TrackListScrollContainer {
+  padding: 16px 0 112px 0;
+}
+
 .TrackList {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.TrackList > li {
+  margin-bottom: 12px;
+  flex: none;
+}
+
+@media all and (min-width: 768px) {
+  .TrackListContainer {
+    grid-area: 2 / 1 / span 1 / span 1;
+  }
 }

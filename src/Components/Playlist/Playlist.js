@@ -1,37 +1,140 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 import "./Playlist.css";
-import TrackList from "../TrackList/TrackList";
+import { Icon } from "../Icons/Icons";
+import { TrackCounter } from "../TrackCounter/TrackCounter";
+import { TrackList } from "../TrackList/TrackList";
 
-class Playlist extends React.Component {
-  constructor(props) {
-    super(props);
+const transition = {
+  ease: "easeInOut",
+  duration: 0.15,
+};
 
-    this.handleNameChange = this.handleNameChange.bind(this);
-  }
+export const Playlist = (props) => {
+  const {
+    onToggle,
+    onNameChange,
+    trackListIsOpen,
+    playlistTracks,
+    onRemove,
+    onPlay,
+    onStop,
+    isPlaying,
+    onStopAllPlayback,
+    stopAllTracks,
+    hasEnded,
+  } = props;
 
-  handleNameChange(event) {
-    this.props.onNameChange(event.target.value);
-  }
+  // use the size of the window to determine whether to always show
+  // the playlist (large displays) or to only show it when it is
+  // toggled to show (on smaller displays)
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-  render() {
-    return (
-      <div className="Playlist">
-        <input defaultValue={"New Playlist"} onChange={this.handleNameChange} />
-        <TrackList
-          tracks={this.props.playlistTracks}
-          onRemove={this.props.onRemove}
-          onPlay={this.props.onPlay}
-          onStop={this.props.onStop}
-          isRemoval={true}
-          isPlaying={false}
-        />
-        <button className="Playlist-save" onClick={this.props.onSave}>
-          SAVE TO SPOTIFY
+  // the playlist input field and list of tracks is always visible
+  //  ('stayOpen') on larger displays
+  const stayOpen = windowWidth > 768;
+
+  // the playlist is open when either it is toggled to open
+  // ('trackListIsOpen') or it is set to always visible ('stayOpen')
+  const isOpen = trackListIsOpen || stayOpen;
+
+  // the dropdown arrow that toggles the visibility of the playlist
+  // is not visible on larger displays ('stayOpen')
+  // on smaller displays it is visible when the playlist is toggled
+  // to the open state
+  const showToggle = () => {
+    if (stayOpen) {
+      return false;
+    } else {
+      return isOpen;
+    }
+  };
+
+  // use an effect hook to get the size of the window
+  // this will cause an update on window resize
+  useEffect(() => {
+    const handleWindowResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleWindowResize);
+
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  }, []);
+
+  return (
+    <section className="Playlist">
+      <div className="PlaylistAction">
+        <motion.div
+          variants={{
+            closed: {
+              borderRadius: "16px",
+              width: "32px",
+            },
+            open: {
+              borderRadius: "8px",
+              width: "100%",
+            },
+          }}
+          transition={transition}
+          className="PlaylistInput"
+          initial={false}
+          animate={isOpen ? "open" : "closed"}
+        >
+          <input
+            className="PlaylistName"
+            defaultValue="Fast Tracks"
+            onChange={(event) => onNameChange(event.target.value)}
+            isopen={isOpen.toString()}
+          />
+
+          <button
+            className="TapItem PlaylistExpand "
+            onClick={() => onToggle()}
+            isopen={isOpen.toString()}
+          >
+            <div className="inner">
+              <Icon name="playlist" color="var(--text-light)" size="24px" />
+            </div>
+          </button>
+
+          <TrackCounter numTracks={playlistTracks.length} />
+        </motion.div>
+        <button
+          className="TapItem PlaylistDropdown"
+          aria-label="Show/hide tracks"
+          onClick={() => onToggle()}
+          isopen={showToggle().toString()}
+        >
+          <motion.div
+            className="iconContainer"
+            variants={{
+              closed: { rotate: 0 },
+              open: { rotate: -180 },
+            }}
+            initial={false}
+            animate={isOpen ? "open" : "closed"}
+          >
+            <Icon name="dropdown" color="var(--text)" size="24px" />
+          </motion.div>
         </button>
       </div>
-    );
-  }
-}
 
-export default Playlist;
+      <TrackList
+        tracks={playlistTracks}
+        onRemove={onRemove}
+        onPlay={onPlay}
+        onStop={onStop}
+        isRemoval={true}
+        isPlaying={isPlaying}
+        onStopAllPlayback={onStopAllPlayback}
+        stopAllTracks={stopAllTracks}
+        isOpen={isOpen}
+        hasEnded={hasEnded}
+      />
+    </section>
+  );
+};

@@ -1,0 +1,26 @@
+.TrackCounter {
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid white;
+  background: #ff5187;
+  border-radius: 50%;
+  font-size: 9px;
+  color: white;
+  position: absolute;
+  top: 0;
+  right: -6px;
+  visibility: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+@media all and (min-width: 415px) {
+  .TrackCounter {
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    border: 2px solid white;
+  }
+}

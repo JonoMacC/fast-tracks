@@ -1,0 +1,189 @@
+body,
+html,
+#root {
+  margin: 0;
+  padding: 0;
+  background: none;
+}
+
+/* Light and Dark Theme Color Declarations */
+:root {
+  --brand-primary: #ff5187;
+  --brand-primary-hover: #eb346e;
+  --brand-secondary: #47ffde;
+  --bg-light: #ffffff;
+  --text-light: #222222;
+  --text-light-secondary: #484848;
+  --surface-light: #ffffff;
+  --overlay-light: rgba(255, 255, 255, 0.92);
+  --bg-dark: #111111;
+  --text-dark: #ececec;
+  --text-dark-secondary: #b3b3b3;
+  --surface-dark: #181818;
+  --overlay-dark: rgba(17, 17, 17, 0.7);
+  --icon-light: #dddddd;
+  --input-light: #ededed;
+  --icon-dark: #797979;
+  --input-dark: #303030;
+  --btn-overlay-light: rgba(0, 0, 0, 0.3);
+  --btn-overlay-dark: rgba(255, 255, 255, 0.3);
+  --bold-light: 700;
+  --bold-dark: 600;
+  --spacing-light: 1px;
+  --spacing-dark: 1.4px;
+}
+
+/* Default Colors */
+.App {
+  background: var(--bg-light);
+}
+
+.App * {
+  --text: var(--text-light);
+  --text-secondary: var(--text-light-secondary);
+  --icon: var(--icon-light);
+  --input: var(--input-light);
+  --btn-overlay: var(--btn-overlay-light);
+  --bold: var(--bold-light);
+  --spacing: var(--spacing-light);
+}
+
+.App .surface {
+  background: var(--surface-light);
+  box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.08);
+}
+
+.App .overlay {
+  background: var(--overlay-light);
+}
+
+/* Dark Theme Colors */
+.App[theme="dark"] {
+  background: var(--bg-dark);
+}
+
+.App[theme="dark"] * {
+  --text: var(--text-dark);
+  --text-secondary: var(--text-dark-secondary);
+  --icon: var(--icon-dark);
+  --input: var(--input-dark);
+  --btn-overlay: var(--btn-overlay-dark);
+  --bold: var(--bold-dark);
+  --spacing: var(--spacing-dark);
+}
+
+.App[theme="dark"] .surface {
+  background: var(--surface-dark);
+  box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.15);
+}
+
+.App[theme="dark"] .overlay {
+  background: var(--overlay-dark);
+}
+
+.App[theme="dark"] h2 {
+  font-weight: 600;
+}
+
+/* Light Theme Colors */
+.App[theme="light"] {
+  background: var(--bg-light);
+}
+
+.App[theme="light"] * {
+  --text: var(--text-light);
+  --text-secondary: var(--text-light-secondary);
+  --icon: var(--icon-light);
+  --input: var(--input-light);
+  --btn-overlay: var(--btn-overlay-light);
+  --bold: var(--bold-light);
+  --spacing: var(--spacing-light);
+}
+
+.App[theme="light"] .surface {
+  background: var(--surface-light);
+  box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.08);
+}
+
+.App[theme="light"] .overlay {
+  background: var(--overlay-light);
+}
+
+.App[theme="light"] h2 {
+  font-weight: 700;
+}
+
+@media screen and (prefers-color-scheme: dark) {
+  /* Defaults to Dark Theme */
+  .App {
+    background: var(--bg-dark);
+  }
+
+  .App * {
+    --text: var(--text-dark);
+    --text-secondary: var(--text-dark-secondary);
+    --icon: var(--icon-dark);
+    --input: var(--input-dark);
+    --btn-overlay: var(--btn-overlay-dark);
+    --bold: var(--bold-dark);
+    --spacing: var(--spacing-dark);
+  }
+
+  .App .surface {
+    background: var(--surface-dark);
+    box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.15);
+  }
+
+  .App .overlay {
+    background: var(--overlay-dark);
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .App .overlay,
+  .App[theme="light"] .overlay,
+  .App[theme="dark"] .overlay {
+    background: none;
+  }
+}
+
+/* Basic Styles */
+* {
+  margin: 0;
+  padding: 0;
+  background-color: none;
+  scrollbar-width: thin;
+  scrollbar-color: var(--brand-primary) transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar */
+*::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+
+*::-webkit-scrollbar-button {
+  width: 0;
+  height: 0;
+}
+
+*::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--brand-primary);
+}
+
+*::-webkit-scrollbar-thumb {
+  border: 4px solid transparent;
+  background-clip: padding-box;
+}
+
+*::-webkit-scrollbar-track {
+  background-color: transparent;
+}

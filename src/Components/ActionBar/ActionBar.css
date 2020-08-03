@@ -1,0 +1,72 @@
+.ActionBar {
+  width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 0;
+  padding: 0 8px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.ActionBar > * {
+  margin-right: 36px;
+  flex: none;
+  pointer-events: all;
+}
+
+.ActionBar > :last-child {
+  margin-right: 0;
+}
+
+.ActionBtn {
+  height: 44px;
+  width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--text-secondary);
+  color: var(--text);
+  border-radius: 50%;
+  text-align: center;
+  background: none;
+}
+
+.ActionBtn:hover {
+  background: var(--btn-overlay);
+}
+
+.ActionBtn:disabled {
+  opacity: 0.5;
+}
+
+/* Most mobile devices and up */
+@media all and (min-width: 360px) {
+  .ActionBtn {
+    height: 50px;
+    width: 50px;
+  }
+}
+
+@media all and (min-width: 415px) {
+  .ActionBtn {
+    height: 3rem;
+    width: 10rem;
+    border-radius: 1.5rem;
+  }
+}
+
+/* Larger tablets and up */
+@media all and (min-width: 768px) {
+  .ActionBar {
+    padding: 0;
+  }
+}
+
+@media all and (min-height: 675px) {
+  .ActionBar {
+    margin-bottom: 7vh;
+  }
+}

@@ -1,0 +1,109 @@
+.TrackCardContainer {
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  --aspect-ratio: 0.667;
+}
+
+.TrackCardContainer > :first-child {
+  width: 100%;
+}
+
+.TrackCardContainer::before {
+  content: "";
+  display: block;
+  padding-bottom: calc(100% / var(--aspect-ratio));
+}
+
+.TrackCardContainer > :first-child {
+  position: absolute;
+  /* top: 0;
+  left: 0; */
+  height: 100%;
+}
+
+.TrackCard {
+  border-radius: 32px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.TrackPreview {
+  width: 100%;
+  background: none;
+  min-height: 70%;
+}
+
+.TrackName {
+  position: absolute;
+  padding: 0 8px;
+  width: 100%;
+  z-index: 3;
+}
+
+.TrackName h2,
+.TrackName p {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.TrackOverlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.TrackControls {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+}
+
+.TrackBtn {
+  border: 2px solid var(--text-secondary);
+  height: 50px;
+  width: 50px;
+  color: var(--text);
+  text-align: center;
+  background: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.TrackBtn:hover {
+  background: var(--btn-overlay);
+}
+
+.TrackControls :first-child {
+  border-bottom-left-radius: 1.5rem;
+}
+
+.TrackControls :last-child {
+  border-bottom-right-radius: 1.5rem;
+}
+
+@media all and (min-width: 415px) {
+  .TrackBtn {
+    height: 3rem;
+    width: 9rem;
+    border-radius: 0;
+  }
+}

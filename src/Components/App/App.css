@@ -4,50 +4,157 @@ html,
   height: 100%;
 }
 
+html,
+body,
+input,
+::placeholder,
+* {
+  font-family: futura-pt, sans-serif;
+}
+
 html {
-  font-size: 18px;
+  font-size: 16px;
 }
 
 h1 {
-  padding: 0.77rem 0;
-  background-color: #010c3f;
   text-align: center;
-  font-family: "Poppins", sans-serif;
-  font-size: 1.88rem;
-  color: #fff;
-}
-
-h1 .highlight {
-  color: #6c41ec;
+  font-size: 1.5rem;
+  font-weight: var(--bold);
 }
 
 h2 {
-  font-family: "Poppins", sans-serif;
-  font-size: 1.55rem;
+  font-size: 1.125rem;
+  font-weight: var(--bold);
 }
 
-.App {
-  height: 100%;
-  padding: 0 17% 10% 17%;
-  background-image: url("./background_photo_desktop.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  font-weight: 500;
-  color: #fff;
+h3 {
+  font-weight: var(--bold);
+  font-size: 1rem;
 }
 
-.App-playlist {
+p {
+  font-weight: 400;
+  font-size: 0.875rem;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+}
+
+.label {
+  font-weight: var(--bold);
+  text-transform: uppercase;
+  letter-spacing: var(--spacing);
+}
+
+button {
+  outline: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+button:active,
+button:focus {
+  outline: none;
+}
+
+.TapItem {
+  width: 44px;
+  height: 44px;
   display: flex;
-  justify-content: space-between;
-  width: 100%;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
 
-@media only screen and (max-width: 1020px) {
-  .App-playlist {
-    align-items: center;
-    flex-direction: column;
+.iconContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Containers */
+.App {
+  height: 100vh;
+  /* mobile viewport bug fix */
+  height: -webkit-fill-available;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: background 0.15s ease-in;
+}
+
+.Container {
+  width: 100%;
+  height: 100%;
+  max-width: 1280px;
+  display: grid;
+  grid-template: auto 1fr / 1fr;
+  margin: auto;
+}
+
+.TrackSelect {
+  grid-area: 2 / 1 / span 1 / span 1;
+  position: relative;
+  height: 1fr;
+  display: flex;
+  justify-content: center;
+  z-index: 1;
+}
+
+.ActionIcon {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.ActionText {
+  display: none;
+}
+
+/* Media queries for larger screens */
+/* Most mobile devices and up */
+@media all and (min-width: 360px) {
+  h2 {
+    font-size: 1.25rem;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+}
+
+/* Tablets and up */
+@media all and (min-width: 415px) {
+  .Container {
+    padding: 20px 20px;
+  }
+
+  .ActionIcon {
+    display: none;
+  }
+
+  .ActionText {
+    display: block;
+  }
+}
+
+/* Large tablets and up */
+@media all and (min-width: 768px) {
+  .Container {
+    grid-template: auto 1fr / minmax(320px, 414px) minmax(448px, 1fr);
+    grid-gap: 8px 0;
+  }
+
+  .TrackSelect {
+    grid-area: 2 / 2 / span 1 / span 1;
   }
 }

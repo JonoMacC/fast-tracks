@@ -1,0 +1,64 @@
+.TrackItem {
+  display: flex;
+  align-items: center;
+}
+
+.TrackItem > * {
+  flex: none;
+}
+
+.TrackItem > :first-child {
+  margin-right: 1rem;
+}
+
+.TrackItem > :last-child {
+  margin-left: 1rem;
+}
+
+.TrackItem h2,
+.TrackItem p {
+  font-size: 0.8125rem;
+}
+
+.TrackItem h2 {
+  color: var(--text);
+}
+
+.TrackItem p {
+  color: var(--text-secondary);
+}
+
+.TrackPlayerContainer {
+  height: 3rem;
+  width: 3rem;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.TrackInformation {
+  flex: 1 1 auto;
+  flex-basis: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  color: var(--text);
+}
+
+.TrackInformation > * {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media all and (min-width: 768px) {
+  .TrackItem h2,
+  .TrackItem p {
+    font-size: 1rem;
+  }
+
+  .TrackPlayerContainer {
+    height: 3.5rem;
+    width: 3.5rem;
+  }
+}

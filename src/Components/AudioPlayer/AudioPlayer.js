@@ -1,27 +1,47 @@
 import React from "react";
 
 class AudioPlayer extends React.Component {
-  // constructor(props) {
-  //   super(props);
+  componentDidMount() {
+    this.player.onended = () => {
+      this.props.onEnd();
+    };
+  }
 
-  //   this.startPlayback = this.startPlayback.bind(this);
-  //   this.endPlayback = this.endPlayback.bind(this);
-  // }
+  componentDidUpdate(prevProps) {
+    if (prevProps.isPlaying !== this.props.isPlaying) {
+      if (this.props.isPlaying) {
+        this.startPlayback();
+      } else {
+        this.endPlayback();
+      }
+    }
+  }
 
-  // startPlayback() {
-  //   this.player.play();
-  // }
+  getProgress() {
+    this.player.ontimeupdate = () => {
+      let progress = Math.floor(
+        (this.player.currentTime / this.player.duration) * 100
+      );
+      this.setState({ progress: progress }, () => {
+        this.props.onPlay(this.state.progress);
+      });
+    };
+  }
 
-  // endPlayback() {
-  //   this.player.pause();
-  // }
+  startPlayback() {
+    this.player.play();
+  }
+
+  endPlayback() {
+    this.player.pause();
+  }
 
   render() {
     return (
       <audio
-        src={this.props.preview}
+        src={this.props.track}
         type="audio/mpeg"
-        ref={(ref) => (this.player = ref)}
+        ref={(player) => (this.player = player)}
       >
         Audio Playback Not Supported
       </audio>

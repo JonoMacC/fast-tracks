@@ -1,10 +1,9 @@
 import React from "react";
 
-// import react-icons to use the material design play and
-// pause button icons
-import { IconContext } from "react-icons";
-import { MdPlayArrow, MdPause } from "react-icons/md";
-
+import {
+  PlayerControl,
+  MiniPlayerControl,
+} from "../PlayerControl/PlayerControl";
 import "./Player.css";
 
 class Player extends React.Component {
@@ -12,61 +11,61 @@ class Player extends React.Component {
     super(props);
 
     this.state = {
-      isPlaying: this.props.isPlaying,
+      isPlaying: false,
     };
-
-    this.startPlayback = this.startPlayback.bind(this);
-    this.endPlayback = this.endPlayback.bind(this);
   }
 
-  startPlayback() {
-    // this.props.onPlay(this.props.preview);
-    this.player.play();
-    this.setState({ isPlaying: true });
+  componentDidUpdate(prevProps) {
+    // end playback upon reaching the end of the track
+    if (prevProps.hasEnded !== this.props.hasEnded && this.props.hasEnded) {
+      this.togglePlay();
+    }
+
+    // if stopAllTracks has changed from false to true,
+    // and the track state is currently playing,
+    // update the state to not playing
+    if (
+      prevProps.stopAllTracks !== this.props.stopAllTracks &&
+      this.props.stopAllTracks &&
+      this.state.isPlaying
+    ) {
+      this.setState({ isPlaying: false });
+    }
   }
 
-  endPlayback() {
-    // this.props.onStop(this.props.preview);
-    this.player.pause();
-    this.setState({ isPlaying: false });
-  }
-
-  renderAction() {
+  async togglePlay() {
     if (this.state.isPlaying) {
-      return (
-        <button className="Player-action" onClick={this.endPlayback}>
-          <MdPause></MdPause>
-        </button>
-      );
+      this.setState({ isPlaying: false }, () => {
+        this.props.onStop();
+      });
     } else {
-      return (
-        <button className="Player-action" onClick={this.startPlayback}>
-          <MdPlayArrow></MdPlayArrow>
-        </button>
-      );
+      // if another track is currently playing, stop the playback for all tracks
+      // await the result before initiating play for the current track
+      if (this.props.isPlaying) {
+        await this.props.onStopAllPlayback();
+      }
+
+      this.setState({ isPlaying: true }, () => {
+        this.props.onPlay(this.props.track);
+      });
     }
   }
 
   render() {
     return (
-      <div
+      <button
+        onClick={() => this.togglePlay()}
         className="Player"
         style={{
           backgroundImage: `url(${this.props.img})`,
-          backgroundSize: "cover",
         }}
       >
-        <audio
-          src={this.props.preview}
-          type="audio/mpeg"
-          ref={(ref) => (this.player = ref)}
-        >
-          Audio Playback Not Supported
-        </audio>
-        <IconContext.Provider value={{ color: "white", size: "1.5rem" }}>
-          {this.renderAction()}
-        </IconContext.Provider>
-      </div>
+        {this.props.miniPlayer ? (
+          <MiniPlayerControl isPlaying={this.state.isPlaying} />
+        ) : (
+          <PlayerControl isPlaying={this.state.isPlaying} />
+        )}
+      </button>
     );
   }
 }

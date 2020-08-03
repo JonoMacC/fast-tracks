@@ -1,0 +1,32 @@
+.TrackStackContainer {
+  width: 100%;
+  max-width: 375px;
+  padding: 0 16px;
+  align-self: center;
+  z-index: 1;
+}
+
+@media all and (min-height: 600px) {
+  .TrackStackContainer {
+    align-self: center;
+    margin-bottom: min(5vh, 80px);
+  }
+}
+
+@media all and (min-width: 768px) and (min-height: 600px) {
+  .TrackStackContainer {
+    margin-bottom: 80px;
+  }
+}
+
+.TrackStack {
+  width: 100%;
+  padding: 4px 0;
+  margin-bottom: 16px;
+  display: grid;
+  grid-template: 1fr / 1fr;
+}
+
+.TrackStack > * {
+  grid-area: 1 / 1;
+}
