@@ -109,8 +109,8 @@ class TrackCard extends React.Component {
           }}
           initial={"enter"}
           animate={this.getTrackAction()}
+          translateY={-index * 4}
           style={{
-            bottom: index * 4,
             zIndex: index + 1,
           }}
         >

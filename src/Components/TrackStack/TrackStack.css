@@ -17,12 +17,6 @@
 
 .TrackStack {
   width: 100%;
-  padding: 4px 0;
-  margin-bottom: 16px;
   display: grid;
   grid-template: 1fr / 1fr;
-}
-
-.TrackStack > * {
-  grid-area: 1 / 1;
 }

@@ -1,19 +1,13 @@
 .TrackCardContainer {
-  width: 100%;
-  height: 100%;
   position: relative;
   display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.TrackCardContainer > :first-child {
-  width: 100%;
-  height: 100%;
-  position: absolute;
+  grid-area: 1 / 1 / span 1;
 }
 
 .TrackCard {
+  width: 100%;
+  flex: auto;
+  /* position: absolute; */
   border-radius: 32px;
   display: flex;
   flex-flow: column nowrap;
@@ -45,7 +39,7 @@
 .TrackOverlay {
   position: absolute;
   width: 100%;
-  height: 100%;
+  flex: auto;
   background-color: rgba(0, 0, 0, 0.3);
   display: flex;
   align-items: center;
