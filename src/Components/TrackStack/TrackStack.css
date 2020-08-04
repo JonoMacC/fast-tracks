@@ -1,6 +1,6 @@
 .TrackStackContainer {
   width: 100%;
-  flex: 1;
+  flex: auto;
   max-width: 375px;
   max-height: 530px;
   padding: 0 16px;
