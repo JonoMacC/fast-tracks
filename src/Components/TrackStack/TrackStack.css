@@ -4,16 +4,16 @@
   max-width: 375px;
   max-height: 530px;
   padding: 0 16px;
-  align-self: center;
   justify-self: center;
   z-index: 1;
-  grid-area: 1;
+  grid-area: 1 / 1 / span 1;
   margin-top: 24px;
+  position: absolute;
 }
 
 @media all and (min-height: 812px) {
   .TrackStackContainer {
-    margin-top: 64px;
+    margin-top: 80px;
   }
 }
 
