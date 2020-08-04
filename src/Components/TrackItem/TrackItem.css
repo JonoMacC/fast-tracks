@@ -37,10 +37,9 @@
 }
 
 .TrackInformation {
-  flex: auto;
+  flex: 1 1 120px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   overflow: hidden;
   color: var(--text);
 }
