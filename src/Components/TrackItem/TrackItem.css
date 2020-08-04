@@ -1,6 +1,7 @@
 .TrackItem {
   display: flex;
   align-items: center;
+  width: 100%;
 }
 
 .TrackItem > * {
@@ -36,8 +37,7 @@
 }
 
 .TrackInformation {
-  flex: 1 1 auto;
-  flex-basis: 120px;
+  flex: auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

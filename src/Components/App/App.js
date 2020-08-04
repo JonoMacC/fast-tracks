@@ -188,7 +188,7 @@ class App extends React.Component {
   // after a delay, set the state back to false
   togglePlaylistSaved() {
     this.setState({ playlistSaved: true }, () => {
-      setTimeout(() => this.setState({ playlistSaved: false }), 1600);
+      setTimeout(() => this.setState({ playlistSaved: false }), 2400);
     });
   }
 
@@ -214,7 +214,7 @@ class App extends React.Component {
           isPlaying={this.state.trackIsPlaying}
           onEnd={this.endPlayback}
         />
-        {this.state.playlistSaved && <SuccessScreen />}
+        {this.state.playlistSaved && <SuccessScreen delay={1500} />}
         <section className="Container">
           <NavBar theme={this.state.theme} onToggle={this.toggleTheme} />
           <Playlist
