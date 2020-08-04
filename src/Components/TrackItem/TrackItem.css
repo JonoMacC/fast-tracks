@@ -1,19 +1,9 @@
 .TrackItem {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-gap: 1rem;
   align-items: center;
   width: 100%;
-}
-
-.TrackItem > * {
-  flex: none;
-}
-
-.TrackItem > :first-child {
-  margin-right: 1rem;
-}
-
-.TrackItem > :last-child {
-  margin-left: 1rem;
 }
 
 .TrackItem h2,
@@ -37,9 +27,7 @@
 }
 
 .TrackInformation {
-  flex: 1 1 120px;
-  display: flex;
-  flex-direction: column;
+  width: 100%;
   overflow: hidden;
   color: var(--text);
 }
