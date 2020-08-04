@@ -1,35 +1,19 @@
 .TrackStackContainer {
   width: 100%;
+  height: 100%;
   max-width: 375px;
-  /* height: calc(var(--height) - 70px);
-  max-height: 562px; */
+  max-height: 530px;
   padding: 0 16px;
   align-self: center;
+  justify-self: center;
   z-index: 1;
+  grid-area: 1;
+  margin-top: 24px;
 }
 
-@media all and (min-height: 600px) {
+@media all and (min-height: 812px) {
   .TrackStackContainer {
-    align-self: center;
-    margin-bottom: min(5vh, 80px);
-  }
-}
-/* 
-@media all and (min-height: 667px) {
-  .TrackStackContainer {
-    max-width: 320px;
-  }
-}
-
-@media all and (min-height: 700px) {
-  .TrackStackContainer {
-    max-width: 375px;
-  }
-} */
-
-@media all and (min-width: 768px) and (min-height: 600px) {
-  .TrackStackContainer {
-    margin-bottom: 80px;
+    margin-top: 64px;
   }
 }
 

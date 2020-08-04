@@ -102,8 +102,8 @@ button:focus {
   grid-area: 2 / 1 / span 1 / span 1;
   position: relative;
   height: 1fr;
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-rows: 1fr auto;
   z-index: 1;
 }
 

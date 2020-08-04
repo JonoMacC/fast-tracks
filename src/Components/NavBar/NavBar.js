@@ -8,7 +8,7 @@ export const NavBar = ({ theme, onToggle }) => {
   return (
     <nav className="NavBar">
       <button className="TapItem">
-        <Icon name="profile" color="var(--icon)" size="var(--size)" />
+        <Icon name="profile" color="var(--icon)" size="32px" />
       </button>
       <button className="TapItem" onClick={() => onToggle()}>
         <motion.div
@@ -20,7 +20,7 @@ export const NavBar = ({ theme, onToggle }) => {
           initial={false}
           animate={theme === "light" ? "light" : "dark"}
         >
-          <Icon name="dark-mode" color="var(--icon)" size="var(--size)" />
+          <Icon name="dark-mode" color="var(--icon)" size="32px" />
         </motion.div>
       </button>
     </nav>

@@ -5,18 +5,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  --size: 32px;
 }
 
 .NavBar > * {
   flex: none;
 }
-
-/* @media all and (min-width: 415px) {
-  .NavBar {
-    --size: 32px;
-  }
-} */
 
 @media all and (min-width: 768px) {
   .NavBar {

@@ -1,12 +1,10 @@
 .TrackCardContainer {
   width: 100%;
-  height: calc(100vh - 120px);
-  max-height: 514px;
+  height: 100%;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  --aspect-ratio: 0.667;
 }
 
 .TrackCardContainer > :first-child {
@@ -14,20 +12,6 @@
   height: 100%;
   position: absolute;
 }
-
-/* 
-.TrackCardContainer::before {
-  content: "";
-  display: block;
-  padding-bottom: calc(100% / var(--aspect-ratio));
-} */
-
-/* .TrackCardContainer > :first-child {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-} */
 
 .TrackCard {
   border-radius: 32px;

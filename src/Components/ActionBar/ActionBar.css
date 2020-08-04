@@ -2,13 +2,13 @@
   width: 100%;
   height: 80px;
   display: flex;
-  align-items: center;
   justify-content: center;
-  position: absolute;
-  bottom: 0;
+  align-items: center;
+  position: relative;
   padding: 0 8px;
   z-index: 2;
   pointer-events: none;
+  grid-area: 2;
 }
 
 .ActionBar > * {
