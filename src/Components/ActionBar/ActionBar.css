@@ -8,7 +8,6 @@
   padding: 0 8px;
   z-index: 2;
   pointer-events: none;
-  grid-area: 2;
 }
 
 .ActionBar > * {
