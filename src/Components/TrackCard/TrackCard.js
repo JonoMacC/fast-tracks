@@ -128,27 +128,60 @@ class TrackCard extends React.Component {
             </motion.div>
           )}
 
-          <motion.div
-            className="TrackPreview"
-            variants={{
-              open: { height: "70%" },
-              closed: { height: "100%", transition: { duration: 0.1 } },
-            }}
-            initial={"open"}
-            animate={this.state.isClosed ? "closed" : "open"}
-          >
-            <Player
-              track={this.props.track}
-              img={img}
-              onPlay={this.props.onPlay}
-              onStop={this.props.onStop}
-              isPlaying={this.state.isPlaying}
-              onStopAllPlayback={this.props.onStopAllPlayback}
-              stopAllTracks={this.props.stopAllTracks}
-              miniPlayer={false}
-              hasEnded={this.props.hasEnded}
-            />
-          </motion.div>
+          <div className="TrackContent">
+            <motion.div
+              className="TrackPreview"
+              variants={{
+                open: { height: "70%" },
+                closed: { height: "100%", transition: { duration: 0.1 } },
+              }}
+              initial={"open"}
+              animate={this.state.isClosed ? "closed" : "open"}
+            >
+              <Player
+                track={this.props.track}
+                img={img}
+                onPlay={this.props.onPlay}
+                onStop={this.props.onStop}
+                isPlaying={this.state.isPlaying}
+                onStopAllPlayback={this.props.onStopAllPlayback}
+                stopAllTracks={this.props.stopAllTracks}
+                miniPlayer={false}
+                hasEnded={this.props.hasEnded}
+              />
+            </motion.div>
+
+            <motion.div
+              className="TrackControls"
+              variants={{
+                open: { opacity: 1 },
+                closed: { opacity: 0, height: 0, y: 400, visibility: "hidden" },
+              }}
+              initial="open"
+              animate={this.state.isClosed ? "closed" : "open"}
+            >
+              <button
+                id="discardTrack"
+                className="TrackBtn"
+                onClick={this.discardTrack}
+              >
+                <span className="ActionText label">Discard</span>
+                <div className="ActionIcon" aria-label="Discard">
+                  <Icon name="discard" color="var(--text)" size="32px" />
+                </div>
+              </button>
+              <button
+                id="addTrack"
+                className="TrackBtn"
+                onClick={this.addTrack}
+              >
+                <span className="ActionText label">Add Track</span>
+                <div className="ActionIcon" aria-label="Add Track">
+                  <Icon name="add-track" color="var(--text)" size="32px" />
+                </div>
+              </button>
+            </motion.div>
+          </div>
 
           <motion.div
             className="TrackName"
@@ -163,33 +196,6 @@ class TrackCard extends React.Component {
             <p style={{ color: trackNameColorSecondary }}>
               {artist} | {album}
             </p>
-          </motion.div>
-
-          <motion.div
-            className="TrackControls"
-            variants={{
-              open: { opacity: 1 },
-              closed: { opacity: 0, height: 0, y: 400, visibility: "hidden" },
-            }}
-            initial="open"
-            animate={this.state.isClosed ? "closed" : "open"}
-          >
-            <button
-              id="discardTrack"
-              className="TrackBtn"
-              onClick={this.discardTrack}
-            >
-              <span className="ActionText label">Discard</span>
-              <div className="ActionIcon" aria-label="Discard">
-                <Icon name="discard" color="var(--text)" size="32px" />
-              </div>
-            </button>
-            <button id="addTrack" className="TrackBtn" onClick={this.addTrack}>
-              <span className="ActionText label">Add Track</span>
-              <div className="ActionIcon" aria-label="Add Track">
-                <Icon name="add-track" color="var(--text)" size="32px" />
-              </div>
-            </button>
           </motion.div>
         </motion.div>
       </motion.li>

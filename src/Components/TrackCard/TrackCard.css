@@ -8,17 +8,29 @@
   width: 100%;
   flex: auto;
   border-radius: 32px;
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
   text-align: center;
   overflow: hidden;
+  display: grid;
+  grid-template: 1fr / 1fr;
+}
+
+.TrackOverlay {
+  grid-area: 1 / 1 / span 1;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.TrackContent {
+  grid-area: 1 / 1 / span 1;
+  z-index: 1;
 }
 
 .TrackPreview {
   width: 100%;
-  background: none;
-  min-height: 70%;
+  height: 70%;
 }
 
 .TrackName {
@@ -35,17 +47,6 @@
   text-overflow: ellipsis;
 }
 
-.TrackOverlay {
-  position: absolute;
-  width: 100%;
-  flex: auto;
-  background-color: rgba(0, 0, 0, 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-}
-
 .TrackControls {
   position: absolute;
   bottom: 0;
@@ -54,7 +55,7 @@
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem;
+  padding: 8px;
 }
 
 .TrackBtn {
