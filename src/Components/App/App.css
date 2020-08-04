@@ -87,7 +87,6 @@ button:focus {
   justify-content: center;
   overflow: hidden;
   transition: background 0.15s ease-in;
-  --height: -webkit-fill-available;
 }
 
 .Container {
