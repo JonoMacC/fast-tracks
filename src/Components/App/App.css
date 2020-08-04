@@ -83,7 +83,6 @@ button:focus {
   /* mobile viewport bug fix */
   height: -webkit-fill-available;
   display: flex;
-  align-items: stretch;
   justify-content: center;
   overflow: hidden;
   transition: background 0.15s ease-in;

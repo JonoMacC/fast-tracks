@@ -56,10 +56,6 @@ class TrackStack extends React.Component {
             }}
             initial={"hidden"}
             animate={"enter"}
-            style={{
-              width: "100%",
-              height: "100%",
-            }}
           >
             {this.props.tracks.map((track, index) => (
               <TrackCard
