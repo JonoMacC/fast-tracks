@@ -1,5 +1,6 @@
 .TrackCardContainer {
   position: relative;
+  height: 1fr;
   display: flex;
   grid-area: 1 / 1 / span 1;
 }
@@ -7,7 +8,6 @@
 .TrackCard {
   width: 100%;
   flex: auto;
-  /* position: absolute; */
   border-radius: 32px;
   display: flex;
   flex-flow: column nowrap;
