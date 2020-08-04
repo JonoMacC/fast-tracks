@@ -1,5 +1,8 @@
 .TrackCardContainer {
   width: 100%;
+  height: calc(100vh - 120px);
+  height: calc(-webkit-fill-available - 120px);
+  max-height: 514px;
   position: relative;
   display: flex;
   align-items: center;
@@ -9,20 +12,23 @@
 
 .TrackCardContainer > :first-child {
   width: 100%;
+  height: 100%;
+  position: absolute;
 }
 
+/* 
 .TrackCardContainer::before {
   content: "";
   display: block;
   padding-bottom: calc(100% / var(--aspect-ratio));
-}
+} */
 
-.TrackCardContainer > :first-child {
+/* .TrackCardContainer > :first-child {
   position: absolute;
-  /* top: 0;
-  left: 0; */
+  top: 0;
+  left: 0;
   height: 100%;
-}
+} */
 
 .TrackCard {
   border-radius: 32px;

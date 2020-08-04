@@ -1,6 +1,8 @@
 .TrackStackContainer {
   width: 100%;
   max-width: 375px;
+  /* height: calc(var(--height) - 70px);
+  max-height: 562px; */
   padding: 0 16px;
   align-self: center;
   z-index: 1;
@@ -12,6 +14,18 @@
     margin-bottom: min(5vh, 80px);
   }
 }
+/* 
+@media all and (min-height: 667px) {
+  .TrackStackContainer {
+    max-width: 320px;
+  }
+}
+
+@media all and (min-height: 700px) {
+  .TrackStackContainer {
+    max-width: 375px;
+  }
+} */
 
 @media all and (min-width: 768px) and (min-height: 600px) {
   .TrackStackContainer {

@@ -26,7 +26,7 @@ class App extends React.Component {
       trackIsPlaying: false,
       trackHasEnded: false,
       stopAllTracks: true,
-      trackListIsOpen: true,
+      trackListIsOpen: false,
       theme: "light",
       playlistSaved: false,
     };
