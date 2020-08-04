@@ -83,7 +83,7 @@ button:focus {
   /* mobile viewport bug fix */
   height: -webkit-fill-available;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
   overflow: hidden;
   transition: background 0.15s ease-in;
@@ -95,7 +95,6 @@ button:focus {
   max-width: 1280px;
   display: grid;
   grid-template: auto 1fr / 1fr;
-  margin: auto;
 }
 
 .TrackSelect {
