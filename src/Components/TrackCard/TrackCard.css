@@ -1,7 +1,7 @@
 .TrackCardContainer {
   width: 100%;
   height: calc(100vh - 120px);
-  height: calc(-webkit-fill-available - 120px);
+  height: calc(var(--height) - 120px);
   max-height: 514px;
   position: relative;
   display: flex;
