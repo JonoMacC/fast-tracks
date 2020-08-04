@@ -7,6 +7,7 @@
   z-index: 1;
   margin-top: 24px;
   position: relative;
+  display: flex;
 }
 
 @media all and (min-height: 812px) {
@@ -17,6 +18,7 @@
 
 .TrackStack {
   width: 100%;
+  flex: auto;
   display: grid;
   grid-template: 1fr / 1fr;
 }

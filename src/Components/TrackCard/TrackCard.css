@@ -1,6 +1,5 @@
 .TrackCardContainer {
   position: relative;
-  height: 1fr;
   display: flex;
   grid-area: 1 / 1 / span 1;
 }
