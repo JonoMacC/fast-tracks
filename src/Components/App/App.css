@@ -183,3 +183,97 @@ button:focus {
     margin-bottom: 60px;
   }
 }
+
+/* Playlist Saved Screen */
+.SuccessScreen {
+  background: #111111;
+  z-index: 20;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  opacity: 0;
+  --duration: 1.6s;
+  animation: fade-in-out var(--duration) ease-in-out;
+}
+
+.SuccessScreen::after {
+  background: url(../TrackAction/PlaylistSaved.svg) no-repeat;
+  background-size: auto;
+  background-position: 50% 50%;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  animation: spin-up-down var(--duration) ease-in-out,
+    fade-in-out var(--duration) ease-in-out;
+}
+
+.SuccessScreen::before {
+  background: url(../TrackAction/vinyl_record.png) no-repeat;
+  background-size: contain;
+  background-position: 50% 50%;
+  content: "";
+  width: 625px;
+  position: absolute;
+  top: 0;
+  left: calc(50vw - 312.5px);
+  bottom: 0;
+  opacity: 0;
+  overflow: visible;
+  animation: scale-up-down var(--duration) ease-in-out,
+    fade-in-out var(--duration) ease-in-out;
+}
+
+@keyframes fade-in-out {
+  0% {
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes spin-up-down {
+  0% {
+    transform: rotate(0deg) scale(0.1);
+  }
+  25% {
+    transform: rotate(720deg) scale(1);
+  }
+  85% {
+    transform: rotate(720deg) scale(1);
+  }
+  100% {
+    transform: rotate(0deg) scale(0.1);
+  }
+}
+
+@keyframes scale-up-down {
+  0% {
+    transform: scale(0.01);
+  }
+  25% {
+    transform: scale(0.8);
+  }
+  85% {
+    transform: scale(0.8);
+  }
+  100% {
+    transform: scale(0.01);
+  }
+}
