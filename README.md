@@ -10,7 +10,7 @@ Use your Spotify account on the Spotify developer site (developer.spotify.com) t
 
 ## Local Development
 
-Create a file called .env to store enviornment variables. In that file type (n.b. no spaces):
+Create a file called .env to store environment variables. In that file type (n.b. no spaces):
 
     REACT_APP_CLIENT_ID=your-production-app-client-id-goes-here
     REACT_APP_TEST_CLIENT_ID=your-test-app-client-id-goes-here
