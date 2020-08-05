@@ -10,6 +10,30 @@
   display: flex;
 }
 
+.TrackStackContainer::before {
+  background: url("./vinyl_record_simple.png") no-repeat;
+  background-size: contain;
+  background-position: left 0 top 50%;
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: 16px;
+  right: 16px;
+  bottom: 0;
+  z-index: -1;
+  animation: spinning-record 1.6s infinite linear;
+  transform-origin: 49.5% 50.5%;
+}
+
+@keyframes spinning-record {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 @media all and (min-height: 812px) {
   .TrackStackContainer {
     margin-top: 10vh;

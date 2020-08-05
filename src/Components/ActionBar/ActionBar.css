@@ -44,17 +44,14 @@
 }
 
 @media all and (min-width: 415px) {
+  .ActionBar {
+    width: 343px;
+  }
+
   .ActionBtn {
     height: 3rem;
     width: 9rem;
     border-radius: 1.5rem;
-  }
-}
-
-/* Larger tablets and up */
-@media all and (min-width: 768px) {
-  .ActionBar {
-    width: 343px;
   }
 }
 

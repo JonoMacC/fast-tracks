@@ -238,6 +238,7 @@ class App extends React.Component {
             stopAllTracks={this.state.stopAllTracks}
             hasEnded={this.state.trackHasEnded}
           />
+
           <main className="TrackSelect">
             <TrackStack
               tracks={this.state.suggestedTracks}
