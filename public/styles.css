@@ -31,6 +31,8 @@ html,
   --bold-dark: 600;
   --spacing-light: 1px;
   --spacing-dark: 1.4px;
+  --scrollbar-light: rgba(0, 0, 0, 0.1);
+  --scrollbar-dark: rgba(255, 255, 255, 0.3);
 }
 
 /* Default Colors */
@@ -46,6 +48,7 @@ html,
   --btn-overlay: var(--btn-overlay-light);
   --bold: var(--bold-light);
   --spacing: var(--spacing-light);
+  --scrollbar: var(--scrollbar-light);
 }
 
 .App .surface {
@@ -70,6 +73,7 @@ html,
   --btn-overlay: var(--btn-overlay-dark);
   --bold: var(--bold-dark);
   --spacing: var(--spacing-dark);
+  --scrollbar: var(--scrollbar-dark);
 }
 
 .App[theme="dark"] .surface {
@@ -98,6 +102,7 @@ html,
   --btn-overlay: var(--btn-overlay-light);
   --bold: var(--bold-light);
   --spacing: var(--spacing-light);
+  --scrollbar: var(--scrollbar-light);
 }
 
 .App[theme="light"] .surface {
@@ -127,6 +132,7 @@ html,
     --btn-overlay: var(--btn-overlay-dark);
     --bold: var(--bold-dark);
     --spacing: var(--spacing-dark);
+    --scrollbar: var(--scrollbar-dark);
   }
 
   .App .surface {
@@ -153,7 +159,7 @@ html,
   padding: 0;
   background-color: none;
   scrollbar-width: thin;
-  scrollbar-color: var(--brand-primary) transparent;
+  scrollbar-color: var(--scrollbar) transparent;
 }
 
 html {
@@ -176,7 +182,7 @@ html {
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: var(--brand-primary);
+  background-color: var(--scrollbar);
 }
 
 *::-webkit-scrollbar-thumb {

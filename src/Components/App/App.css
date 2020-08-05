@@ -161,3 +161,13 @@ button:focus {
     grid-area: 2 / 2 / span 1 / span 1;
   }
 }
+
+@media all and (min-height: 812px) {
+  .TrackSelect {
+    justify-content: flex-start;
+  }
+
+  .TrackSelect > *:first-child {
+    margin-bottom: 60px;
+  }
+}

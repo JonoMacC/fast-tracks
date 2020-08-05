@@ -1,23 +1,17 @@
 .ActionBar {
-  width: 100%;
+  width: 50%;
+  max-width: 343px;
   height: 80px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  position: relative;
-  padding: 0 8px;
   z-index: 2;
   pointer-events: none;
 }
 
 .ActionBar > * {
-  margin-right: 36px;
   flex: none;
   pointer-events: all;
-}
-
-.ActionBar > :last-child {
-  margin-right: 0;
 }
 
 .ActionBtn {
@@ -52,7 +46,7 @@
 @media all and (min-width: 415px) {
   .ActionBtn {
     height: 3rem;
-    width: 10rem;
+    width: 9rem;
     border-radius: 1.5rem;
   }
 }
@@ -60,12 +54,12 @@
 /* Larger tablets and up */
 @media all and (min-width: 768px) {
   .ActionBar {
-    padding: 0;
+    width: 343px;
   }
 }
 
 @media all and (min-height: 675px) {
   .ActionBar {
-    margin-bottom: 7vh;
+    height: 120px;
   }
 }

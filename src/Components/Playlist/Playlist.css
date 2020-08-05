@@ -109,12 +109,6 @@
 @media all and (min-width: 768px) {
   .Playlist {
     grid-area: 2 / 1 / span 1 / span 1;
-    display: grid;
-    grid-template: auto 1fr / 1fr;
-  }
-
-  .PlaylistAction {
-    grid-area: 1 / 1 / span 1 / span 1;
   }
 
   .PlaylistDropdown {
