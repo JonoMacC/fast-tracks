@@ -207,6 +207,13 @@ class App extends React.Component {
   }
 
   render() {
+    // determine if the playlist should be in a collapsed state
+    // based on whether there are zero tracks in the playlist
+    // this only affects desktop, so applying the class without
+    // checking the screen width is harmless
+    const isPlaylistCollapsed =
+      this.state.playlistTracks.length === 0 ? "collapsed" : "";
+
     return (
       <div className="App" theme={this.state.theme}>
         <AudioPlayer
@@ -215,7 +222,7 @@ class App extends React.Component {
           onEnd={this.endPlayback}
         />
         {this.state.playlistSaved && <SuccessScreen delay={1500} />}
-        <section className="Container">
+        <section className={`Container ${isPlaylistCollapsed}`}>
           <NavBar theme={this.state.theme} onToggle={this.toggleTheme} />
           <Playlist
             playlistName={this.state.playlistName}

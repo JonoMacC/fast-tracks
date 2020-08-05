@@ -93,7 +93,8 @@ button:focus {
   flex: auto;
   max-width: 1280px;
   display: grid;
-  grid-template: auto 1fr / 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: 1fr;
 }
 
 .TrackSelect {
@@ -153,12 +154,23 @@ button:focus {
 /* Large tablets and up */
 @media all and (min-width: 768px) {
   .Container {
-    grid-template: auto 1fr / minmax(320px, 414px) minmax(448px, 1fr);
+    grid-template-columns: 314px minmax(414px, 1fr);
     grid-gap: 8px 0;
+    transition: grid-template-columns 0.15s ease-in-out;
+  }
+
+  .Container.collapsed {
+    grid-template-columns: 0px minmax(414px, 1fr);
   }
 
   .TrackSelect {
     grid-area: 2 / 2 / span 1 / span 1;
+  }
+}
+
+@media all and (min-width: 1024px) {
+  .Container {
+    grid-template-columns: 414px minmax(414px, 1fr);
   }
 }
 
