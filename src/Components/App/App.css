@@ -78,13 +78,9 @@ button:focus {
 }
 
 /* Containers */
-.AppContainer {
-  transition: background 0.15s ease-in;
-}
-
 .App {
-  /* display: flex;
-  justify-content: center; */
+  display: flex;
+  justify-content: center;
   overflow: hidden;
   transition: background 0.15s ease-in;
 }
