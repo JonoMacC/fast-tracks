@@ -29,4 +29,4 @@ You can view the app by navigating to **http://localhost:3000/** in your browser
 
 ## Deploying on Netlify
 
-Ensure that you have set up your Client ID and Redirect URI as an environment variables for your site on Netlify.
+Ensure that you have set up your Client ID and Redirect URI as environment variables for your site on Netlify.
