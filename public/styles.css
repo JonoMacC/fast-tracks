@@ -35,11 +35,6 @@ html,
   --scrollbar-dark: rgba(255, 255, 255, 0.3);
 }
 
-/* For testing on iOS */
-body {
-  background: #111111;
-}
-
 /* Default Colors */
 .App {
   background: var(--bg-light);

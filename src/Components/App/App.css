@@ -78,19 +78,22 @@ button:focus {
 }
 
 /* Containers */
+.AppContainer {
+  transition: background 0.15s ease-in;
+}
+
 .App {
-  height: 100vh;
-  /* mobile viewport bug fix */
-  height: -webkit-fill-available;
-  display: flex;
-  justify-content: center;
+  /* display: flex;
+  justify-content: center; */
   overflow: hidden;
   transition: background 0.15s ease-in;
 }
 
 .Container {
   width: 100%;
-  flex: auto;
+  height: 100vh;
+  /* mobile viewport bug fix */
+  height: -webkit-fill-available;
   max-width: 1280px;
   display: grid;
   grid-template-rows: auto 1fr;
