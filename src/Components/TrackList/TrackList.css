@@ -20,13 +20,27 @@
 }
 
 .TrackList {
-  padding: 1rem 0 5rem 0;
   width: 100%;
   display: flex;
   flex-direction: column;
+  padding-bottom: 5rem;
 }
 
 .TrackList > li {
   margin-bottom: 0.75rem;
   flex: none;
+}
+
+.TrackList > li:first-child {
+  padding-top: 1rem;
+}
+
+.TrackList > li:last-child {
+  padding-bottom: 5rem;
+}
+
+@media all and (min-width: 768px) {
+  .TrackListContainer {
+    margin-bottom: 2rem;
+  }
 }
