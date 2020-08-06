@@ -200,8 +200,10 @@ class App extends React.Component {
   toggleTheme() {
     if (this.state.theme === "light") {
       this.setMode("dark");
+      document.body.style = "background: #111111";
     } else {
       this.setMode("light");
+      document.body.style = "background: #ffffff";
     }
   }
 
