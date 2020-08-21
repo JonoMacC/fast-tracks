@@ -27,12 +27,15 @@
   background: none;
 }
 
-.ActionBtn:hover {
-  background: var(--btn-overlay);
-}
-
 .ActionBtn:disabled {
   opacity: 0.5;
+}
+
+/* Hover state restricted to devices that support hover */
+@media (hover: hover) {
+  .ActionBtn:hover {
+    background: var(--btn-overlay);
+  }
 }
 
 /* Most mobile devices and up */

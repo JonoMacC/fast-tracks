@@ -72,8 +72,11 @@
   justify-content: center;
 }
 
-.TrackBtn:hover {
-  background: var(--btn-overlay);
+/* Hover state restricted to devices that support hover */
+@media (hover: hover) {
+  .TrackBtn:hover {
+    background: var(--btn-overlay);
+  }
 }
 
 .TrackControls :first-child {
