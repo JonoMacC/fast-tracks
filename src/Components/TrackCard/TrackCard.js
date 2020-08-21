@@ -26,7 +26,10 @@ class TrackCard extends React.Component {
     // delay removing the card from the DOM to give time for
     // "exit" animations to occur
     if (prevState.isClosed !== this.state.isClosed && this.state.isClosed) {
-      setTimeout(() => this.props.onRemove(this.props.track), 800);
+      // set the timeout duration based on whether the track has been
+      // added or discarded
+      let timeout = this.state.isAdded ? 1000 : 800;
+      setTimeout(() => this.props.onRemove(this.props.track), timeout);
     }
 
     if (prevProps.isPlaying !== this.props.isPlaying) {
@@ -95,7 +98,7 @@ class TrackCard extends React.Component {
           className={"TrackCard surface"}
           variants={{
             addTrack: {
-              transition: { ease: "easeOut", delay: 0.6, duration: 0.2 },
+              transition: { ease: "easeOut", delay: 0.8, duration: 0.2 },
               y: -800,
               x: -20,
               rotate: -5,

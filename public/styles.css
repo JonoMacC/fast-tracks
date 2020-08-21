@@ -8,8 +8,8 @@ html,
 
 /* Light and Dark Theme Color Declarations */
 :root {
-  --brand-primary: #ff145d;
-  --brand-primary-hover: #e51254;
+  --brand-primary: #ff3575;
+  --brand-primary-hover: #e53069;
   --brand-secondary: #47ffde;
   --bg-light: #ffffff;
   --text-light: #222222;
