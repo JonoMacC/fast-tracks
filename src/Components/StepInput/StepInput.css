@@ -1,0 +1,17 @@
+.StepInput {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--text);
+  font-size: 1.25rem;
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.StepInput button {
+  opacity: 0.8;
+}
+
+.StepInput button:disabled {
+  opacity: 0.3;
+}

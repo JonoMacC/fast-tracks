@@ -6,11 +6,22 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
     "framer-motion": "^2.1.0",
+    "http-proxy-middleware": "^1.0.5",
+    "morgan": "^1.10.0",
+    "path": "^0.12.7",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-icons": "^3.10.0",
-    "react-scripts": "3.4.1"
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.1",
+    "react-use-auth": "^0.7.5",
+    "request": "^2.88.2",
+    "spotify-web-api-node": "^4.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

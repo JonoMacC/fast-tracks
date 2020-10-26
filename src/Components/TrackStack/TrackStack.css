@@ -1,9 +1,8 @@
 .TrackStackContainer {
   width: 100%;
   flex: auto;
-  max-width: 375px;
-  max-height: 530px;
-  padding: 0 16px;
+  max-width: 415px;
+  padding: 0 8px;
   z-index: 1;
   margin-top: 24px;
   position: relative;
@@ -34,9 +33,16 @@
   }
 }
 
+@media all and (min-width: 360px) {
+  .TrackStackContainer {
+    padding: 0 16px;
+    margin-top: 32px;
+  }
+}
+
 @media all and (min-height: 812px) {
   .TrackStackContainer {
-    margin-top: 10vh;
+    margin: 48px 0;
   }
 }
 

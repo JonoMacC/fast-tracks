@@ -1,0 +1,26 @@
+.TableCell {
+  width: 100%;
+  min-height: 2.75rem;
+  padding: 4px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  font-size: 1.25rem;
+  font-weight: normal;
+  border-bottom: 1px solid var(--icon);
+  transition: height 0.3 ease-out;
+}
+
+.Header {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.TableCell > p,
+.Header p {
+  margin-bottom: 0;
+}

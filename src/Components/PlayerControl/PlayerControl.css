@@ -6,7 +6,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: none;
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 .PlayerControl:active,

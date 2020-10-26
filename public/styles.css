@@ -33,13 +33,11 @@ html,
   --spacing-dark: 1.4px;
   --scrollbar-light: rgba(0, 0, 0, 0.1);
   --scrollbar-dark: rgba(255, 255, 255, 0.3);
+  --bg-light-0: rgba(255, 255, 255, 0);
+  --bg-dark-0: rgba(17, 17, 17, 0);
 }
 
 /* Default Colors */
-.App {
-  background: var(--bg-light);
-}
-
 .App * {
   --text: var(--text-light);
   --text-secondary: var(--text-light-secondary);
@@ -49,22 +47,14 @@ html,
   --bold: var(--bold-light);
   --spacing: var(--spacing-light);
   --scrollbar: var(--scrollbar-light);
-}
-
-.App .surface {
-  background: var(--surface-light);
-  box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.08);
-}
-
-.App .overlay {
-  background: var(--overlay-light);
+  --bg: var(--bg-light);
+  --bg-0: var(--bg-light-0);
+  --bg-surface: var(--surface-light);
+  --drop-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.08);
+  --bg-overlay: var(--overlay-light);
 }
 
 /* Dark Theme Colors */
-.App[theme="dark"] {
-  background: var(--bg-dark);
-}
-
 .App[theme="dark"] * {
   --text: var(--text-dark);
   --text-secondary: var(--text-dark-secondary);
@@ -74,15 +64,11 @@ html,
   --bold: var(--bold-dark);
   --spacing: var(--spacing-dark);
   --scrollbar: var(--scrollbar-dark);
-}
-
-.App[theme="dark"] .surface {
-  background: var(--surface-dark);
-  box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.15);
-}
-
-.App[theme="dark"] .overlay {
-  background: var(--overlay-dark);
+  --bg: var(--bg-dark);
+  --bg-0: var(--bg-dark-0);
+  --bg-surface: var(--surface-dark);
+  --drop-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.15);
+  --bg-overlay: var(--overlay-dark);
 }
 
 .App[theme="dark"] h2 {
@@ -90,10 +76,6 @@ html,
 }
 
 /* Light Theme Colors */
-.App[theme="light"] {
-  background: var(--bg-light);
-}
-
 .App[theme="light"] * {
   --text: var(--text-light);
   --text-secondary: var(--text-light-secondary);
@@ -103,15 +85,11 @@ html,
   --bold: var(--bold-light);
   --spacing: var(--spacing-light);
   --scrollbar: var(--scrollbar-light);
-}
-
-.App[theme="light"] .surface {
-  background: var(--surface-light);
-  box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.08);
-}
-
-.App[theme="light"] .overlay {
-  background: var(--overlay-light);
+  --bg: var(--bg-light);
+  --bg-0: var(--bg-light-0);
+  --bg-surface: var(--surface-light);
+  --drop-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.08);
+  --bg-overlay: var(--overlay-light);
 }
 
 .App[theme="light"] h2 {
@@ -120,10 +98,6 @@ html,
 
 @media screen and (prefers-color-scheme: dark) {
   /* Defaults to Dark Theme */
-  .App {
-    background: var(--bg-dark);
-  }
-
   .App * {
     --text: var(--text-dark);
     --text-secondary: var(--text-dark-secondary);
@@ -133,15 +107,11 @@ html,
     --bold: var(--bold-dark);
     --spacing: var(--spacing-dark);
     --scrollbar: var(--scrollbar-dark);
-  }
-
-  .App .surface {
-    background: var(--surface-dark);
-    box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.15);
-  }
-
-  .App .overlay {
-    background: var(--overlay-dark);
+    --bg: var(--bg-dark);
+    --bg: var(--bg-dark-0);
+    --bg-surface: var(--surface-dark);
+    --drop-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.15);
+    --bg-overlay: var(--overlay-dark);
   }
 }
 
@@ -149,7 +119,7 @@ html,
   .App .overlay,
   .App[theme="light"] .overlay,
   .App[theme="dark"] .overlay {
-    background: none;
+    --bg-overlay: none;
   }
 }
 
@@ -157,7 +127,6 @@ html,
 * {
   margin: 0;
   padding: 0;
-  background-color: none;
   scrollbar-width: thin;
   scrollbar-color: var(--scrollbar) transparent;
 }

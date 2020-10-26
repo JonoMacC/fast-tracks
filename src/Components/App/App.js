@@ -4,12 +4,13 @@ import React from "react";
 // Styling
 import "./App.css";
 
-// Custom components
+// App components
 import { Playlist } from "../Playlist/Playlist";
 import { NavBar } from "../NavBar/NavBar";
 import AudioPlayer from "../AudioPlayer/AudioPlayer";
 import TrackStack from "../TrackStack/TrackStack";
 import { ActionBar } from "../ActionBar/ActionBar";
+import { Settings } from "../Settings/Settings";
 
 // Utilities
 import Spotify from "../../util/Spotify";
@@ -28,6 +29,8 @@ class App extends React.Component {
       trackListIsOpen: false,
       theme: "light",
       playlistSaved: false,
+      showSettings: false,
+      numTracks: 5,
     };
 
     // Suggested tracks
@@ -50,23 +53,27 @@ class App extends React.Component {
 
     // Theme control (dark mode or light mode)
     this.toggleTheme = this.toggleTheme.bind(this);
+
+    // Settings
+    this.toggleShowSettings = this.toggleShowSettings.bind(this);
+    this.setNumTracks = this.setNumTracks.bind(this);
   }
 
+  // if the theme is stored in the user's browser cache, use
+  // the previously set theme as the default
   componentDidMount() {
     const localTheme = window.localStorage.getItem("theme");
     localTheme && this.setState({ theme: localTheme });
-  }
 
-  // componentDidUpdate() {
-  //   const localTheme = window.localStorage.getItem("theme");
-  //   localTheme && this.setState({ theme: localTheme });
-  // }
+    // set up the Spotify authorization
+    Spotify.authorize(this.props.auth);
+  }
 
   // get list of suggested new tracks
   // update the set of tracks with those returned from Spotify
   getTracks() {
     this.resetTracks();
-    Spotify.getTracks().then((suggestedTracks) => {
+    Spotify.getTracks(this.state.numTracks).then((suggestedTracks) => {
       this.setState({ suggestedTracks: suggestedTracks });
     });
   }
@@ -192,6 +199,8 @@ class App extends React.Component {
   }
 
   setMode(mode) {
+    // set the mode in the browser cache,
+    // allowing it to persist between sessions
     window.localStorage.setItem("theme", mode);
     this.setState({ theme: mode });
   }
@@ -200,11 +209,27 @@ class App extends React.Component {
   toggleTheme() {
     if (this.state.theme === "light") {
       this.setMode("dark");
+
+      // change the background outside of "App"
       document.body.style = "background: #111111";
     } else {
       this.setMode("light");
+
+      // change the background outside of "App"
       document.body.style = "background: #ffffff";
     }
+  }
+
+  // toggle visibility of the settings
+  toggleShowSettings() {
+    this.setState((prevState) => {
+      return { showSettings: !prevState.showSettings };
+    });
+  }
+
+  // set number of tracks to display in a stack of tracks
+  setNumTracks(numTracks) {
+    this.setState({ numTracks: numTracks });
   }
 
   render() {
@@ -222,9 +247,21 @@ class App extends React.Component {
           isPlaying={this.state.trackIsPlaying}
           onEnd={this.endPlayback}
         />
+
         {this.state.playlistSaved && <div className="SuccessScreen"></div>}
+
         <section className={`Container ${isPlaylistCollapsed}`}>
-          <NavBar theme={this.state.theme} onToggle={this.toggleTheme} />
+          <Settings
+            isVisible={this.state.showSettings}
+            numTracks={this.state.numTracks}
+            setNumTracks={this.setNumTracks}
+          />
+          <NavBar
+            theme={this.state.theme}
+            toggleTheme={this.toggleTheme}
+            isVisible={this.state.showSettings}
+            toggleSettings={this.toggleShowSettings}
+          />
           <Playlist
             playlistName={this.state.playlistName}
             onNameChange={this.updatePlaylistName}
@@ -239,14 +276,13 @@ class App extends React.Component {
             stopAllTracks={this.state.stopAllTracks}
             hasEnded={this.state.trackHasEnded}
           />
-
           <main className="TrackSelect">
             <TrackStack
               tracks={this.state.suggestedTracks}
               onPlay={this.startPlayback}
               onStop={this.pausePlayback}
               hasEnded={this.state.trackHasEnded}
-              onStopAllPlayback={this.stopAllPlayback}
+              onStopAllPlayback={this.onStopAllPlayback}
               stopAllTracks={this.state.stopAllTracks}
               onAdd={this.addTrack}
               onDiscard={this.removeSuggestedTrack}

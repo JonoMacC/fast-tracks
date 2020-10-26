@@ -15,6 +15,11 @@ import {
   MdAccountCircle,
   MdQueueMusic,
   MdSave,
+  MdSettings,
+  MdKeyboardArrowLeft,
+  MdKeyboardArrowRight,
+  MdKeyboardArrowDown,
+  MdKeyboardArrowUp,
 } from "react-icons/md";
 
 function getIcon(name) {
@@ -47,6 +52,16 @@ function getIcon(name) {
       return <MdQueueMusic />;
     case "save":
       return <MdSave />;
+    case "settings":
+      return <MdSettings />;
+    case "next":
+      return <MdKeyboardArrowRight />;
+    case "back":
+      return <MdKeyboardArrowLeft />;
+    case "expand":
+      return <MdKeyboardArrowDown />;
+    case "collapse":
+      return <MdKeyboardArrowUp />;
     default:
       return null;
   }

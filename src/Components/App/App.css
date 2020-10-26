@@ -2,6 +2,8 @@ body,
 html,
 #root {
   height: 100%;
+  background: var(--bg);
+  transition: background 0.15s ease-in;
 }
 
 html,
@@ -14,6 +16,10 @@ input,
 
 html {
   font-size: 16px;
+}
+
+:root {
+  --icon-size: 32px;
 }
 
 h1 {
@@ -35,6 +41,14 @@ h3 {
 p {
   font-weight: 400;
   font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: var(--bold);
+  text-transform: uppercase;
+  letter-spacing: 3px;
 }
 
 .subtitle {
@@ -43,6 +57,7 @@ p {
 
 .label {
   font-weight: var(--bold);
+  font-size: 0.875rem;
   text-transform: uppercase;
   letter-spacing: var(--spacing);
 }
@@ -59,6 +74,14 @@ button:focus {
   outline: none;
 }
 
+a,
+a:visited,
+a:focus,
+a:hover {
+  text-decoration: none;
+  color: var(--text);
+}
+
 .TapItem {
   width: 44px;
   height: 44px;
@@ -70,8 +93,6 @@ button:focus {
 }
 
 .iconContainer {
-  width: 100%;
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -79,25 +100,45 @@ button:focus {
 
 /* Containers */
 .App {
-  display: flex;
-  justify-content: center;
-  overflow: hidden;
-  transition: background 0.15s ease-in;
-}
-
-.Container {
   width: 100%;
   height: 100vh;
   /* mobile viewport bug fix */
   height: -webkit-fill-available;
-  max-width: 1280px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  transition: background 0.15s ease-in;
+  background: var(--bg);
+}
+
+.Container {
+  width: 100%;
+  height: 100%;
+  max-width: 1440px;
+  max-height: 900px;
   display: grid;
   grid-template-rows: auto 1fr;
   grid-template-columns: 1fr;
 }
 
+.ContentContainer {
+  max-width: 567px;
+}
+
+.Screen {
+  width: 100%;
+  max-width: 480px;
+  height: 100%;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .TrackSelect {
-  grid-area: 2 / 1 / span 1 / span 1;
+  grid-area: 2 / 1;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -106,7 +147,7 @@ button:focus {
   z-index: 1;
 }
 
-.ActionIcon {
+.BtnIcon {
   display: flex;
   flex: none;
   align-items: center;
@@ -115,12 +156,65 @@ button:focus {
   height: 100%;
 }
 
-.ActionText {
+.BtnText {
   display: none;
+}
+
+.Btn {
+  height: 44px;
+  width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--text-secondary);
+  color: var(--text);
+  border-radius: 50%;
+  text-align: center;
+  background: none;
+}
+
+.Btn.large {
+  height: 3rem;
+  width: 100%;
+  border-radius: 1.5rem;
+}
+
+.Btn:disabled {
+  opacity: 0.5;
+}
+
+.BtnLink {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.titleText {
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: var(--text);
+}
+
+/* Hover state restricted to devices that support hover */
+@media (hover: hover) {
+  .Btn:hover {
+    background: var(--btn-overlay);
+  }
 }
 
 .overlay {
   backdrop-filter: blur(32px);
+  background: var(--bg-overlay);
+}
+
+.surface {
+  background: var(--bg-surface);
+  box-shadow: var(--drop-shadow);
 }
 
 /* Media queries for larger screens */
@@ -132,6 +226,21 @@ button:focus {
 
   p {
     font-size: 1rem;
+    color: var(--text);
+  }
+
+  .Btn {
+    height: 50px;
+    width: 50px;
+  }
+
+  .TapItem {
+    width: 50px;
+    height: 50px;
+  }
+
+  :root {
+    --icon-size: 36px;
   }
 }
 
@@ -141,45 +250,36 @@ button:focus {
     padding: 20px 20px;
   }
 
-  .ActionIcon {
+  .BtnIcon {
     display: none;
   }
 
-  .ActionText {
+  .BtnText {
     display: block;
+  }
+
+  .Btn {
+    height: 3rem;
+    width: 9rem;
+    border-radius: 1.5rem;
   }
 }
 
 /* Large tablets and up */
 @media all and (min-width: 768px) {
   .Container {
-    grid-template-columns: 314px minmax(414px, 1fr);
-    grid-gap: 8px 0;
+    grid-template-columns: minmax(314px, 576px) minmax(414px, 1fr);
+    gap: 1fr;
     transition: grid-template-columns 0.15s ease-in-out;
   }
 
   .Container.collapsed {
     grid-template-columns: 0px minmax(414px, 1fr);
+    max-width: 567px;
   }
 
   .TrackSelect {
-    grid-area: 2 / 2 / span 1 / span 1;
-  }
-}
-
-@media all and (min-width: 1024px) {
-  .Container {
-    grid-template-columns: 414px minmax(414px, 1fr);
-  }
-}
-
-@media all and (min-height: 812px) {
-  .TrackSelect {
-    justify-content: flex-start;
-  }
-
-  .TrackSelect > *:first-child {
-    margin-bottom: 60px;
+    grid-area: 2 / 2;
   }
 }
 

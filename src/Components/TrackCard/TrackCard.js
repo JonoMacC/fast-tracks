@@ -98,14 +98,14 @@ class TrackCard extends React.Component {
           className={"TrackCard surface"}
           variants={{
             addTrack: {
-              transition: { ease: "easeOut", delay: 0.8, duration: 0.2 },
-              y: -800,
+              transition: { ease: "easeOut", delay: 0.8, duration: 0.15 },
+              y: "-120vh",
               x: -20,
               rotate: -5,
             },
             discard: {
-              transition: { ease: "easeOut", delay: 0.6, duration: 0.2 },
-              y: 800,
+              transition: { ease: "easeOut", delay: 0.6, duration: 0.15 },
+              y: "120vh",
               x: -20,
               rotate: 5,
             },
@@ -168,8 +168,8 @@ class TrackCard extends React.Component {
                 className="TrackBtn"
                 onClick={this.discardTrack}
               >
-                <span className="ActionText label">Discard</span>
-                <div className="ActionIcon" aria-label="Discard">
+                <span className="BtnText label">Discard</span>
+                <div className="BtnIcon" aria-label="Discard">
                   <Icon name="discard" color="var(--text)" size="32px" />
                 </div>
               </button>
@@ -178,8 +178,8 @@ class TrackCard extends React.Component {
                 className="TrackBtn"
                 onClick={this.addTrack}
               >
-                <span className="ActionText label">Add Track</span>
-                <div className="ActionIcon" aria-label="Add Track">
+                <span className="BtnText label">Add Track</span>
+                <div className="BtnIcon" aria-label="Add Track">
                   <Icon name="add-track" color="var(--text)" size="32px" />
                 </div>
               </button>

@@ -1,28 +1,14 @@
 import React from "react";
-import { motion } from "framer-motion";
 
 import "./NavBar.css";
-import { Icon } from "../Icons/Icons";
+import { SettingsToggle } from "./SettingsToggle";
+import { ThemeToggle } from "./ThemeToggle";
 
-export const NavBar = ({ theme, onToggle }) => {
+export const NavBar = ({ theme, toggleTheme, isVisible, toggleSettings }) => {
   return (
     <nav className="NavBar">
-      <button className="TapItem">
-        <Icon name="profile" color="var(--icon)" size="32px" />
-      </button>
-      <button className="TapItem" onClick={() => onToggle()}>
-        <motion.div
-          className="iconContainer"
-          variants={{
-            light: { rotate: 0 },
-            dark: { rotate: 180 },
-          }}
-          initial={false}
-          animate={theme === "light" ? "light" : "dark"}
-        >
-          <Icon name="dark-mode" color="var(--icon)" size="32px" />
-        </motion.div>
-      </button>
+      <SettingsToggle isVisible={isVisible} onToggle={toggleSettings} />
+      <ThemeToggle theme={theme} onToggle={toggleTheme} />
     </nav>
   );
 };

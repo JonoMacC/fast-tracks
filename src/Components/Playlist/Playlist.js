@@ -33,7 +33,7 @@ export const Playlist = (props) => {
 
   // the playlist input field and list of tracks is always visible
   //  ('stayOpen') on larger displays
-  const stayOpen = windowWidth > 768;
+  const stayOpen = windowWidth >= 768;
 
   // the playlist is open when either it is toggled to open
   // ('trackListIsOpen') or it is set to always visible ('stayOpen')
@@ -99,7 +99,7 @@ export const Playlist = (props) => {
             />
 
             <button
-              className="TapItem PlaylistExpand "
+              className="PlaylistExpand "
               onClick={() => onToggle()}
               isopen={isOpen.toString()}
             >
@@ -111,7 +111,7 @@ export const Playlist = (props) => {
             <TrackCounter numTracks={playlistTracks.length} />
           </motion.div>
           <button
-            className="TapItem PlaylistDropdown"
+            className="PlaylistDropdown"
             aria-label="Show/hide tracks"
             onClick={() => onToggle()}
             isopen={showToggle().toString()}

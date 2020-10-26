@@ -1,9 +1,8 @@
 .ActionBar {
-  width: 50%;
-  max-width: 343px;
+  width: 100%;
   height: 80px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   z-index: 2;
   pointer-events: none;
@@ -14,52 +13,23 @@
   pointer-events: all;
 }
 
-.ActionBtn {
-  height: 44px;
-  width: 44px;
+.btnContainer {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid var(--text-secondary);
-  color: var(--text);
-  border-radius: 50%;
   text-align: center;
-  background: none;
-}
-
-.ActionBtn:disabled {
-  opacity: 0.5;
-}
-
-/* Hover state restricted to devices that support hover */
-@media (hover: hover) {
-  .ActionBtn:hover {
-    background: var(--btn-overlay);
-  }
-}
-
-/* Most mobile devices and up */
-@media all and (min-width: 360px) {
-  .ActionBtn {
-    height: 50px;
-    width: 50px;
-  }
 }
 
 @media all and (min-width: 415px) {
   .ActionBar {
-    width: 343px;
+    justify-content: space-between;
+    height: 128px;
+    flex-flow: column nowrap;
+    padding: 0 16px 24px 16px;
+    width: 415px;
   }
 
-  .ActionBtn {
-    height: 3rem;
-    width: 9rem;
-    border-radius: 1.5rem;
-  }
-}
-
-@media all and (min-height: 675px) {
-  .ActionBar {
-    height: 120px;
+  .btnContainer {
+    width: 100%;
   }
 }

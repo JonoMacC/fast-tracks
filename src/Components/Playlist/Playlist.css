@@ -22,7 +22,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  grid-area: 1 / 1 / span 1 / span 1;
+  grid-area: 1 / 1;
   pointer-events: none;
 }
 
@@ -48,6 +48,8 @@
   position: absolute;
   top: -6px;
   left: -6px;
+  width: 44px;
+  height: 44px;
   padding: 6px;
 }
 
@@ -106,9 +108,15 @@
   opacity: 1;
 }
 
+@media all and (min-width: 360px) {
+  .PlaylistAction {
+    height: 50px;
+  }
+}
+
 @media all and (min-width: 768px) {
   .Playlist {
-    grid-area: 2 / 1 / span 1 / span 1;
+    grid-area: 1 / 1 / span 2 / span 1;
   }
 
   .PlaylistDropdown {

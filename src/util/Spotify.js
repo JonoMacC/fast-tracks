@@ -1,46 +1,64 @@
-// Set the clientID and the redirectURI to appropriate values depending
-// on whether in development mode or in production
-const clientID =
-  process.env.NODE_ENV === "development"
-    ? process.env.REACT_APP_TEST_CLIENT_ID
-    : process.env.REACT_APP_CLIENT_ID;
-const redirectURI =
-  process.env.NODE_ENV === "development"
-    ? "http://localhost:3000/"
-    : process.env.REACT_APP_REDIRECT_URI;
-
-let accessToken;
-
 const Spotify = {
+  access_token: "",
+  refresh_token: "",
+  expires_in: "",
+  headers: "",
+
   getAccessToken() {
-    if (accessToken) {
-      return accessToken;
-    }
+    return this.access_token;
+  },
 
-    //check for access token match
-    const accessTokenMatch = window.location.href.match(/access_token=([^&]*)/);
-    const expiresInMatch = window.location.href.match(/expires_in=([^&]*)/);
+  getRefreshToken() {
+    return this.refresh_token;
+  },
 
-    if (accessTokenMatch && expiresInMatch) {
-      accessToken = accessTokenMatch[1];
-      const expiresIn = Number(expiresInMatch[1]);
+  getHeaders() {
+    return this.headers;
+  },
 
-      //clear the parameters, allowing us to grab a new access token when it expires
-      window.setTimeout(() => (accessToken = ""), expiresIn * 1000);
-      window.history.pushState("Access Token", null, "/");
-      return accessToken;
+  setAccessToken(access_token) {
+    this.access_token = access_token;
+    this.setHeaders();
+  },
+
+  setRefreshToken(refresh_token) {
+    this.refresh_token = refresh_token;
+  },
+
+  setExpiresIn(expires_in) {
+    this.expires_in = Date.now() + expires_in * 1000;
+  },
+
+  setHeaders() {
+    this.headers = { Authorization: `Bearer ${this.access_token}` };
+  },
+
+  isExpired() {
+    return Date.now() > this.expires_in;
+  },
+
+  async refreshTokens() {
+    await fetch(`/api/refresh`);
+  },
+
+  authorize(auth) {
+    this.setAccessToken(auth.access_token);
+    this.setRefreshToken(auth.refresh_token);
+    this.setExpiresIn(auth.expires_in);
+  },
+
+  checkAuth() {
+    if (this.isExpired()) {
+      this.refreshTokens();
     } else {
-      const accessUrl = `https://accounts.spotify.com/authorize?client_id=${clientID}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectURI}`;
-      window.location = accessUrl;
+      return;
     }
   },
 
   search(term) {
-    const accessToken = Spotify.getAccessToken();
-    const headers = { Authorization: `Bearer ${accessToken}` };
-
+    this.checkAuth();
     return fetch(`https://api.spotify.com/v1/search?type=track&q=${term}`, {
-      headers: headers,
+      headers: this.headers,
     })
       .then((response) => {
         return response.json();
@@ -61,10 +79,8 @@ const Spotify = {
       });
   },
 
-  getTracks() {
-    const accessToken = Spotify.getAccessToken();
-    const headers = { Authorization: `Bearer ${accessToken}` };
-
+  getTracks(numTracks = 5) {
+    this.checkAuth();
     const terms = [
       "Tycho",
       "The%20Dots",
@@ -81,8 +97,8 @@ const Spotify = {
     const term = terms[index];
 
     return fetch(
-      `https://api.spotify.com/v1/search?type=track&q=${term}&limit=5`,
-      { headers: headers }
+      `https://api.spotify.com/v1/search?type=track&q=${term}&limit=${numTracks}`,
+      { headers: this.headers }
     )
       .then((response) => {
         return response.json();
@@ -104,20 +120,19 @@ const Spotify = {
   },
 
   savePlaylist(name, trackUris) {
+    this.checkAuth();
     if (!name || !trackUris.length) {
       return;
     }
 
-    const accessToken = Spotify.getAccessToken();
-    const headers = { Authorization: `Bearer ${accessToken}` };
     let userID;
 
-    return fetch("https://api.spotify.com/v1/me", { headers: headers })
+    return fetch("https://api.spotify.com/v1/me", { headers: this.headers })
       .then((response) => response.json())
       .then((jsonResponse) => {
         userID = jsonResponse.id;
         return fetch(`https://api.spotify.com/v1/users/${userID}/playlists`, {
-          headers: headers,
+          headers: this.headers,
           method: "POST",
           body: JSON.stringify({ name: name }),
         })
@@ -127,7 +142,7 @@ const Spotify = {
             return fetch(
               `https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}/tracks`,
               {
-                headers: headers,
+                headers: this.headers,
                 method: "POST",
                 body: JSON.stringify({ uris: trackUris }),
               }
