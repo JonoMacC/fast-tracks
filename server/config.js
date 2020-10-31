@@ -1,4 +1,4 @@
-//  enable reading from process.env
+// enable reading from process.env
 require("dotenv").config();
 const env = process.env.NODE_ENV || "development";
 let clientId, redirectUri, clientSecret;

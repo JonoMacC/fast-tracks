@@ -1,3 +1,5 @@
+import routerBasePath from "./routerBasePath";
+
 const Spotify = {
   access_token: "",
   refresh_token: "",
@@ -38,7 +40,7 @@ const Spotify = {
   },
 
   async refreshTokens() {
-    await fetch(`/api/refresh`);
+    await fetch(`${routerBasePath}/refresh`);
   },
 
   authorize(auth) {

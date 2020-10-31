@@ -12,6 +12,8 @@ import { Switch, Route, useHistory } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 import { getHashParams } from "../../util/auth";
 
+import routerBasePath from "../../util/routerBasePath";
+
 // Components
 import Layout from "./Layout";
 import { PrivateRoute } from "../PrivateRoute/PrivateRoute";
@@ -67,7 +69,7 @@ export const Login = (props) => {
         <span className="title">Fast Tracks</span>
         <p className="subtitle">Discover new music now.</p>
       </div>
-      <a href="/api/login" className="Btn large label">
+      <a href={`${routerBasePath}/login`} className="Btn large label">
         Log In With Spotify
       </a>
     </Layout>

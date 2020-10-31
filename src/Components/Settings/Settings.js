@@ -8,6 +8,7 @@ import { StepInput } from "../StepInput/StepInput";
 
 import "./Settings.css";
 import { InfoListItem } from "./InfoListItem";
+import routerBasePath from "../../util/routerBasePath";
 
 const spring = {
   type: "spring",
@@ -26,7 +27,7 @@ export const Settings = (props) => {
   // Reset server-side authorization
   // Reset client-side authorization
   const onLogout = async () => {
-    const response = await fetch(`/api/logout`);
+    const response = await fetch(`${routerBasePath}/logout`);
     if (response.ok) {
       // clear browser cache
       window.localStorage.setItem("authData", null);
