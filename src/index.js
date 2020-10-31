@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 
 import AuthProvider from "./contexts/AuthContext";
-import App from "./Components/App/AppRouter";
+import App from "./components/App/AppRouter";
 
 import * as serviceWorker from "./serviceWorker";
 
