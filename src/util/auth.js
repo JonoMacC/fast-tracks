@@ -12,6 +12,7 @@ export const getHashParams = (location = window.location) => {
   if (q) {
     const qArray = q.split("/");
     const hashParams = {
+      path: qArray[0],
       access_token: qArray[1],
       refresh_token: qArray[2],
       expires_in: qArray[3],

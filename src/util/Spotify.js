@@ -40,7 +40,7 @@ const Spotify = {
   },
 
   async refreshTokens() {
-    await fetch(`${routerBasePath}/refresh`);
+    await fetch(`${routerBasePath}/refresh_token`);
   },
 
   authorize(auth) {

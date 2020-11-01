@@ -13,7 +13,7 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 
 // router used to interface with the Spotify Web API
-const router = require("./router");
+const router = require("./pureRouter");
 
 const PORT = process.env.PORT || 4001;
 

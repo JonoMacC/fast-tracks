@@ -11,7 +11,6 @@ import { Switch, Route, useHistory } from "react-router-dom";
 
 import { AuthContext } from "../../contexts/AuthContext";
 import { getHashParams } from "../../util/auth";
-
 import routerBasePath from "../../util/routerBasePath";
 
 // Components
@@ -32,7 +31,8 @@ function AppRouter(props) {
   // get authentication tokens from the URL
   // returns null if no hash with parameters in URL
   // allows Private Routes to be displayed on first login
-  const tokens = getHashParams(window.location);
+  let tokens = getHashParams(window.location);
+  if (tokens && tokens.path === "error") tokens = null;
 
   // when the component mounts, check URL for authentication
   // data, if it is present, update the parameters state
@@ -40,7 +40,11 @@ function AppRouter(props) {
     const location = window.location;
     const authData = getHashParams(location);
     if (authData) {
-      setParams(authData);
+      if (authData.path === "error") {
+        alert("There was an error during the authentication.");
+      } else {
+        setParams(authData);
+      }
     }
   }, []);
 
@@ -62,18 +66,16 @@ function AppRouter(props) {
   );
 }
 
-export const Login = (props) => {
-  return (
-    <Layout>
-      <div className="titleText">
-        <span className="title">Fast Tracks</span>
-        <p className="subtitle">Discover new music now.</p>
-      </div>
-      <a href={`${routerBasePath}/login`} className="Btn large label">
-        Log In With Spotify
-      </a>
-    </Layout>
-  );
-};
+export const Login = (props) => (
+  <Layout>
+    <div className="titleText">
+      <span className="title">Fast Tracks</span>
+      <p className="subtitle">Discover new music now.</p>
+    </div>
+    <a href={`${routerBasePath}/login`} className="Btn large label">
+      Log In With Spotify
+    </a>
+  </Layout>
+);
 
 export default AppRouter;
