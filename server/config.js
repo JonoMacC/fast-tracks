@@ -8,6 +8,10 @@ if (env === "development") {
   clientId = process.env.REACT_APP_TEST_CLIENT_ID;
   redirectUri = "http://localhost:3000/api/callback";
   clientSecret = process.env.REACT_APP_TEST_CLIENT_SECRET;
+} else if (process.env.NETLIFY_DEV) {
+  clientId = process.env.REACT_APP_TEST_CLIENT_ID;
+  redirectUri = "http://localhost:8888/api/callback";
+  clientSecret = process.env.REACT_APP_TEST_CLIENT_SECRET;
 } else {
   clientId = process.env.REACT_APP_CLIENT_ID;
   redirectUri = process.env.REACT_APP_REDIRECT_URI;

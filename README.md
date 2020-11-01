@@ -8,7 +8,14 @@
 
 ## Spotify Client ID Setup
 
-Use your Spotify account on the Spotify developer site (developer.spotify.com) to create an app and get a Client ID. This app assumes that two apps have been created: one for testing purposes and one for production.
+Use your Spotify account on the Spotify developer site (developer.spotify.com) to create an app and get a Client ID. This app assumes that two apps have been created: one for testing purposes and one for production. You need to set up your redirect URIs on the Spotify dashboard.
+
+### Redirect URIs for Local Development
+
+http://localhost:3000/
+http://localhost:3000/api/callback
+http://localhost:8888/
+http://localhost:8888/api/callback
 
 ## Local Development
 
@@ -16,14 +23,35 @@ Create a file called .env to store environment variables. Follow the format in .
 
 Never share your Client ID in public such as in a git repository.
 
-### Running
+### Initialize
+
+In your terminal, install the dependencies
+
+    yarn
+
+### Running with Node and Create React App
 
 In your terminal
 
-    yarn
     yarn dev
 
-You can view the app by navigating to **http://localhost:3000/** in your browser.
+You can view the app by navigating to **http://localhost:3000/** in your browser. The node server will be running on **http://localhost:4001/** and requests to **http://localhost:3000/api/** are proxied to the server.
+
+### Running with Netlify CLI
+
+If you have not installed the Netlify CLI and linked your site you will need to do so:
+
+    npm install netlify-cli -g
+    ntl login
+    ntl link
+
+The environment variables set up on your Netlify site are injected into your development environment at build time. Use this to set REACT_APP_NETLIFY=true on your linked site.
+
+Once you are set up, you can run
+
+    ntl dev
+
+You can view the app by navigating to **http://localhost:8888/** in your browser. API requests are proxied through a Netlify function, which is the Node server wrapped in serverless-http.
 
 ## Deploying on Netlify
 

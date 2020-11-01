@@ -7,7 +7,7 @@ import compression from "compression";
 import serverless from "serverless-http";
 
 const app = express();
-const router = require("../../server/router.js");
+const router = require("../../server/pureRouter.js");
 
 // gzip responses
 router.use(compression());
