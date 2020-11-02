@@ -12,10 +12,9 @@ Use your Spotify account on the Spotify developer site (developer.spotify.com) t
 
 ### Redirect URIs for Local Development
 
-http://localhost:3000/
 http://localhost:3000/api/callback
-http://localhost:8888/
-http://localhost:8888/api/callback
+http://localhost:3000/.netlify/functions/callback
+http://localhost:8888/.netlify/functions/callback
 
 ## Local Development
 
@@ -25,17 +24,21 @@ Never share your Client ID in public such as in a git repository.
 
 ### Initialize
 
-In your terminal, install the dependencies
+Install the dependencies
 
     yarn
 
-### Running with Node and Create React App
+### Running with Node Express Server
 
-In your terminal
-
-    yarn dev
+    yarn start
 
 You can view the app by navigating to **http://localhost:3000/** in your browser. The node server will be running on **http://localhost:4001/** and requests to **http://localhost:3000/api/** are proxied to the server.
+
+### Running with Netlify Functions
+
+Be sure to set REACT_APP_NETLIFY=true in your .env file.
+
+    yarn netstart
 
 ### Running with Netlify CLI
 
@@ -51,7 +54,7 @@ Once you are set up, you can run
 
     ntl dev
 
-You can view the app by navigating to **http://localhost:8888/** in your browser. API requests are proxied through a Netlify function, which is the Node server wrapped in serverless-http.
+You can view the app by navigating to **http://localhost:8888/** in your browser.
 
 ## Deploying on Netlify
 

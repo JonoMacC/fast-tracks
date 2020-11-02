@@ -1,4 +1,4 @@
-import routerBasePath from "./routerBasePath";
+import { routerBasePath } from "./routerBasePath";
 
 const Spotify = {
   access_token: "",
@@ -78,6 +78,9 @@ const Spotify = {
           imageSrc: track.album.images[0].url,
           preview: track.preview_url,
         }));
+      })
+      .catch((err) => {
+        console.log(err);
       });
   },
 
@@ -118,6 +121,9 @@ const Spotify = {
           imageSrc: track.album.images[0].url,
           preview: track.preview_url,
         }));
+      })
+      .catch((err) => {
+        console.log(err);
       });
   },
 
@@ -149,6 +155,9 @@ const Spotify = {
                 body: JSON.stringify({ uris: trackUris }),
               }
             );
+          })
+          .catch((err) => {
+            console.log(err);
           });
       });
   },

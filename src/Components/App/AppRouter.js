@@ -11,7 +11,7 @@ import { Switch, Route, useHistory } from "react-router-dom";
 
 import { AuthContext } from "../../contexts/AuthContext";
 import { getHashParams } from "../../util/auth";
-import routerBasePath from "../../util/routerBasePath";
+import { routerBasePath } from "../../util/routerBasePath";
 
 // Components
 import Layout from "./Layout";

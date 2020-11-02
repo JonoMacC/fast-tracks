@@ -5,21 +5,22 @@
  * client secret
  */
 
-const Spotify = require("spotify-web-api-node");
 const express = require("express");
+const axios = require("axios");
+const querystring = require("querystring");
 const router = new express.Router();
-const { clientId, redirectUri, clientSecret } = require("./config");
 const stateKey = "spotify_auth_state";
+const {
+  clientId,
+  clientSecret,
+  redirectUri,
+  authorizePath,
+  tokenPath,
+  profilePath,
+} = require("./auth-config");
 
 // requested application authorizations
 const scopes = ["user-library-read", "user-top-read", "playlist-modify-public"];
-
-// configure Spotify
-const spotifyApi = new Spotify({
-  clientId: clientId,
-  clientSecret: clientSecret,
-  redirectUri: redirectUri,
-});
 
 //  Generates a random string containing numbers and letters
 //  @param  {number} length The length of the string
@@ -43,7 +44,19 @@ const generateRandomString = (length) => {
 router.get("/login", (req, res) => {
   const state = generateRandomString(16);
   res.cookie(stateKey, state); // sets a cookie @ (key, value)
-  res.redirect(spotifyApi.createAuthorizeURL(scopes, state, true));
+
+  // redirect to Spotify authorization request login
+  // your application requests authorization
+  res.redirect(
+    authorizePath +
+      querystring.stringify({
+        response_type: "code",
+        client_id: clientId,
+        scope: scopes.join("%20"),
+        redirect_uri: redirectUri,
+        state: state,
+      })
+  );
 });
 
 /**
@@ -53,9 +66,6 @@ router.get("/login", (req, res) => {
  * is not good, redirect the user to an error page
  */
 router.get("/callback", (req, res) => {
-  // your application requests refresh and access tokens
-  // after checking the state parameter
-
   const { code, state } = req.query || null;
   const storedState = req.cookies ? req.cookies[stateKey] : null;
 
@@ -65,35 +75,85 @@ router.get("/callback", (req, res) => {
     // if the state is valid, get the authorization code and pass it on to the client
   } else {
     res.clearCookie(stateKey);
+
+    const authOptions = {
+      method: "post",
+      url: tokenPath,
+      data: querystring.stringify({
+        code: code,
+        redirect_uri: redirectUri,
+        grant_type: "authorization_code",
+      }),
+      headers: {
+        Authorization:
+          "Basic " +
+          Buffer.from(clientId + ":" + clientSecret).toString("base64"),
+        "content-type": "application/x-www-form-urlencoded;charset=utf-8",
+      },
+    };
+
     // Retrieve an access token and a refresh token
-    spotifyApi
-      .authorizationCodeGrant(code)
-      .then((data) => {
-        const { expires_in, access_token, refresh_token } = data.body;
+    axios(authOptions)
+      .then((response) => {
+        const { expires_in, access_token, refresh_token } = response.data;
+
+        // const options = {
+        //   method: "get",
+        //   url: profilePath,
+        //   headers: { Authorization: "Bearer " + access_token },
+        // };
+
+        // use the access token to access the Spotify Web API
+        // axios(options)
+        //   .then((response) => {
+        //     console.log(response.data);
+        //   })
+        //   .catch((err) => {
+        //     console.log(err);
+        //   });
 
         // pass the tokens to the browser to make requests from there
         res.redirect(`/#/user/${access_token}/${refresh_token}/${expires_in}`);
       })
       .catch((err) => {
+        console.log(err);
         res.redirect("/#/error/invalid token");
       });
   }
 });
 
 /*
- * The /refresh endpoint
+ * The /refresh_token endpoint
  * Retrieve a refreshed access token
  */
-router.get("/refresh", (req, res) => {
-  spotifyApi.refreshAccessToken().then((data) => {
-    const { expires_in, access_token, refresh_token } = data.body;
+router.get("/refresh_token", (req, res) => {
+  // requesting access token from refresh token
+  const refresh_token = req.query.refresh_token;
+  const authOptions = {
+    method: "post",
+    url: tokenPath,
+    headers: {
+      Authorization:
+        "Basic " +
+        Buffer.from(clientId + ":" + clientSecret).toString("base64"),
+      "content-type": "application/x-www-form-urlencoded;charset=utf-8",
+    },
+    data: querystring.stringify({
+      grant_type: "refresh_token",
+      refresh_token: refresh_token,
+    }),
+  };
 
-    // set the new access token on the spotify api object
-    spotifyApi.setAccessToken(access_token);
-
-    // pass the tokens to the browser to make requests from there
-    res.redirect(`/#/user/${access_token}/${refresh_token}/${expires_in}`);
-  });
+  axios(authOptions)
+    .then((response) => {
+      const { access_token } = response.data;
+      res.send({
+        access_token: access_token,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 
 /**
@@ -101,10 +161,6 @@ router.get("/refresh", (req, res) => {
  * Clear the access token and refresh token
  */
 router.get("/logout", (req, res) => {
-  // reset tokens
-  spotifyApi.resetAccessToken();
-  spotifyApi.resetRefreshToken();
-
   // log out message
   res.send({ msg: "logged out..." });
 });

@@ -8,7 +8,7 @@ import { StepInput } from "../StepInput/StepInput";
 
 import "./Settings.css";
 import { InfoListItem } from "./InfoListItem";
-import routerBasePath from "../../util/routerBasePath";
+import { routerBasePath } from "../../util/routerBasePath";
 
 const spring = {
   type: "spring",

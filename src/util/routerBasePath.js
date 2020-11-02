@@ -1,4 +1,7 @@
-const routerBasePath =
-  process.env.REACT_APP_NETLIFY === "true" ? `/.netlify/functions/api` : `/api`;
+// enable reading from process.env
+require("dotenv").config();
 
-export default routerBasePath;
+const routerBasePath =
+  process.env.REACT_APP_NETLIFY === "true" ? `/.netlify/functions` : `/api`;
+
+module.exports = { routerBasePath };
