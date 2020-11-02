@@ -22,12 +22,14 @@ const generateRandomString = (length) => {
 /* Do initial auth redirect */
 exports.handler = (event, context, callback) => {
   const state = generateRandomString(16);
+  const stateCookie = `${stateKey}=${state}`;
 
   /* Generate authorizationURI */
   const authorizationURI =
     authorizePath +
     querystring.stringify({
       response_type: "code",
+      show_dialog: true,
       client_id: clientId,
       scope: scopes.join("%20"),
       redirect_uri: redirectUri,
@@ -40,6 +42,7 @@ exports.handler = (event, context, callback) => {
     headers: {
       Location: authorizationURI,
       "Cache-Control": "no-cache", // Disable caching of this response
+      "Set-Cookie": stateCookie, // sets a cookie @ (key, value)
     },
   };
 

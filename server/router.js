@@ -51,6 +51,7 @@ router.get("/login", (req, res) => {
     authorizePath +
       querystring.stringify({
         response_type: "code",
+        show_dialog: true,
         client_id: clientId,
         scope: scopes.join("%20"),
         redirect_uri: redirectUri,
