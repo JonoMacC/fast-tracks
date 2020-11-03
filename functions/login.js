@@ -6,7 +6,12 @@
 
 const querystring = require("querystring");
 const stateKey = "spotify_auth_state";
-const { clientId, redirectUri, authorizePath } = require("./utils/auth-config");
+const {
+  clientId,
+  redirectUri,
+  authorizePath,
+  devMode,
+} = require("./utils/auth-config");
 
 // requested application authorizations
 const scopes = ["user-library-read", "user-top-read", "playlist-modify-public"];
@@ -28,7 +33,8 @@ const generateRandomString = (length) => {
 /* Do initial auth redirect */
 exports.handler = (event, context, callback) => {
   const state = generateRandomString(16);
-  const stateCookie = `${stateKey}=${state}`;
+  const cookieString = devMode ? "" : "; Secure; HttpOnly";
+  const stateCookie = `${stateKey}=${state}${cookieString}`;
 
   /* Generate authorizationURI */
   const authorizationURI =
