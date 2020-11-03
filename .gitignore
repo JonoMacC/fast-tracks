@@ -13,6 +13,7 @@
 
 # production
 /build
+/functions-build
 /.netlify
 
 
