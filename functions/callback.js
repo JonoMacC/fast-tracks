@@ -25,12 +25,16 @@ exports.handler = (event, context, callback) => {
 
   // first do state validation
   if (state === null || state !== storedState) {
-    const response = {
-      statusCode: 302, // must be a redirect status code or the client won't be redirected
+    const responseObj = {
       headers: {
         Location: `${process.env.URL}/#/error/state%20mismatch`,
         "Cache-Control": "no-cache", // Disable caching of this response
       },
+    };
+
+    const response = {
+      statusCode: 302, // must be a redirect status code or the client won't be redirected
+      body: JSON.stringify(responseObj),
     };
 
     return callback(null, response);
@@ -59,8 +63,7 @@ exports.handler = (event, context, callback) => {
         const { expires_in, access_token, refresh_token } = response.data;
 
         // pass the tokens to the browser to make requests from there
-        const redirect = {
-          statusCode: 302, // must be a redirect status code or the client won't be redirected
+        const redirectObj = {
           headers: {
             Location: `${process.env.URL}/#/user/${access_token}/${refresh_token}/${expires_in}`,
             "Cache-Control": "no-cache", // Disable caching of this response
@@ -68,18 +71,26 @@ exports.handler = (event, context, callback) => {
             "Content-Type": "text/html",
           },
         };
+
+        const redirect = {
+          statusCode: 302, // must be a redirect status code or the client won't be redirected
+          body: JSON.stringify(redirectObj),
+        };
         return callback(null, redirect);
       })
       .catch((err) => {
         console.log(err);
-        const response = {
-          statusCode: 302, // must be a redirect status code or the client won't be redirected
+        const responseObj = {
           headers: {
             Location: `${process.env.URL}/#/error/invalid token`,
             "Cache-Control": "no-cache", // Disable caching of this response
             "Set-Cookie": stateCookie, // clear the auth state cookie
             "Content-Type": "text/html",
           },
+        };
+        const response = {
+          statusCode: 302, // must be a redirect status code or the client won't be redirected
+          body: JSON.stringify(responseObj),
         };
         return callback(null, response);
       });

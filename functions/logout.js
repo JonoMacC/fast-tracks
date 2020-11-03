@@ -1,7 +1,7 @@
 exports.handler = (event, context, callback) => {
   const response = {
     statusCode: 200,
-    body: "logged out...",
+    body: JSON.stringify({ message: "logged out..." }),
   };
   return callback(null, response);
 };

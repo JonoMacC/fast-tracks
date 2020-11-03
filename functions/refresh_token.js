@@ -39,12 +39,16 @@ exports.handler = (event, context, callback) => {
         : refresh_token;
 
       // pass the tokens to the browser to make requests from there
-      const redirect = {
-        statusCode: 302, // must be a redirect status code or the client won't be redirected
+      const redirectObj = {
         headers: {
           Location: `${process.env.URL}/#/user/${access_token}/${refresh_token}/${expires_in}`,
           "Cache-Control": "no-cache", // Disable caching of this response
         },
+      };
+
+      const redirect = {
+        statusCode: 302, // must be a redirect status code or the client won't be redirected
+        body: JSON.stringify(redirectObj),
       };
       return callback(null, redirect);
     })

@@ -48,15 +48,19 @@ exports.handler = (event, context, callback) => {
       state: state,
     });
 
-  /* Redirect user to authorizationURI */
-  const response = {
-    statusCode: 302,
+  const responseObj = {
     headers: {
       Location: authorizationURI,
       "Cache-Control": "no-cache", // Disable caching of this response
       "Set-Cookie": stateCookie, // sets a cookie @ (key, value)
       "Content-Type": "text/html",
     },
+  };
+
+  /* Redirect user to authorizationURI */
+  const response = {
+    statusCode: 302,
+    body: JSON.stringify(responseObj),
   };
 
   return callback(null, response);
