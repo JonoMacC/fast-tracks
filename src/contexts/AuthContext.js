@@ -15,11 +15,6 @@ const AuthProvider = (props) => {
   // on component mount, set the authorization data to
   // what is found in local storage
   useEffect(() => {
-    console.log("mounting...", auth.data);
-    console.log(
-      "mounting...",
-      JSON.parse(window.localStorage.getItem("authData"))
-    );
     setAuth({
       loading: false,
       data: JSON.parse(window.localStorage.getItem("authData")),
@@ -28,12 +23,7 @@ const AuthProvider = (props) => {
 
   // when authorization data changes, update the local storage
   useEffect(() => {
-    console.log("updating...", auth.data);
     window.localStorage.setItem("authData", JSON.stringify(auth.data));
-    console.log(
-      "updating...",
-      JSON.parse(window.localStorage.getItem("authData"))
-    );
   }, [auth.data]);
 
   return (

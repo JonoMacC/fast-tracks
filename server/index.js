@@ -12,8 +12,8 @@ const morgan = require("morgan");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 
-// api router used to interface with the Spotify Web API
-const router = require("./src/util/router");
+// router used to interface with the Spotify Web API
+const router = require("./router");
 
 const PORT = process.env.PORT || 4001;
 
