@@ -16,7 +16,6 @@ const {
   redirectUri,
   authorizePath,
   tokenPath,
-  profilePath,
 } = require("./auth-config");
 
 // requested application authorizations
@@ -98,21 +97,6 @@ router.get("/callback", (req, res) => {
       .then((response) => {
         const { expires_in, access_token, refresh_token } = response.data;
 
-        // const options = {
-        //   method: "get",
-        //   url: profilePath,
-        //   headers: { Authorization: "Bearer " + access_token },
-        // };
-
-        // use the access token to access the Spotify Web API
-        // axios(options)
-        //   .then((response) => {
-        //     console.log(response.data);
-        //   })
-        //   .catch((err) => {
-        //     console.log(err);
-        //   });
-
         // pass the tokens to the browser to make requests from there
         res.redirect(`/#/user/${access_token}/${refresh_token}/${expires_in}`);
       })
@@ -129,7 +113,7 @@ router.get("/callback", (req, res) => {
  */
 router.get("/refresh_token", (req, res) => {
   // requesting access token from refresh token
-  const refresh_token = req.query.refresh_token;
+  let refresh_token = req.query.refresh_token;
   const authOptions = {
     method: "post",
     url: tokenPath,
@@ -147,10 +131,16 @@ router.get("/refresh_token", (req, res) => {
 
   axios(authOptions)
     .then((response) => {
-      const { access_token } = response.data;
-      res.send({
-        access_token: access_token,
-      });
+      const { expires_in, access_token } = response.data;
+
+      // the response could contain an updated refresh token
+      // if it does, save the updated refresh token
+      refresh_token = response.data.refresh_token
+        ? response.data.refresh_token
+        : refresh_token;
+
+      // pass the tokens to the browser to make requests from there
+      res.redirect(`/#/user/${access_token}/${refresh_token}/${expires_in}`);
     })
     .catch((err) => {
       console.log(err);

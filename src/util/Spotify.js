@@ -3,7 +3,7 @@ import { routerBasePath } from "./routerBasePath";
 const Spotify = {
   access_token: "",
   refresh_token: "",
-  expires_in: "",
+  expires_at: "",
   headers: "",
 
   getAccessToken() {
@@ -28,7 +28,8 @@ const Spotify = {
   },
 
   setExpiresIn(expires_in) {
-    this.expires_in = Date.now() + expires_in * 1000;
+    // set expiration time to a fixed time in the future
+    this.expires_at = Date.now() + expires_in * 1000;
   },
 
   setHeaders() {
@@ -36,11 +37,14 @@ const Spotify = {
   },
 
   isExpired() {
-    return Date.now() > this.expires_in;
+    // trigger expiration when 1s out from expiration time
+    return Date.now() > this.expires_at - 1000;
   },
 
   async refreshTokens() {
-    await fetch(`${routerBasePath}/refresh_token`);
+    await fetch(
+      `${routerBasePath}/refresh_token?refresh_token=${this.refresh_token}`
+    );
   },
 
   authorize(auth) {

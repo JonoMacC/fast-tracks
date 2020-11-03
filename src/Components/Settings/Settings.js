@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { motion, AnimateSharedLayout } from "framer-motion";
 
 import { AuthContext } from "../../contexts/AuthContext";
@@ -36,10 +36,6 @@ export const Settings = (props) => {
       setAuthData(null);
     }
   };
-
-  useEffect(() => {
-    console.log("auth updated", auth.data);
-  }, [auth]);
 
   // Settings decrement function, determines behavior for
   // settings stepper input

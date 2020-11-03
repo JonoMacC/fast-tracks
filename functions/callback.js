@@ -1,3 +1,10 @@
+/**
+ * The /callback endpoint - hit after the user logs in to spotifyApi
+ * Verify that the state we put in the cookie matches the state in the query
+ * parameter. Then, if all is good, redirect the user to the user page. If all
+ * is not good, redirect the user to an error page
+ */
+
 const querystring = require("querystring");
 const axios = require("axios");
 const {

@@ -1,3 +1,9 @@
+/**
+ * The /login endpoint
+ * Redirect the client to the spotify authorize url, but first set that user's
+ * state in the cookie.
+ */
+
 const querystring = require("querystring");
 const stateKey = "spotify_auth_state";
 const { clientId, redirectUri, authorizePath } = require("./utils/auth-config");
