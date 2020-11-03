@@ -52,7 +52,7 @@ exports.handler = async function (event, context) {
     };
 
     // Retrieve an access token and a refresh token
-    axios(authOptions)
+    return axios(authOptions)
       .then((response) => {
         const { expires_in, access_token, refresh_token } = response.data;
 

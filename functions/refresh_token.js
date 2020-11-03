@@ -28,7 +28,7 @@ exports.handler = async function (event, context) {
     }),
   };
 
-  axios(authOptions)
+  return axios(authOptions)
     .then((response) => {
       const { expires_in, access_token } = response.data;
 
