@@ -65,6 +65,7 @@ exports.handler = (event, context, callback) => {
             Location: `${process.env.URL}/#/user/${access_token}/${refresh_token}/${expires_in}`,
             "Cache-Control": "no-cache", // Disable caching of this response
             "Set-Cookie": stateCookie, // clear the auth state cookie
+            "Content-Type": "text/html",
           },
         };
         return callback(null, redirect);
@@ -77,6 +78,7 @@ exports.handler = (event, context, callback) => {
             Location: `${process.env.URL}/#/error/invalid token`,
             "Cache-Control": "no-cache", // Disable caching of this response
             "Set-Cookie": stateCookie, // clear the auth state cookie
+            "Content-Type": "text/html",
           },
         };
         return callback(null, response);

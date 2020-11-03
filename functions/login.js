@@ -55,6 +55,7 @@ exports.handler = (event, context, callback) => {
       Location: authorizationURI,
       "Cache-Control": "no-cache", // Disable caching of this response
       "Set-Cookie": stateCookie, // sets a cookie @ (key, value)
+      "Content-Type": "text/html",
     },
   };
 
