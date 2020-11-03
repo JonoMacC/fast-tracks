@@ -12,9 +12,9 @@ Use your Spotify account on the Spotify developer site (developer.spotify.com) t
 
 ### Redirect URIs for Local Development
 
-http://localhost:3000/api/callback
-http://localhost:3000/.netlify/functions/callback
-http://localhost:8888/.netlify/functions/callback
+> http://localhost:3000/api/callback <br />
+> http://localhost:3000/.netlify/functions/callback <br />
+> http://localhost:8888/.netlify/functions/callback <br />
 
 ## Local Development
 
