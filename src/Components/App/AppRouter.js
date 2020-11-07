@@ -72,7 +72,7 @@ export const Login = (props) => (
       <span className="title">Fast Tracks</span>
       <p className="subtitle">Discover new music now.</p>
     </div>
-    <a href={`${routerBasePath}/login`} className="Btn large label">
+    <a href={`${routerBasePath}/login`} className="Btn large label rounded">
       Log In With Spotify
     </a>
   </Layout>

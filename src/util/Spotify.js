@@ -36,13 +36,31 @@ const Spotify = {
     this.headers = { Authorization: `Bearer ${this.access_token}` };
   },
 
-  isExpired() {
+  async isExpired() {
     // trigger expiration when 1s out from expiration time
-    return Date.now() > this.expires_at - 1000;
+    const timeUp = Date.now() > this.expires_at - 1000;
+    if (timeUp) {
+      return true;
+      // check if a simple request succeeds
+    } else {
+      const response = await fetch(
+        `https://api.spotify.com/v1/search?type=track&q=Adelle`,
+        {
+          headers: this.headers,
+        }
+      ).then((response) => {
+        return response;
+      });
+      // if no authorization error, return true
+      if (response.status === 401) {
+        return true;
+      }
+      return false;
+    }
   },
 
-  async refreshTokens() {
-    await fetch(
+  refreshTokens() {
+    window.location.replace(
       `${routerBasePath}/refresh_token?refresh_token=${this.refresh_token}`
     );
   },
@@ -53,9 +71,8 @@ const Spotify = {
     this.setExpiresIn(auth.expires_in);
   },
 
-  checkAuth() {
-    console.log(this.isExpired());
-    if (this.isExpired()) {
+  async checkAuth() {
+    if (await this.isExpired()) {
       this.refreshTokens();
     } else {
       return;

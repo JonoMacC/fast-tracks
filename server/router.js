@@ -113,6 +113,7 @@ router.get("/callback", (req, res) => {
  */
 router.get("/refresh_token", (req, res) => {
   // requesting access token from refresh token
+  console.log("refreshing token");
   let refresh_token = req.query.refresh_token;
   const authOptions = {
     method: "post",

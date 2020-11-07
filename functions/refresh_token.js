@@ -12,7 +12,7 @@ exports.handler = async function (event, context) {
   // requesting access token from refresh
   // get the refresh token from the query
   let refresh_token = event.queryStringParameters.refresh_token;
-
+  console.log("refreshing token");
   const authOptions = {
     method: "post",
     url: tokenPath,

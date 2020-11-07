@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 
 import Player from "../Player/Player";
 import { TrackAction } from "../TrackAction/TrackAction";
-import { Icon } from "../Icons/Icons";
 import "./TrackCard.css";
 
 class TrackCard extends React.Component {
