@@ -34,7 +34,6 @@ exports.handler = async function (event, context) {
     };
     // if the state is valid, get the authorization code and pass it on to the client
   } else {
-    const stateCookie = null;
     const authOptions = {
       method: "post",
       url: tokenPath,

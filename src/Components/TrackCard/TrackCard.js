@@ -165,23 +165,13 @@ class TrackCard extends React.Component {
             >
               <button
                 id="discardTrack"
-                className="TrackBtn"
+                className="Btn"
                 onClick={this.discardTrack}
               >
-                <span className="BtnText label">Discard</span>
-                <div className="BtnIcon" aria-label="Discard">
-                  <Icon name="discard" color="var(--text)" size="32px" />
-                </div>
+                <span className="label">Discard</span>
               </button>
-              <button
-                id="addTrack"
-                className="TrackBtn"
-                onClick={this.addTrack}
-              >
-                <span className="BtnText label">Add Track</span>
-                <div className="BtnIcon" aria-label="Add Track">
-                  <Icon name="add-track" color="var(--text)" size="32px" />
-                </div>
+              <button id="addTrack" className="Btn" onClick={this.addTrack}>
+                <span className="label">Add Track</span>
               </button>
             </motion.div>
           </div>

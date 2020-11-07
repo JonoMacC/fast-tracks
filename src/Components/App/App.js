@@ -249,13 +249,7 @@ class App extends React.Component {
         />
 
         {this.state.playlistSaved && <div className="SuccessScreen"></div>}
-
         <section className={`Container ${isPlaylistCollapsed}`}>
-          <Settings
-            isVisible={this.state.showSettings}
-            numTracks={this.state.numTracks}
-            setNumTracks={this.setNumTracks}
-          />
           <NavBar
             theme={this.state.theme}
             toggleTheme={this.toggleTheme}
@@ -276,6 +270,13 @@ class App extends React.Component {
             stopAllTracks={this.state.stopAllTracks}
             hasEnded={this.state.trackHasEnded}
           />
+          <Settings
+            isVisible={this.state.showSettings}
+            numTracks={this.state.numTracks}
+            setNumTracks={this.setNumTracks}
+            toggleSettings={this.toggleShowSettings}
+          />
+
           <main className="TrackSelect">
             <TrackStack
               tracks={this.state.suggestedTracks}

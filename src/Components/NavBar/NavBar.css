@@ -1,11 +1,12 @@
 .NavBar {
-  grid-area: 1 / 1;
+  grid-area: nav;
   z-index: 3;
   padding: 0 16px;
   display: flex;
   justify-content: space-between;
   justify-self: center;
   width: 100%;
+  height: 40px;
   max-width: 479px;
   align-items: center;
 }

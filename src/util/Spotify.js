@@ -54,6 +54,7 @@ const Spotify = {
   },
 
   checkAuth() {
+    console.log(this.isExpired());
     if (this.isExpired()) {
       this.refreshTokens();
     } else {

@@ -59,38 +59,10 @@
   padding: 8px;
 }
 
-.TrackBtn {
-  border: 2px solid var(--text-secondary);
-  height: 50px;
-  width: 50px;
-  color: var(--text);
-  text-align: center;
-  background: none;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Hover state restricted to devices that support hover */
-@media (hover: hover) {
-  .TrackBtn:hover {
-    background: var(--btn-overlay);
-  }
-}
-
 .TrackControls :first-child {
   border-bottom-left-radius: 1.5rem;
 }
 
 .TrackControls :last-child {
   border-bottom-right-radius: 1.5rem;
-}
-
-@media all and (min-width: 415px) {
-  .TrackBtn {
-    height: 3rem;
-    width: 9rem;
-    border-radius: 0;
-  }
 }

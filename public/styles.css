@@ -9,8 +9,6 @@ html,
 /* Light and Dark Theme Color Declarations */
 :root {
   --brand-primary: #ff3575;
-  --brand-primary-hover: #e53069;
-  --brand-secondary: #47ffde;
   --bg-light: #ffffff;
   --text-light: #222222;
   --text-light-secondary: #484848;
@@ -25,8 +23,6 @@ html,
   --input-light: #ededed;
   --icon-dark: #797979;
   --input-dark: #303030;
-  --btn-overlay-light: rgba(0, 0, 0, 0.3);
-  --btn-overlay-dark: rgba(255, 255, 255, 0.3);
   --bold-light: 700;
   --bold-dark: 600;
   --spacing-light: 1px;
@@ -35,6 +31,15 @@ html,
   --scrollbar-dark: rgba(255, 255, 255, 0.3);
   --bg-light-0: rgba(255, 255, 255, 0);
   --bg-dark-0: rgba(17, 17, 17, 0);
+  --btn-hover-light: rgba(0, 0, 0, 0.2);
+  --btn-focus-light: rgba(0, 0, 0, 0.3);
+  --btn-hover-dark: rgba(255, 255, 255, 0.1);
+  --btn-focus-dark: rgba(255, 255, 255, 0.15);
+  --btn-primary-hover-light: #e21e71;
+  --btn-primary-focus-light: #bd175d;
+  --btn-primary-hover-dark: #ff4882;
+  --btn-primary-focus-dark: #ff508f;
+  --scrim: rgba(0, 0, 0, 0.9);
 }
 
 /* Default Colors */
@@ -43,7 +48,6 @@ html,
   --text-secondary: var(--text-light-secondary);
   --icon: var(--icon-light);
   --input: var(--input-light);
-  --btn-overlay: var(--btn-overlay-light);
   --bold: var(--bold-light);
   --spacing: var(--spacing-light);
   --scrollbar: var(--scrollbar-light);
@@ -52,6 +56,10 @@ html,
   --bg-surface: var(--surface-light);
   --drop-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.08);
   --bg-overlay: var(--overlay-light);
+  --btn-hover: var(--btn-hover-light);
+  --btn-focus: var(--btn-focus-light);
+  --btn-primary-hover: var(--btn-primary-hover-light);
+  --btn-primary-focus: var(--btn-primary-focus-light);
 }
 
 /* Dark Theme Colors */
@@ -60,7 +68,6 @@ html,
   --text-secondary: var(--text-dark-secondary);
   --icon: var(--icon-dark);
   --input: var(--input-dark);
-  --btn-overlay: var(--btn-overlay-dark);
   --bold: var(--bold-dark);
   --spacing: var(--spacing-dark);
   --scrollbar: var(--scrollbar-dark);
@@ -69,6 +76,10 @@ html,
   --bg-surface: var(--surface-dark);
   --drop-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.15);
   --bg-overlay: var(--overlay-dark);
+  --btn-hover: var(--btn-hover-dark);
+  --btn-focus: var(--btn-focus-dark);
+  --btn-primary-hover: var(--btn-primary-hover-dark);
+  --btn-primary-focus: var(--btn-primary-focus-dark);
 }
 
 .App[theme="dark"] h2 {
@@ -81,7 +92,6 @@ html,
   --text-secondary: var(--text-light-secondary);
   --icon: var(--icon-light);
   --input: var(--input-light);
-  --btn-overlay: var(--btn-overlay-light);
   --bold: var(--bold-light);
   --spacing: var(--spacing-light);
   --scrollbar: var(--scrollbar-light);
@@ -90,6 +100,10 @@ html,
   --bg-surface: var(--surface-light);
   --drop-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.08);
   --bg-overlay: var(--overlay-light);
+  --btn-hover: var(--btn-hover-light);
+  --btn-focus: var(--btn-focus-light);
+  --btn-primary-hover: var(--btn-primary-hover-light);
+  --btn-primary-focus: var(--btn-primary-focus-light);
 }
 
 .App[theme="light"] h2 {
@@ -103,7 +117,6 @@ html,
     --text-secondary: var(--text-dark-secondary);
     --icon: var(--icon-dark);
     --input: var(--input-dark);
-    --btn-overlay: var(--btn-overlay-dark);
     --bold: var(--bold-dark);
     --spacing: var(--spacing-dark);
     --scrollbar: var(--scrollbar-dark);
@@ -112,6 +125,10 @@ html,
     --bg-surface: var(--surface-dark);
     --drop-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.15);
     --bg-overlay: var(--overlay-dark);
+    --btn-hover: var(--btn-hover-dark);
+    --btn-focus: var(--btn-focus-dark);
+    --btn-primary-hover: var(--btn-primary-hover-dark);
+    --btn-primary-focus: var(--btn-primary-focus-dark);
   }
 }
 

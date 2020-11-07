@@ -12,7 +12,7 @@ export const InfoListItem = (props) => {
 
   return (
     <motion.li layout className="TableCell">
-      <motion.div layout className="Header InfoListItem" onClick={toggleOpen}>
+      <motion.div className="Header InfoListItem" onClick={toggleOpen}>
         <p>{props.title}</p>
         <motion.div
           className="iconContainer"
@@ -29,7 +29,6 @@ export const InfoListItem = (props) => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            layout
             initial={{ opacity: 0 }}
             animate={{ opacity: 0.8 }}
             exit={{ opacity: 0 }}

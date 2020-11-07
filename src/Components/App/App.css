@@ -105,6 +105,7 @@ a:hover {
   /* mobile viewport bug fix */
   height: -webkit-fill-available;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   overflow: hidden;
@@ -118,12 +119,29 @@ a:hover {
   max-width: 1440px;
   max-height: 900px;
   display: grid;
-  grid-template-rows: auto 1fr;
-  grid-template-columns: 1fr;
+  flex: auto;
+  grid-template-rows: 40px 1fr;
+  grid-template-areas:
+    "nav"
+    "main";
 }
 
-.ContentContainer {
-  max-width: 567px;
+.PageContainer {
+  z-index: 20;
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  display: none;
+  visibility: hidden;
+  align-items: center;
+  background: none;
+}
+
+.PageContainer[isopen="true"] {
+  display: flex;
+  visibility: visible;
 }
 
 .Screen {
@@ -138,7 +156,7 @@ a:hover {
 }
 
 .TrackSelect {
-  grid-area: 2 / 1;
+  grid-area: main;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -147,48 +165,43 @@ a:hover {
   z-index: 1;
 }
 
-.BtnIcon {
-  display: flex;
-  flex: none;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-}
-
-.BtnText {
-  display: none;
-}
-
 .Btn {
-  height: 44px;
-  width: 44px;
+  height: 2.5rem;
+  width: 8rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid var(--text-secondary);
+  border: 2px solid #777777;
   color: var(--text);
-  border-radius: 50%;
   text-align: center;
   background: none;
+}
+
+.Btn.rounded {
+  height: 2.75rem;
+  width: 9rem;
+  border-radius: 1.375rem;
+}
+
+.Btn.large.rounded {
+  border-radius: 1.5rem;
+}
+
+.Btn.primary {
+  background: var(--brand-primary);
+  color: #ffffff;
+  border: none;
 }
 
 .Btn.large {
   height: 3rem;
   width: 100%;
-  border-radius: 1.5rem;
+  letter-spacing: 2px;
 }
 
 .Btn:disabled {
   opacity: 0.5;
-}
-
-.BtnLink {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  pointer-events: none;
 }
 
 .titleText {
@@ -203,7 +216,11 @@ a:hover {
 /* Hover state restricted to devices that support hover */
 @media (hover: hover) {
   .Btn:hover {
-    background: var(--btn-overlay);
+    background: var(--btn-hover);
+  }
+
+  .Btn.primary:hover {
+    background: var(--btn-primary-hover);
   }
 }
 
@@ -229,11 +246,6 @@ a:hover {
     color: var(--text);
   }
 
-  .Btn {
-    height: 50px;
-    width: 50px;
-  }
-
   .TapItem {
     width: 50px;
     height: 50px;
@@ -242,26 +254,22 @@ a:hover {
   :root {
     --icon-size: 36px;
   }
+
+  .Btn {
+    height: 3rem;
+    width: 9rem;
+  }
+
+  .Btn.rounded {
+    height: 3rem;
+    border-radius: 1.5rem;
+  }
 }
 
 /* Tablets and up */
 @media all and (min-width: 415px) {
   .Container {
     padding: 20px 20px;
-  }
-
-  .BtnIcon {
-    display: none;
-  }
-
-  .BtnText {
-    display: block;
-  }
-
-  .Btn {
-    height: 3rem;
-    width: 9rem;
-    border-radius: 1.5rem;
   }
 }
 
@@ -280,6 +288,10 @@ a:hover {
 
   .TrackSelect {
     grid-area: 2 / 2;
+  }
+
+  .PageContainer {
+    background: var(--scrim);
   }
 }
 
