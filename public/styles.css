@@ -42,6 +42,11 @@ html,
   --scrim: rgba(0, 0, 0, 0.9);
 }
 
+::selection {
+  background: var(--brand-primary);
+  color: #ffffff;
+}
+
 /* Default Colors */
 .App * {
   --text: var(--text-light);

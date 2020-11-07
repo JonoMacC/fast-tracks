@@ -14,15 +14,15 @@
 }
 
 .PlaylistAction {
-  height: 40px;
   flex: none;
+  height: 44px;
   width: 100%;
   padding: 0 8px;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  grid-area: nav;
+  grid-area: 1 / 1;
   pointer-events: none;
 }
 

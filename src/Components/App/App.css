@@ -120,7 +120,7 @@ a:hover {
   max-height: 900px;
   display: grid;
   flex: auto;
-  grid-template-rows: 40px 1fr;
+  grid-template-rows: 44px 1fr;
   grid-template-areas:
     "nav"
     "main";
@@ -263,6 +263,10 @@ a:hover {
   .Btn.rounded {
     height: 3rem;
     border-radius: 1.5rem;
+  }
+
+  .Container {
+    grid-template-rows: 50px 1fr;
   }
 }
 
