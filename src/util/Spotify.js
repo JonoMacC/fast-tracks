@@ -5,6 +5,7 @@ const Spotify = {
   refresh_token: "",
   expires_at: "",
   headers: "",
+  topTracks: [],
 
   getAccessToken() {
     return this.access_token;
@@ -16,6 +17,10 @@ const Spotify = {
 
   getHeaders() {
     return this.headers;
+  },
+
+  getTopTracks() {
+    return this.topTracks;
   },
 
   setAccessToken(access_token) {
@@ -34,6 +39,10 @@ const Spotify = {
 
   setHeaders() {
     this.headers = { Authorization: `Bearer ${this.access_token}` };
+  },
+
+  setTopTracks(top_tracks) {
+    this.topTracks = top_tracks;
   },
 
   async isExpired() {
@@ -79,6 +88,35 @@ const Spotify = {
     }
   },
 
+  // returns an array of the user's top tracks over a short time period
+  retrieveTopTracks() {
+    this.checkAuth();
+    return fetch(
+      `https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50&offset=0`,
+      { headers: this.headers }
+    )
+      .then((response) => {
+        return response.json();
+      })
+      .then((jsonResponse) => {
+        if (!jsonResponse.items) {
+          return [];
+        }
+        return jsonResponse.items.map((track) => ({
+          id: track.id,
+          name: track.name,
+          artist: track.artists[0].name,
+          album: track.album.name,
+          uri: track.uri,
+          imageSrc: track.album.images[0].url,
+          preview: track.preview_url,
+        }));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
+
   search(term) {
     this.checkAuth();
     return fetch(`https://api.spotify.com/v1/search?type=track&q=${term}`, {
@@ -106,25 +144,55 @@ const Spotify = {
       });
   },
 
-  getTracks(numTracks = 5) {
-    this.checkAuth();
-    const terms = [
-      "Tycho",
-      "The%20Dots",
-      "Tiger%20&%20Woods",
-      "Scattle",
-      "Plaid",
-      "Elsiane",
-      "Gramatik",
-      "Spoonbill",
-      "Parov%20Stelar",
-    ];
+  /*
+   * Return a list of seed tracks
+   * retrieves 5 random (non-repeating) tracks from the user's
+   * list of recent top tracks
+   */
+  getSeedTracks() {
+    // create an array for the indices in the topTracks array
+    let a = [...Array(this.topTracks.length).keys()];
+    // a = [0,1,2....49]
 
-    const index = Math.floor(Math.random() * terms.length);
-    const term = terms[index];
+    // extract 5 random indices from the index array and store
+    // them in trackIndices
+    let trackIndices = [];
+    for (let n = 0; n < 5; n++) {
+      let i = Math.floor(Math.random() * (this.topTracks.length - n));
+      trackIndices.push(a[i]);
+      a[i] = a[this.topTracks.length - n];
+    }
+    // remove potential undefined entries from track index array
+    trackIndices = trackIndices.filter((idx) => idx !== undefined);
+
+    // retrieve tracks at indices from top tracks and store track ids in seed tracks
+    let seedTracks = [];
+    for (let i = 0; i < trackIndices.length; i++) {
+      seedTracks.push(this.topTracks[trackIndices[i]].id);
+    }
+
+    // return seed tracks as a comma-separated list
+    return seedTracks.join(",");
+  },
+
+  /*
+   * Get a list of recommended tracks
+   */
+  async getTracks(numTracks = 5) {
+    this.checkAuth();
+
+    // get a list of the user's top tracks
+    // if no top tracks have been set, retrieve them
+    // otherwise, leave the list as is
+    if (this.topTracks.length === 0) {
+      this.setTopTracks(await this.retrieveTopTracks());
+    }
+
+    // retrieve a list of 5 seed tracks based on the user's recent top tracks
+    const seedTrackList = this.getSeedTracks();
 
     return fetch(
-      `https://api.spotify.com/v1/search?type=track&q=${term}&limit=${numTracks}`,
+      `https://api.spotify.com/v1/recommendations?seed_tracks=${seedTrackList}&limit=${numTracks}`,
       { headers: this.headers }
     )
       .then((response) => {
@@ -134,7 +202,7 @@ const Spotify = {
         if (!jsonResponse.tracks) {
           return [];
         }
-        return jsonResponse.tracks.items.map((track) => ({
+        return jsonResponse.tracks.map((track) => ({
           id: track.id,
           name: track.name,
           artist: track.artists[0].name,
