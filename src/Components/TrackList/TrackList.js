@@ -52,6 +52,7 @@ export const TrackList = (props) => {
                   onStopAllPlayback={onStopAllPlayback}
                   stopAllTracks={stopAllTracks}
                   hasEnded={hasEnded}
+                  {...props}
                 />
               );
             })}

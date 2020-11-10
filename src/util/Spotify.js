@@ -45,47 +45,61 @@ const Spotify = {
     this.topTracks = top_tracks;
   },
 
-  async isExpired() {
+  /* Check whether access token is expired */
+  isExpired() {
+    console.log("checking token expiration...");
     // trigger expiration when 1s out from expiration time
     const timeUp = Date.now() > this.expires_at - 1000;
     if (timeUp) {
+      console.log("access token expired.");
       return true;
       // check if a simple request succeeds
     } else {
-      await fetch(`https://api.spotify.com/v1/search?type=track&q=Adelle`, {
+      fetch(`https://api.spotify.com/v1/search?type=track&q=Adelle`, {
         headers: this.headers,
-      }).then((response) => {
-        if (response.status === 401) {
-          return true;
-        }
-      });
+      })
+        .then((response) => {
+          console.log(response.status);
+          if (response.status === 401) {
+            console.log("access token expired.");
+            return true;
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
       return false;
     }
   },
 
+  /* Refresh the access token using the refresh token */
   refreshTokens() {
     window.location.replace(
       `${routerBasePath}/refresh_token?refresh_token=${this.refresh_token}`
     );
   },
 
+  /* Set the authorization parameters */
   authorize(auth) {
     this.setAccessToken(auth.access_token);
     this.setRefreshToken(auth.refresh_token);
     this.setExpiresIn(auth.expires_in);
   },
 
+  /* Check whether authorization for api requests is granted */
   async checkAuth() {
+    console.log("checking authorization...");
     if (await this.isExpired()) {
+      console.log("token expired...");
       this.refreshTokens();
     } else {
       return;
     }
   },
 
-  // returns an array of the user's top tracks over a short time period
-  async retrieveTopTracks() {
-    await this.checkAuth();
+  /* Retrieve the user's top tracks from the recent past */
+  retrieveTopTracks() {
+    this.checkAuth();
     return fetch(
       `https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50&offset=0`,
       { headers: this.headers }
@@ -112,6 +126,7 @@ const Spotify = {
       });
   },
 
+  /* Search for a specific track using a term */
   search(term) {
     this.checkAuth();
     return fetch(`https://api.spotify.com/v1/search?type=track&q=${term}`, {
@@ -174,7 +189,7 @@ const Spotify = {
    * Get a list of recommended tracks
    */
   async getTracks(numTracks = 5) {
-    await this.checkAuth();
+    this.checkAuth();
 
     // get a list of the user's top tracks
     // if no top tracks have been set, retrieve them
@@ -191,21 +206,27 @@ const Spotify = {
       { headers: this.headers }
     )
       .then((response) => {
+        if (response.status === 401) {
+          console.log("access token expired...");
+          this.refreshTokens();
+        }
         return response.json();
       })
       .then((jsonResponse) => {
         if (!jsonResponse.tracks) {
           return [];
         }
-        return jsonResponse.tracks.map((track) => ({
-          id: track.id,
-          name: track.name,
-          artist: track.artists[0].name,
-          album: track.album.name,
-          uri: track.uri,
-          imageSrc: track.album.images[0].url,
-          preview: track.preview_url,
-        }));
+        return jsonResponse.tracks
+          .map((track) => ({
+            id: track.id,
+            name: track.name,
+            artist: track.artists[0].name,
+            album: track.album.name,
+            uri: track.uri,
+            imageSrc: track.album.images[0].url,
+            preview: track.preview_url,
+          }))
+          .filter((track) => track.preview !== null || undefined);
       })
       .catch((err) => {
         console.log(err);

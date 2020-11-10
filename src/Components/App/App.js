@@ -7,7 +7,7 @@ import "./App.css";
 // App components
 import { Playlist } from "../Playlist/Playlist";
 import { NavBar } from "../NavBar/NavBar";
-import AudioPlayer from "../AudioPlayer/AudioPlayer";
+import { AudioPlayer } from "../AudioPlayer/AudioPlayer";
 import { TrackStack } from "../TrackStack/TrackStack";
 import { ActionBar } from "../ActionBar/ActionBar";
 import { Settings } from "../Settings/Settings";
@@ -21,11 +21,13 @@ class App extends React.Component {
     this.state = {
       suggestedTracks: [],
       currentTrack: "",
+      nextTrack: "",
       playlistName: "Fast Tracks",
       playlistTracks: [],
       trackIsPlaying: false,
       trackHasEnded: false,
       stopAllTracks: true,
+      stopCurrentTrack: false,
       trackListIsOpen: false,
       theme: "light",
       playlistSaved: false,
@@ -50,6 +52,7 @@ class App extends React.Component {
     this.pausePlayback = this.pausePlayback.bind(this);
     this.endPlayback = this.endPlayback.bind(this);
     this.stopAllPlayback = this.stopAllPlayback.bind(this);
+    this.stopCurrentTrack = this.stopCurrentTrack.bind(this);
 
     // Theme control (dark mode or light mode)
     this.toggleTheme = this.toggleTheme.bind(this);
@@ -67,6 +70,23 @@ class App extends React.Component {
 
     // set up the Spotify authorization
     Spotify.authorize(this.props.auth);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log("updated...", this.state.trackIsPlaying);
+    if (
+      prevState.nextTrack !== this.state.nextTrack &&
+      this.state.nextTrack !== ""
+    ) {
+      this.setState({
+        trackIsPlaying: true,
+        currentTrack: this.state.nextTrack,
+        stopAllTracks: false,
+        stopCurrentTrack: false,
+        nextTrack: "",
+      });
+      console.log("playing next track...", this.state.trackIsPlaying);
+    }
   }
 
   // get list of suggested new tracks
@@ -126,27 +146,47 @@ class App extends React.Component {
   }
 
   // pause playback for the current track
-  pausePlayback() {
-    this.setState({
-      trackIsPlaying: false,
-    });
+  pausePlayback(track = "") {
+    if (track === this.state.currentTrack) {
+      this.setState({
+        trackIsPlaying: false,
+      });
+    }
   }
 
   // start playback for the current track
   startPlayback(track) {
-    this.setState({
-      trackIsPlaying: true,
-      currentTrack: track,
-      stopAllTracks: false,
-    });
+    console.log("starting playback...");
+    // check if a track is already playing
+    if (this.state.trackIsPlaying) {
+      console.log("changing tracks...");
+      this.stopCurrentTrack(track);
+    } else {
+      this.setState({
+        trackIsPlaying: true,
+        currentTrack: track,
+        stopAllTracks: false,
+        stopCurrentTrack: false,
+      });
+    }
   }
 
   // end playback when the end of the current track is reached
   endPlayback() {
+    console.log("ending playback...");
     this.setState({
       trackHasEnded: true,
       trackIsPlaying: false,
       stopAllTracks: true,
+    });
+  }
+
+  // stop playback for the currently playing track
+  stopCurrentTrack(track = "") {
+    console.log("stopping current track...");
+    this.setState({
+      stopCurrentTrack: true,
+      nextTrack: track,
     });
   }
 
@@ -269,6 +309,8 @@ class App extends React.Component {
             onStopAllPlayback={this.stopAllPlayback}
             stopAllTracks={this.state.stopAllTracks}
             hasEnded={this.state.trackHasEnded}
+            currentTrack={this.state.currentTrack}
+            stopCurrentTrack={this.state.stopCurrentTrack}
           />
           <Settings
             isVisible={this.state.showSettings}
@@ -288,6 +330,8 @@ class App extends React.Component {
               onAdd={this.addTrack}
               onDiscard={this.removeSuggestedTrack}
               isPlaying={this.state.trackIsPlaying}
+              currentTrack={this.state.currentTrack}
+              stopCurrentTrack={this.state.stopCurrentTrack}
             />
             <ActionBar
               onGet={this.getTracks}

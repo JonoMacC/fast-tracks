@@ -1,52 +1,46 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-class AudioPlayer extends React.Component {
-  componentDidMount() {
-    this.player.onended = () => {
-      this.props.onEnd();
+export const AudioPlayer = ({ isPlaying, track, onEnd }) => {
+  // Create a reference to the player object
+  const player = useRef();
+  const [progress, setProgress] = useState(0);
+
+  // End playback when the player reaches the end
+  useEffect(() => {
+    player.current.onended = () => {
+      onEnd();
     };
-  }
+  }, []);
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.isPlaying !== this.props.isPlaying) {
-      if (this.props.isPlaying) {
-        this.startPlayback();
-      } else {
-        this.endPlayback();
-      }
+  // Toggle playback when isPlaying or track changes
+  useEffect(() => {
+    if (isPlaying) {
+      startPlayback();
+    } else {
+      endPlayback();
     }
-  }
+  }, [isPlaying, track]);
 
-  getProgress() {
-    this.player.ontimeupdate = () => {
-      let progress = Math.floor(
-        (this.player.currentTime / this.player.duration) * 100
+  // Update the player progress
+  useEffect(() => {
+    player.current.ontimeupdate = () => {
+      setProgress(
+        Math.floor((player.current.currentTime / player.current.duration) * 100)
       );
-      this.setState({ progress: progress }, () => {
-        this.props.onPlay(this.state.progress);
-      });
     };
-  }
+  }, []);
 
-  startPlayback() {
-    this.player.play();
-  }
+  const startPlayback = () => {
+    player.current.play();
+  };
 
-  endPlayback() {
-    this.player.pause();
-  }
+  const endPlayback = () => {
+    player.current.pause();
+  };
 
-  render() {
-    return (
-      <audio
-        src={this.props.track}
-        type="audio/mpeg"
-        ref={(player) => (this.player = player)}
-      >
-        Audio Playback Not Supported
-      </audio>
-    );
-  }
-}
-
-export default AudioPlayer;
+  return (
+    <audio src={track} type="audio/mpeg" ref={player}>
+      Audio Playback Not Supported
+    </audio>
+  );
+};

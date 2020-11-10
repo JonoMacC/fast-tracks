@@ -12,44 +12,45 @@ export const Player = ({
   onStop,
   onPlay,
   track,
-  onStopAllPlayback,
-  isPlaying,
+  currentTrack,
+  stopCurrentTrack,
   ...props
 }) => {
   const [playing, setPlaying] = useState(false);
 
-  // toggle the player when the track comes to an end
+  // stop the player when the track comes to an end
   useEffect(() => {
-    const stopPlaying = async () => {
-      if (hasEnded && playing) {
-        await togglePlay();
-      }
-    };
-    stopPlaying();
+    if (hasEnded && playing) {
+      setPlaying(false);
+    }
   }, [hasEnded]);
 
-  // if stopAllTracks has changed
-  // update the state to not playing
+  // stop the player when all tracks are told to stop
   useEffect(() => {
     if (stopAllTracks) {
       setPlaying(false);
     }
   }, [stopAllTracks]);
 
-  const togglePlay = async () => {
-    if (playing) {
-      await setPlaying(false);
-      onStop();
-    } else {
-      // if another track is currently playing, stop the playback for all tracks
-      // await the result before initiating play for the current track
-      if (isPlaying) {
-        await onStopAllPlayback();
-      }
+  // stop the player when the current track is told to stop
+  useEffect(() => {
+    if (stopCurrentTrack && track.id === currentTrack.id) {
+      setPlaying(false);
+    }
+  }, [stopCurrentTrack]);
 
-      await setPlaying(true);
+  // start and stop playback based on the player state
+  useEffect(() => {
+    if (!playing) {
+      onStop(track);
+    } else {
       onPlay(track);
     }
+  }, [playing]);
+
+  // toggle the player state
+  const togglePlay = async () => {
+    setPlaying((playing) => !playing);
   };
 
   return (

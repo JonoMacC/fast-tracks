@@ -141,6 +141,7 @@ export const Playlist = (props) => {
           stopAllTracks={stopAllTracks}
           isOpen={isOpen}
           hasEnded={hasEnded}
+          {...props}
         />
       </section>
     );

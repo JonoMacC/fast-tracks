@@ -138,10 +138,8 @@ export const TrackCard = ({
               onPlay={onPlay}
               onStop={onStop}
               isPlaying={state.playing}
-              onStopAllPlayback={props.onStopAllPlayback}
-              stopAllTracks={props.stopAllTracks}
               miniPlayer={false}
-              hasEnded={props.hasEnded}
+              {...props}
             />
           </motion.div>
 

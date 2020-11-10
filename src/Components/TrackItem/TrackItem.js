@@ -52,13 +52,9 @@ export const TrackItem = ({
         <Player
           track={track}
           img={track.imageSrc}
-          onPlay={props.onPlay}
-          onStop={props.onStop}
           isPlaying={playing}
-          onStopAllPlayback={props.onStopAllPlayback}
-          stopAllTracks={props.stopAllTracks}
-          hasEnded={props.hasEnded}
           miniPlayer={true}
+          {...props}
         />
       </div>
 
