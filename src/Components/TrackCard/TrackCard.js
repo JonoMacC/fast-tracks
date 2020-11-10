@@ -1,198 +1,183 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
-import Player from "../Player/Player";
+import { Player } from "../Player/Player";
 import { TrackAction } from "../TrackAction/TrackAction";
 import "./TrackCard.css";
 
-class TrackCard extends React.Component {
-  constructor(props) {
-    super(props);
+export const TrackCard = ({
+  isPlaying,
+  onAdd,
+  onRemove,
+  onPlay,
+  onStop,
+  track,
+  trackName,
+  artist,
+  album,
+  img,
+  index,
+  ...props
+}) => {
+  const [state, setState] = useState({
+    isAdded: false,
+    isDiscard: false,
+    isClosed: false,
+    playing: isPlaying,
+  });
 
-    this.state = {
-      isAdded: false,
-      isDiscard: false,
-      isClosed: false,
-      isPlaying: this.props.isPlaying,
-    };
-
-    this.addTrack = this.addTrack.bind(this);
-    this.discardTrack = this.discardTrack.bind(this);
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    // if the card is closed, remove it from the list of tracks{
-    // delay removing the card from the DOM to give time for
-    // "exit" animations to occur
-    if (prevState.isClosed !== this.state.isClosed && this.state.isClosed) {
+  // if the card has closed, remove it from the list of tracks
+  // delay removing the card from the DOM to give time for
+  // "exit" animations to occur
+  useEffect(() => {
+    if (state.isClosed) {
       // set the timeout duration based on whether the track has been
       // added or discarded
-      let timeout = this.state.isAdded ? 1000 : 800;
-      setTimeout(() => this.props.onRemove(this.props.track), timeout);
+      let timeout = state.isAdded ? 1000 : 800;
+      setTimeout(() => onRemove(track), timeout);
     }
+  }, [state.isClosed]);
 
-    if (prevProps.isPlaying !== this.props.isPlaying) {
-      this.setState({ isPlaying: this.props.isPlaying });
-    }
-  }
+  // update the play state based on the isPlaying prop
+  useEffect(() => {
+    setState({ ...state, playing: isPlaying });
+  }, [isPlaying]);
 
   // change the state of the card to change its appearance
-  addTrack() {
-    this.setState({ isAdded: true, isClosed: true, isPlaying: false }, () => {
-      this.props.onAdd(this.props.track);
-    });
-  }
+  const addTrack = () => {
+    setState({ isAdded: true, isClosed: true, playing: false });
+    onAdd(track);
+  };
 
   // change the state of the card to change its appearance
-  discardTrack() {
-    this.setState({ isDiscard: true, isClosed: true, isPlaying: false });
-  }
+  const discardTrack = () => {
+    setState({ isDiscard: true, isClosed: true, playing: false });
+  };
 
-  getTrackAction() {
-    if (this.state.isAdded) {
+  const getTrackAction = () => {
+    if (state.isAdded) {
       return "addTrack";
-    } else if (this.state.isDiscard) {
+    } else if (state.isDiscard) {
       return "discard";
     } else {
       return null;
     }
-  }
+  };
 
-  togglePlay() {
-    if (this.state.isPlaying) {
-      this.setState({ isPlaying: false }, () => {
-        this.props.onStop();
-      });
-    } else {
-      this.setState({ isPlaying: true }, () => {
-        this.props.onPlay(this.props.track);
-      });
-    }
-  }
+  const trackNameColor = state.isClosed ? "#ffffff" : "var(--text)";
+  const trackNameColorSecondary = state.isClosed
+    ? "#ffffff"
+    : "var(--text-secondary)";
 
-  render() {
-    const { trackName, artist, album, img, index } = this.props;
-    const trackNameColor = this.state.isClosed ? "#ffffff" : "var(--text)";
-    const trackNameColorSecondary = this.state.isClosed
-      ? "#ffffff"
-      : "var(--text-secondary)";
-
-    return (
-      <motion.li
-        className={"TrackCardContainer"}
-        key={index}
+  return (
+    <motion.li
+      className={"TrackCardContainer"}
+      key={index}
+      variants={{
+        hidden: { opacity: 0, x: 375 },
+        enter: {
+          opacity: 1,
+          x: 0,
+          transition: { duration: 0.1 },
+        },
+      }}
+      style={{
+        zIndex: 1,
+      }}
+    >
+      <motion.div
+        className={"TrackCard surface"}
         variants={{
-          hidden: { opacity: 0, x: 375 },
-          enter: {
-            opacity: 1,
-            x: 0,
-            transition: { duration: 0.1 },
+          addTrack: {
+            transition: { ease: "easeOut", delay: 0.8, duration: 0.15 },
+            y: "-120vh",
+            x: -20,
+            rotate: -5,
+          },
+          discard: {
+            transition: { ease: "easeOut", delay: 0.6, duration: 0.15 },
+            y: "120vh",
+            x: -20,
+            rotate: 5,
           },
         }}
+        initial={"enter"}
+        animate={getTrackAction}
+        translateY={-index * 4}
         style={{
-          zIndex: 1,
+          zIndex: index + 1,
         }}
       >
-        <motion.div
-          className={"TrackCard surface"}
-          variants={{
-            addTrack: {
-              transition: { ease: "easeOut", delay: 0.8, duration: 0.15 },
-              y: "-120vh",
-              x: -20,
-              rotate: -5,
-            },
-            discard: {
-              transition: { ease: "easeOut", delay: 0.6, duration: 0.15 },
-              y: "120vh",
-              x: -20,
-              rotate: 5,
-            },
-          }}
-          initial={"enter"}
-          animate={this.getTrackAction()}
-          translateY={-index * 4}
-          style={{
-            zIndex: index + 1,
-          }}
-        >
-          {this.state.isClosed && (
-            <motion.div
-              className="TrackOverlay"
-              variants={{
-                open: { opacity: 0 },
-                closed: { opacity: 1 },
-              }}
-              initial={"open"}
-              animate={"closed"}
-            >
-              <TrackAction name={this.getTrackAction()} />
-            </motion.div>
-          )}
-
-          <div className="TrackContent">
-            <motion.div
-              className="TrackPreview"
-              variants={{
-                open: { height: "70%" },
-                closed: { height: "100%", transition: { duration: 0.1 } },
-              }}
-              initial={"open"}
-              animate={this.state.isClosed ? "closed" : "open"}
-            >
-              <Player
-                track={this.props.track}
-                img={img}
-                onPlay={this.props.onPlay}
-                onStop={this.props.onStop}
-                isPlaying={this.state.isPlaying}
-                onStopAllPlayback={this.props.onStopAllPlayback}
-                stopAllTracks={this.props.stopAllTracks}
-                miniPlayer={false}
-                hasEnded={this.props.hasEnded}
-              />
-            </motion.div>
-
-            <motion.div
-              className="TrackControls"
-              variants={{
-                open: { opacity: 1 },
-                closed: { opacity: 0, height: 0, y: 400, visibility: "hidden" },
-              }}
-              initial="open"
-              animate={this.state.isClosed ? "closed" : "open"}
-            >
-              <button
-                id="discardTrack"
-                className="Btn"
-                onClick={this.discardTrack}
-              >
-                <span className="label">Discard</span>
-              </button>
-              <button id="addTrack" className="Btn" onClick={this.addTrack}>
-                <span className="label">Add Track</span>
-              </button>
-            </motion.div>
-          </div>
-
+        {state.isClosed && (
           <motion.div
-            className="TrackName"
+            className="TrackOverlay"
             variants={{
-              open: { top: "72%" },
-              closed: { top: "85%" },
+              open: { opacity: 0 },
+              closed: { opacity: 1 },
             }}
             initial={"open"}
-            animate={this.state.isClosed ? "closed" : "open"}
+            animate={"closed"}
           >
-            <h2 style={{ color: trackNameColor }}>{trackName}</h2>
-            <p style={{ color: trackNameColorSecondary }}>
-              {artist} | {album}
-            </p>
+            <TrackAction name={getTrackAction()} />
           </motion.div>
-        </motion.div>
-      </motion.li>
-    );
-  }
-}
+        )}
 
-export default TrackCard;
+        <div className="TrackContent">
+          <motion.div
+            className="TrackPreview"
+            variants={{
+              open: { height: "70%" },
+              closed: { height: "100%", transition: { duration: 0.1 } },
+            }}
+            initial={"open"}
+            animate={state.isClosed ? "closed" : "open"}
+          >
+            <Player
+              track={track}
+              img={img}
+              onPlay={onPlay}
+              onStop={onStop}
+              isPlaying={state.playing}
+              onStopAllPlayback={props.onStopAllPlayback}
+              stopAllTracks={props.stopAllTracks}
+              miniPlayer={false}
+              hasEnded={props.hasEnded}
+            />
+          </motion.div>
+
+          <motion.div
+            className="TrackControls"
+            variants={{
+              open: { opacity: 1 },
+              closed: { opacity: 0, height: 0, y: 400, visibility: "hidden" },
+            }}
+            initial="open"
+            animate={state.isClosed ? "closed" : "open"}
+          >
+            <button id="discardTrack" className="Btn" onClick={discardTrack}>
+              <span className="label">Discard</span>
+            </button>
+            <button id="addTrack" className="Btn" onClick={addTrack}>
+              <span className="label">Add Track</span>
+            </button>
+          </motion.div>
+        </div>
+
+        <motion.div
+          className="TrackName"
+          variants={{
+            open: { top: "72%" },
+            closed: { top: "85%" },
+          }}
+          initial={"open"}
+          animate={state.isClosed ? "closed" : "open"}
+        >
+          <h2 style={{ color: trackNameColor }}>{trackName}</h2>
+          <p style={{ color: trackNameColorSecondary }}>
+            {artist} | {album}
+          </p>
+        </motion.div>
+      </motion.div>
+    </motion.li>
+  );
+};

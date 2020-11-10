@@ -8,7 +8,7 @@ import "./App.css";
 import { Playlist } from "../Playlist/Playlist";
 import { NavBar } from "../NavBar/NavBar";
 import AudioPlayer from "../AudioPlayer/AudioPlayer";
-import TrackStack from "../TrackStack/TrackStack";
+import { TrackStack } from "../TrackStack/TrackStack";
 import { ActionBar } from "../ActionBar/ActionBar";
 import { Settings } from "../Settings/Settings";
 
@@ -283,7 +283,7 @@ class App extends React.Component {
               onPlay={this.startPlayback}
               onStop={this.pausePlayback}
               hasEnded={this.state.trackHasEnded}
-              onStopAllPlayback={this.onStopAllPlayback}
+              onStopAllPlayback={this.stopAllPlayback}
               stopAllTracks={this.state.stopAllTracks}
               onAdd={this.addTrack}
               onDiscard={this.removeSuggestedTrack}

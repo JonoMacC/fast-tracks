@@ -52,18 +52,13 @@ const Spotify = {
       return true;
       // check if a simple request succeeds
     } else {
-      const response = await fetch(
-        `https://api.spotify.com/v1/search?type=track&q=Adelle`,
-        {
-          headers: this.headers,
+      await fetch(`https://api.spotify.com/v1/search?type=track&q=Adelle`, {
+        headers: this.headers,
+      }).then((response) => {
+        if (response.status === 401) {
+          return true;
         }
-      ).then((response) => {
-        return response;
       });
-      // if no authorization error, return true
-      if (response.status === 401) {
-        return true;
-      }
       return false;
     }
   },
@@ -89,8 +84,8 @@ const Spotify = {
   },
 
   // returns an array of the user's top tracks over a short time period
-  retrieveTopTracks() {
-    this.checkAuth();
+  async retrieveTopTracks() {
+    await this.checkAuth();
     return fetch(
       `https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50&offset=0`,
       { headers: this.headers }
@@ -179,7 +174,7 @@ const Spotify = {
    * Get a list of recommended tracks
    */
   async getTracks(numTracks = 5) {
-    this.checkAuth();
+    await this.checkAuth();
 
     // get a list of the user's top tracks
     // if no top tracks have been set, retrieve them

@@ -2,7 +2,7 @@ import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import "./TrackList.css";
-import TrackItem from "../TrackItem/TrackItem";
+import { TrackItem } from "../TrackItem/TrackItem";
 
 const spring = {
   type: "spring",

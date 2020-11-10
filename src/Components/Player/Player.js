@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import {
   PlayerControl,
@@ -6,68 +6,65 @@ import {
 } from "../PlayerControl/PlayerControl";
 import "./Player.css";
 
-class Player extends React.Component {
-  constructor(props) {
-    super(props);
+export const Player = ({
+  hasEnded,
+  stopAllTracks,
+  onStop,
+  onPlay,
+  track,
+  onStopAllPlayback,
+  isPlaying,
+  ...props
+}) => {
+  const [playing, setPlaying] = useState(false);
 
-    this.state = {
-      isPlaying: false,
+  // toggle the player when the track comes to an end
+  useEffect(() => {
+    const stopPlaying = async () => {
+      if (hasEnded && playing) {
+        await togglePlay();
+      }
     };
-  }
+    stopPlaying();
+  }, [hasEnded]);
 
-  componentDidUpdate(prevProps) {
-    // end playback upon reaching the end of the track
-    if (prevProps.hasEnded !== this.props.hasEnded && this.props.hasEnded) {
-      this.togglePlay();
+  // if stopAllTracks has changed
+  // update the state to not playing
+  useEffect(() => {
+    if (stopAllTracks) {
+      setPlaying(false);
     }
+  }, [stopAllTracks]);
 
-    // if stopAllTracks has changed from false to true,
-    // and the track state is currently playing,
-    // update the state to not playing
-    if (
-      prevProps.stopAllTracks !== this.props.stopAllTracks &&
-      this.props.stopAllTracks &&
-      this.state.isPlaying
-    ) {
-      this.setState({ isPlaying: false });
-    }
-  }
-
-  async togglePlay() {
-    if (this.state.isPlaying) {
-      this.setState({ isPlaying: false }, () => {
-        this.props.onStop();
-      });
+  const togglePlay = async () => {
+    if (playing) {
+      await setPlaying(false);
+      onStop();
     } else {
       // if another track is currently playing, stop the playback for all tracks
       // await the result before initiating play for the current track
-      if (this.props.isPlaying) {
-        await this.props.onStopAllPlayback();
+      if (isPlaying) {
+        await onStopAllPlayback();
       }
 
-      this.setState({ isPlaying: true }, () => {
-        this.props.onPlay(this.props.track);
-      });
+      await setPlaying(true);
+      onPlay(track);
     }
-  }
+  };
 
-  render() {
-    return (
-      <button
-        onClick={() => this.togglePlay()}
-        className="Player"
-        style={{
-          backgroundImage: `url(${this.props.img})`,
-        }}
-      >
-        {this.props.miniPlayer ? (
-          <MiniPlayerControl isPlaying={this.state.isPlaying} />
-        ) : (
-          <PlayerControl isPlaying={this.state.isPlaying} />
-        )}
-      </button>
-    );
-  }
-}
-
-export default Player;
+  return (
+    <button
+      onClick={togglePlay}
+      className="Player"
+      style={{
+        backgroundImage: `url(${props.img})`,
+      }}
+    >
+      {props.miniPlayer ? (
+        <MiniPlayerControl isPlaying={playing} />
+      ) : (
+        <PlayerControl isPlaying={playing} />
+      )}
+    </button>
+  );
+};
