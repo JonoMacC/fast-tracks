@@ -1,8 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
-
 import { Icon } from "../Icons/Icons";
-
+import { ProgressRing } from "./ProgressRing";
 import "./PlayerControl.css";
 
 const Path = (props) => <motion.path fill="hsl(0, 0%, 100%)" {...props} />;
@@ -17,23 +16,21 @@ const playPaths = [
   "M 20 40 L 80 40 L 20 74.5 L 20 48.5 Z",
 ];
 
-export const PlayerControl = (props) => {
-  const { isPlaying } = props;
-
-  return (
+export const PlayerControl = ({ isPlaying, progress }) => (
+  <motion.div
+    className="TrackPlayer"
+    variants={{
+      open: { opacity: 1 },
+      closed: { opacity: 0, transition: { duration: 0.07 } },
+    }}
+  >
     <motion.div
-      className="TrackPlayer"
-      variants={{
-        open: { opacity: 1 },
-        closed: { opacity: 0, transition: { duration: 0.07 } },
-      }}
+      initial={false}
+      animate={isPlaying ? "play" : "pause"}
+      className="TrackToggle"
     >
-      <motion.div
-        initial={false}
-        animate={isPlaying ? "play" : "pause"}
-        className="TrackToggle"
-      >
-        <div className="PlayerControl">
+      <div className="PlayerControl">
+        <div className="PlayerElement">
           <svg width="80" height="80" viewBox="0 0 80 80">
             <Path
               variants={{
@@ -57,10 +54,13 @@ export const PlayerControl = (props) => {
             />
           </svg>
         </div>
-      </motion.div>
+        <div className="PlayerElement">
+          <ProgressRing radius={70} stroke={4} progress={progress} />
+        </div>
+      </div>
     </motion.div>
-  );
-};
+  </motion.div>
+);
 
 export const MiniPlayerControl = (props) => {
   const { isPlaying } = props;

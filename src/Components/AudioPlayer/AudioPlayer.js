@@ -1,9 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 
-export const AudioPlayer = ({ isPlaying, track, onEnd }) => {
+export const AudioPlayer = ({ isPlaying, track, onEnd, setProgress }) => {
   // Create a reference to the player object
   const player = useRef();
-  const [progress, setProgress] = useState(0);
 
   // End playback when the player reaches the end
   useEffect(() => {

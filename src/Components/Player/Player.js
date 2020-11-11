@@ -63,7 +63,7 @@ export const Player = ({
       {props.miniPlayer ? (
         <MiniPlayerControl isPlaying={playing} />
       ) : (
-        <PlayerControl isPlaying={playing} />
+        <PlayerControl isPlaying={playing} progress={props.progress} />
       )}
     </button>
   );

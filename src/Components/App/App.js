@@ -26,6 +26,7 @@ class App extends React.Component {
       playlistSaved: false,
       showSettings: false,
       numTracks: 5,
+      progress: 0,
     };
 
     // Suggested tracks
@@ -53,6 +54,8 @@ class App extends React.Component {
     // Settings
     this.toggleShowSettings = this.toggleShowSettings.bind(this);
     this.setNumTracks = this.setNumTracks.bind(this);
+
+    this.setProgress = this.setProgress.bind(this);
   }
 
   // if the theme is stored in the user's browser cache, use
@@ -232,6 +235,10 @@ class App extends React.Component {
     this.setState({ theme: mode });
   }
 
+  setProgress(progress) {
+    this.setState({ progress: progress });
+  }
+
   // toggle the display mode between light and dark mode
   toggleTheme() {
     if (this.state.theme === "light") {
@@ -273,6 +280,7 @@ class App extends React.Component {
           track={this.state.currentTrack.preview}
           isPlaying={this.state.trackIsPlaying}
           onEnd={this.endPlayback}
+          setProgress={this.setProgress}
         />
 
         {this.state.playlistSaved && <div className="SuccessScreen"></div>}
@@ -296,6 +304,7 @@ class App extends React.Component {
             hasEnded={this.state.trackHasEnded}
             currentTrack={this.state.currentTrack}
             stopCurrentTrack={this.state.stopCurrentTrack}
+            progress={this.state.progress}
           />
           <Settings
             isVisible={this.state.showSettings}
@@ -315,6 +324,7 @@ class App extends React.Component {
               onDiscard={this.removeSuggestedTrack}
               currentTrack={this.state.currentTrack}
               stopCurrentTrack={this.state.stopCurrentTrack}
+              progress={this.state.progress}
             />
             <ActionBar
               onGet={this.getTracks}
