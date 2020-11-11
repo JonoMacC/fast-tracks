@@ -17,10 +17,7 @@ class App extends React.Component {
       nextTrack: "",
       playlistName: "Fast Tracks",
       playlistTracks: [],
-      trackIsPlaying: false,
-      trackHasEnded: false,
-      stopAllTracks: true,
-      stopCurrentTrack: false,
+      isPlaying: false,
       trackListIsOpen: false,
       theme: "light",
       playlistSaved: false,
@@ -45,8 +42,6 @@ class App extends React.Component {
     this.startPlayback = this.startPlayback.bind(this);
     this.pausePlayback = this.pausePlayback.bind(this);
     this.endPlayback = this.endPlayback.bind(this);
-    this.stopAllPlayback = this.stopAllPlayback.bind(this);
-    this.stopCurrentTrack = this.stopCurrentTrack.bind(this);
 
     // Theme control (dark mode or light mode)
     this.toggleTheme = this.toggleTheme.bind(this);
@@ -56,6 +51,7 @@ class App extends React.Component {
     this.setNumTracks = this.setNumTracks.bind(this);
 
     this.setProgress = this.setProgress.bind(this);
+    this.isTrackPlaying = this.isTrackPlaying.bind(this);
   }
 
   // if the theme is stored in the user's browser cache, use
@@ -66,21 +62,6 @@ class App extends React.Component {
 
     // set up the Spotify authorization
     Spotify.authorize(this.props.auth);
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (
-      prevState.nextTrack !== this.state.nextTrack &&
-      this.state.nextTrack !== ""
-    ) {
-      this.setState({
-        trackIsPlaying: true,
-        currentTrack: this.state.nextTrack,
-        stopAllTracks: false,
-        stopCurrentTrack: false,
-        nextTrack: "",
-      });
-    }
   }
 
   // get list of suggested new tracks
@@ -96,24 +77,17 @@ class App extends React.Component {
   resetTracks() {
     this.setState({
       suggestedTracks: [],
-      activeTrack: "",
-      currentTrack: "",
-      trackIsPlaying: false,
-      trackHasEnded: false,
-      stopAllTracks: true,
     });
   }
 
   // add a track to the playlist
   // if the playlist already contains the track, do nothing
   // otherwise, append the track to the end of the playlist
-  // remove the track from the list of suggested tracks
   addTrack(track) {
     let tracks = this.state.playlistTracks;
     if (tracks.find((savedTrack) => savedTrack.id === track.id)) {
       return;
     }
-
     tracks.push(track);
     this.setState({ playlistTracks: tracks });
   }
@@ -122,70 +96,43 @@ class App extends React.Component {
   removeSuggestedTrack(track) {
     let tracks = this.state.suggestedTracks;
     tracks = tracks.filter((currentTrack) => currentTrack.id !== track.id);
-
-    this.setState({
-      suggestedTracks: tracks,
-      trackIsPlaying: false,
-      trackHasEnded: false,
-    });
+    this.setState({ suggestedTracks: tracks });
   }
 
   // remove a track from the playlist
-  // filters the playlist of track and removes any occurrences of the passed in track
+  // filters the playlist and removes any occurrences of the passed in track
   removePlaylistTrack(track) {
     let tracks = this.state.playlistTracks;
     tracks = tracks.filter((currentTrack) => currentTrack.id !== track.id);
-
-    this.setState({ playlistTracks: tracks, trackIsPlaying: false });
+    this.setState({ playlistTracks: tracks });
   }
 
   // pause playback for the current track
   pausePlayback(track = "") {
     if (track === this.state.currentTrack) {
       this.setState({
-        trackIsPlaying: false,
+        isPlaying: false,
       });
     }
   }
 
   // start playback for the current track
   startPlayback(track) {
-    // check if a track is already playing
-    if (this.state.trackIsPlaying) {
-      this.stopCurrentTrack(track);
-    } else {
-      this.setState({
-        trackIsPlaying: true,
-        currentTrack: track,
-        stopAllTracks: false,
-        stopCurrentTrack: false,
-      });
-    }
+    this.setState({
+      isPlaying: true,
+      currentTrack: track,
+    });
   }
 
   // end playback when the end of the current track is reached
   endPlayback() {
     this.setState({
-      trackHasEnded: true,
-      trackIsPlaying: false,
-      stopAllTracks: true,
+      isPlaying: false,
     });
   }
 
-  // stop playback for the currently playing track
-  stopCurrentTrack(track = "") {
-    this.setState({
-      stopCurrentTrack: true,
-      nextTrack: track,
-    });
-  }
-
-  // stop playback for all tracks
-  stopAllPlayback() {
-    this.setState({
-      trackIsPlaying: false,
-      stopAllTracks: true,
-    });
+  isTrackPlaying(track) {
+    return this.state.currentTrack === track && this.state.isPlaying;
   }
 
   // update the name of the playlist
@@ -278,7 +225,7 @@ class App extends React.Component {
       <div className="App" theme={this.state.theme}>
         <AudioPlayer
           track={this.state.currentTrack.preview}
-          isPlaying={this.state.trackIsPlaying}
+          isPlaying={this.state.isPlaying}
           onEnd={this.endPlayback}
           setProgress={this.setProgress}
         />
@@ -300,11 +247,9 @@ class App extends React.Component {
             onAdd={this.addTrack}
             onPlay={this.startPlayback}
             onStop={this.pausePlayback}
-            stopAllTracks={this.state.stopAllTracks}
-            hasEnded={this.state.trackHasEnded}
             currentTrack={this.state.currentTrack}
-            stopCurrentTrack={this.state.stopCurrentTrack}
             progress={this.state.progress}
+            isPlaying={this.state.isPlaying}
           />
           <Settings
             isVisible={this.state.showSettings}
@@ -318,13 +263,11 @@ class App extends React.Component {
               tracks={this.state.suggestedTracks}
               onPlay={this.startPlayback}
               onStop={this.pausePlayback}
-              hasEnded={this.state.trackHasEnded}
-              stopAllTracks={this.state.stopAllTracks}
               onAdd={this.addTrack}
               onDiscard={this.removeSuggestedTrack}
               currentTrack={this.state.currentTrack}
-              stopCurrentTrack={this.state.stopCurrentTrack}
               progress={this.state.progress}
+              isPlaying={this.state.isPlaying}
             />
             <ActionBar
               onGet={this.getTracks}

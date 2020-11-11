@@ -28,19 +28,21 @@ export const TrackCard = ({
       // set the timeout duration based on whether the track has been
       // added or discarded
       let timeout = state.isAdded ? 1000 : 800;
-      setTimeout(() => onRemove(track), timeout);
+      setTimeout(() => {
+        onRemove(track, state.isAdded);
+        state.isAdded && onAdd(track);
+      }, timeout);
     }
   }, [state.isClosed]);
 
   // change the state of the card to change its appearance
   const addTrack = () => {
-    setState({ isAdded: true, isClosed: true, playing: false });
-    onAdd(track);
+    setState({ isAdded: true, isClosed: true });
   };
 
   // change the state of the card to change its appearance
   const discardTrack = () => {
-    setState({ isDiscard: true, isClosed: true, playing: false });
+    setState({ isDiscard: true, isClosed: true });
   };
 
   const getTrackAction = () => {

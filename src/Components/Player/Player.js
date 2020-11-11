@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
   PlayerControl,
   MiniPlayerControl,
@@ -6,50 +6,23 @@ import {
 import "./Player.css";
 
 export const Player = ({
-  hasEnded,
-  stopAllTracks,
   onStop,
   onPlay,
   track,
   currentTrack,
-  stopCurrentTrack,
+  isPlaying,
   ...props
 }) => {
-  const [playing, setPlaying] = useState(false);
+  // get the player state from the props
+  const playing = isPlaying && currentTrack.id === track.id;
 
-  // stop the player when the track comes to an end
-  useEffect(() => {
-    if (hasEnded && playing) {
-      setPlaying(false);
-    }
-  }, [hasEnded]);
-
-  // stop the player when all tracks are told to stop
-  useEffect(() => {
-    if (stopAllTracks) {
-      setPlaying(false);
-    }
-  }, [stopAllTracks]);
-
-  // stop the player when the current track is told to stop
-  useEffect(() => {
-    if (stopCurrentTrack && track.id === currentTrack.id) {
-      setPlaying(false);
-    }
-  }, [stopCurrentTrack]);
-
-  // start and stop playback based on the player state
-  useEffect(() => {
-    if (!playing) {
+  // toggle the player
+  const togglePlay = () => {
+    if (playing) {
       onStop(track);
     } else {
       onPlay(track);
     }
-  }, [playing]);
-
-  // toggle the player state
-  const togglePlay = () => {
-    setPlaying((playing) => !playing);
   };
 
   return (

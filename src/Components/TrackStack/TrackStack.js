@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { TrackCard } from "../TrackCard/TrackCard";
 import "./TrackStack.css";
 
-export const TrackStack = ({ tracks, onStop, onDiscard, ...props }) => {
+export const TrackStack = ({ tracks, onStop, onPlay, onDiscard, ...props }) => {
   // the list of tracks copies the set of tracks
   // from the App into its own state
   // this way tracks can be removed from the list
@@ -17,14 +17,18 @@ export const TrackStack = ({ tracks, onStop, onDiscard, ...props }) => {
 
   // when a track has been added to the playlist or
   // discarded, it is removed from the local list of tracks
-  const onRemove = (track) => {
+  const onRemove = (track, isAdded = false) => {
     let newTracks = trackList;
     newTracks = newTracks.filter(
       (currentTrack) => currentTrack.id !== track.id
     );
 
     setTrackList(newTracks);
-    onStop(track);
+    if (!isAdded) {
+      onStop(track);
+    } else if (track.id === props.currentTrack.id && props.isPlaying) {
+      onPlay(track);
+    }
     onDiscard(track);
   };
 
@@ -54,6 +58,7 @@ export const TrackStack = ({ tracks, onStop, onDiscard, ...props }) => {
               album={track.album}
               index={index}
               onStop={onStop}
+              onPlay={onPlay}
               onRemove={onRemove}
               {...props}
             />

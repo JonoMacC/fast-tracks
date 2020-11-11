@@ -11,9 +11,9 @@ export const ProgressRing = ({ radius, stroke, progress }) => {
       <circle
         stroke="white"
         fill="transparent"
-        strokeWidth={stroke}
         strokeDasharray={circumference + " " + circumference}
         style={{ strokeDashoffset }}
+        strokeWidth={stroke}
         stroke-width={stroke}
         r={normalizedRadius}
         cx={radius}
