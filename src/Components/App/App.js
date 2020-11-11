@@ -147,10 +147,8 @@ class App extends React.Component {
 
   // start playback for the current track
   startPlayback(track) {
-    console.log("starting playback...");
     // check if a track is already playing
     if (this.state.trackIsPlaying) {
-      console.log("changing tracks...");
       this.stopCurrentTrack(track);
     } else {
       this.setState({
@@ -164,7 +162,6 @@ class App extends React.Component {
 
   // end playback when the end of the current track is reached
   endPlayback() {
-    console.log("ending playback...");
     this.setState({
       trackHasEnded: true,
       trackIsPlaying: false,
@@ -174,7 +171,6 @@ class App extends React.Component {
 
   // stop playback for the currently playing track
   stopCurrentTrack(track = "") {
-    console.log("stopping current track...");
     this.setState({
       stopCurrentTrack: true,
       nextTrack: track,

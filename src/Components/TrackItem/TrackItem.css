@@ -9,6 +9,7 @@
 .TrackItem h2,
 .TrackItem p {
   font-size: 0.8125rem;
+  margin-bottom: 0;
 }
 
 .TrackItem h2 {
