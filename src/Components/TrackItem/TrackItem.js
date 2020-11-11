@@ -1,32 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { motion } from "framer-motion";
-
-import "./TrackItem.css";
 import { Player } from "../Player/Player";
 import { Icon } from "../Icons/Icons";
+import "./TrackItem.css";
 
-export const TrackItem = ({
-  onAdd,
-  onRemove,
-  track,
-  isPlaying,
-  isRemoval,
-  ...props
-}) => {
-  const [playing, setPlaying] = useState(isPlaying);
-
-  // Update the local 'isPlaying' state when the isPlaying prop updates
-  useEffect(() => {
-    setPlaying(isPlaying);
-  }, [isPlaying]);
-
+export const TrackItem = ({ onAdd, onRemove, track, isRemoval, ...props }) => {
   const add = () => {
-    setPlaying(false);
     onAdd(track);
   };
 
   const remove = () => {
-    setPlaying(false);
     onRemove(track);
   };
 
@@ -52,7 +35,6 @@ export const TrackItem = ({
         <Player
           track={track}
           img={track.imageSrc}
-          isPlaying={playing}
           miniPlayer={true}
           {...props}
         />

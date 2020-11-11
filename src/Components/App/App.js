@@ -1,19 +1,12 @@
-// External libraries
 import React from "react";
-
-// Styling
-import "./App.css";
-
-// App components
 import { Playlist } from "../Playlist/Playlist";
 import { NavBar } from "../NavBar/NavBar";
 import { AudioPlayer } from "../AudioPlayer/AudioPlayer";
 import { TrackStack } from "../TrackStack/TrackStack";
 import { ActionBar } from "../ActionBar/ActionBar";
 import { Settings } from "../Settings/Settings";
-
-// Utilities
 import Spotify from "../../util/Spotify";
+import "./App.css";
 
 class App extends React.Component {
   constructor(props) {
@@ -73,7 +66,6 @@ class App extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log("updated...", this.state.trackIsPlaying);
     if (
       prevState.nextTrack !== this.state.nextTrack &&
       this.state.nextTrack !== ""
@@ -85,7 +77,6 @@ class App extends React.Component {
         stopCurrentTrack: false,
         nextTrack: "",
       });
-      console.log("playing next track...", this.state.trackIsPlaying);
     }
   }
 
@@ -297,16 +288,14 @@ class App extends React.Component {
             toggleSettings={this.toggleShowSettings}
           />
           <Playlist
-            playlistName={this.state.playlistName}
             onNameChange={this.updatePlaylistName}
             onToggle={this.togglePlaylist}
             trackListIsOpen={this.state.trackListIsOpen}
-            playlistTracks={this.state.playlistTracks}
-            isPlaying={this.state.trackIsPlaying}
+            tracks={this.state.playlistTracks}
             onRemove={this.removePlaylistTrack}
+            onAdd={this.addTrack}
             onPlay={this.startPlayback}
             onStop={this.pausePlayback}
-            onStopAllPlayback={this.stopAllPlayback}
             stopAllTracks={this.state.stopAllTracks}
             hasEnded={this.state.trackHasEnded}
             currentTrack={this.state.currentTrack}
@@ -325,11 +314,9 @@ class App extends React.Component {
               onPlay={this.startPlayback}
               onStop={this.pausePlayback}
               hasEnded={this.state.trackHasEnded}
-              onStopAllPlayback={this.stopAllPlayback}
               stopAllTracks={this.state.stopAllTracks}
               onAdd={this.addTrack}
               onDiscard={this.removeSuggestedTrack}
-              isPlaying={this.state.trackIsPlaying}
               currentTrack={this.state.currentTrack}
               stopCurrentTrack={this.state.stopCurrentTrack}
             />

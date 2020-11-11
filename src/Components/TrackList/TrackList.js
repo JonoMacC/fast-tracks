@@ -1,8 +1,7 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-
-import "./TrackList.css";
 import { TrackItem } from "../TrackItem/TrackItem";
+import "./TrackList.css";
 
 const spring = {
   type: "spring",
@@ -10,20 +9,7 @@ const spring = {
   damping: 40,
 };
 
-export const TrackList = (props) => {
-  const {
-    tracks,
-    onAdd,
-    onRemove,
-    onPlay,
-    onStop,
-    isRemoval,
-    isPlaying,
-    onStopAllPlayback,
-    stopAllTracks,
-    isOpen,
-    hasEnded,
-  } = props;
+export const TrackList = ({ tracks, isOpen, ...props }) => {
   return (
     <div className="TrackListContainer overlay" isopen={isOpen.toString()}>
       <motion.div
@@ -39,22 +25,7 @@ export const TrackList = (props) => {
         <motion.ul className="TrackList" layout transition={{ duration: 0.1 }}>
           <AnimatePresence>
             {tracks.map((track) => {
-              return (
-                <TrackItem
-                  key={track.id}
-                  track={track}
-                  onAdd={onAdd}
-                  onRemove={onRemove}
-                  isRemoval={isRemoval}
-                  onPlay={onPlay}
-                  onStop={onStop}
-                  isPlaying={isPlaying}
-                  onStopAllPlayback={onStopAllPlayback}
-                  stopAllTracks={stopAllTracks}
-                  hasEnded={hasEnded}
-                  {...props}
-                />
-              );
+              return <TrackItem key={track.id} track={track} {...props} />;
             })}
           </AnimatePresence>
         </motion.ul>

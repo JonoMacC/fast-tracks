@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-
 import {
   PlayerControl,
   MiniPlayerControl,
@@ -49,7 +48,7 @@ export const Player = ({
   }, [playing]);
 
   // toggle the player state
-  const togglePlay = async () => {
+  const togglePlay = () => {
     setPlaying((playing) => !playing);
   };
 

@@ -8,7 +8,7 @@
 
 ## Spotify Client ID Setup
 
-Use your Spotify account on the Spotify developer site (developer.spotify.com) to create an app and get a Client ID. This app assumes that two apps have been created: one for testing purposes and one for production. You need to set up your redirect URIs on the Spotify dashboard.
+Use your Spotify account on the [Spotify developer site](https://developer.spotify.com) to create an app and get a Client ID. This app assumes that two apps have been created: one for testing purposes and one for production. You need to set up your redirect URIs on the Spotify dashboard.
 
 ### Redirect URIs for Local Development
 
@@ -29,6 +29,8 @@ Install the dependencies
     yarn
 
 ### Running with Node Express Server
+
+Set REACT_APP_NETLIFY=false in your .env file or omit this variable altogether.
 
     yarn start
 
@@ -55,3 +57,10 @@ Once you are set up, you can run
     ntl dev
 
 You can view the app by navigating to **http://localhost:8888/** in your browser.
+
+## Deploy
+
+<br />
+<a href="https://app.netlify.com/start/deploy?repository=https://github.com/JonoMacC/fast-tracks">
+<img src="https://www.netlify.com/img/deploy/button.svg" alt="Deploy to Netlify" />
+</a>

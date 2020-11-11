@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-
-import "./TrackStack.css";
 import { TrackCard } from "../TrackCard/TrackCard";
+import "./TrackStack.css";
 
 export const TrackStack = ({ tracks, onStop, onDiscard, ...props }) => {
   // the list of tracks copies the set of tracks
@@ -25,7 +24,7 @@ export const TrackStack = ({ tracks, onStop, onDiscard, ...props }) => {
     );
 
     setTrackList(newTracks);
-    onStop();
+    onStop(track);
     onDiscard(track);
   };
 
@@ -53,7 +52,6 @@ export const TrackStack = ({ tracks, onStop, onDiscard, ...props }) => {
               trackName={track.name}
               artist={track.artist}
               album={track.album}
-              img={track.imageSrc}
               index={index}
               onStop={onStop}
               onRemove={onRemove}

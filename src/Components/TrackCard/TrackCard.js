@@ -1,21 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-
 import { Player } from "../Player/Player";
 import { TrackAction } from "../TrackAction/TrackAction";
 import "./TrackCard.css";
 
 export const TrackCard = ({
-  isPlaying,
   onAdd,
   onRemove,
-  onPlay,
-  onStop,
   track,
   trackName,
   artist,
   album,
-  img,
   index,
   ...props
 }) => {
@@ -23,7 +18,6 @@ export const TrackCard = ({
     isAdded: false,
     isDiscard: false,
     isClosed: false,
-    playing: isPlaying,
   });
 
   // if the card has closed, remove it from the list of tracks
@@ -37,11 +31,6 @@ export const TrackCard = ({
       setTimeout(() => onRemove(track), timeout);
     }
   }, [state.isClosed]);
-
-  // update the play state based on the isPlaying prop
-  useEffect(() => {
-    setState({ ...state, playing: isPlaying });
-  }, [isPlaying]);
 
   // change the state of the card to change its appearance
   const addTrack = () => {
@@ -134,10 +123,7 @@ export const TrackCard = ({
           >
             <Player
               track={track}
-              img={img}
-              onPlay={onPlay}
-              onStop={onStop}
-              isPlaying={state.playing}
+              img={track.imageSrc}
               miniPlayer={false}
               {...props}
             />

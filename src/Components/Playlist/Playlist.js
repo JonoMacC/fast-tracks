@@ -1,31 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-
-import "./Playlist.css";
 import { Icon } from "../Icons/Icons";
 import { TrackCounter } from "../TrackCounter/TrackCounter";
 import { TrackList } from "../TrackList/TrackList";
+import "./Playlist.css";
 
 const transition = {
   ease: "easeInOut",
   duration: 0.15,
 };
 
-export const Playlist = (props) => {
-  const {
-    onToggle,
-    onNameChange,
-    trackListIsOpen,
-    playlistTracks,
-    onRemove,
-    onPlay,
-    onStop,
-    isPlaying,
-    onStopAllPlayback,
-    stopAllTracks,
-    hasEnded,
-  } = props;
-
+export const Playlist = ({
+  onToggle,
+  onNameChange,
+  trackListIsOpen,
+  tracks,
+  ...props
+}) => {
   // use the size of the window to determine whether to always show
   // the playlist (large displays) or to only show it when it is
   // toggled to show (on smaller displays)
@@ -41,7 +32,7 @@ export const Playlist = (props) => {
 
   // set the playlist to a 'collapsed' state on desktop when no
   // tracks have been added to it
-  const collapsePlaylist = stayOpen && playlistTracks.length === 0;
+  const collapsePlaylist = stayOpen && tracks.length === 0;
 
   // the dropdown arrow that toggles the visibility of the playlist
   // is not visible on larger displays ('stayOpen')
@@ -108,7 +99,7 @@ export const Playlist = (props) => {
               </div>
             </button>
 
-            <TrackCounter numTracks={playlistTracks.length} />
+            <TrackCounter numTracks={tracks.length} />
           </motion.div>
           <button
             className="PlaylistDropdown"
@@ -131,16 +122,9 @@ export const Playlist = (props) => {
         </div>
 
         <TrackList
-          tracks={playlistTracks}
-          onRemove={onRemove}
-          onPlay={onPlay}
-          onStop={onStop}
+          tracks={tracks}
           isRemoval={true}
-          isPlaying={isPlaying}
-          onStopAllPlayback={onStopAllPlayback}
-          stopAllTracks={stopAllTracks}
           isOpen={isOpen}
-          hasEnded={hasEnded}
           {...props}
         />
       </section>
