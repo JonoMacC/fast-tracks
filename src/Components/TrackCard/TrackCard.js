@@ -93,7 +93,7 @@ export const TrackCard = ({
           },
         }}
         initial={"enter"}
-        animate={getTrackAction}
+        animate={getTrackAction()}
         translateY={-index * 4}
         style={{
           zIndex: index + 1,
