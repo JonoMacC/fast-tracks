@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   PlayerControl,
   MiniPlayerControl,
@@ -11,10 +11,21 @@ export const Player = ({
   track,
   currentTrack,
   isPlaying,
+  progress,
   ...props
 }) => {
   // get the player state from the props
   const playing = isPlaying && currentTrack.id === track.id;
+
+  const [localProgress, setProgress] = useState(0);
+
+  useEffect(() => {
+    if (playing) {
+      setProgress(progress);
+    } else if (isPlaying) {
+      setProgress(0);
+    }
+  }, [playing, isPlaying, progress]);
 
   // toggle the player
   const togglePlay = () => {
@@ -34,9 +45,9 @@ export const Player = ({
       }}
     >
       {props.miniPlayer ? (
-        <MiniPlayerControl isPlaying={playing} />
+        <MiniPlayerControl playing={playing} />
       ) : (
-        <PlayerControl isPlaying={playing} progress={props.progress} />
+        <PlayerControl playing={playing} progress={localProgress || 0} />
       )}
     </button>
   );

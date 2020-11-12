@@ -33,7 +33,7 @@ export const TrackCard = ({
         state.isAdded && onAdd(track);
       }, timeout);
     }
-  }, [state.isClosed]);
+  }, [state, onRemove, onAdd, track]);
 
   // change the state of the card to change its appearance
   const addTrack = () => {
