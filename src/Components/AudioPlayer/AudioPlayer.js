@@ -25,7 +25,7 @@ export const AudioPlayer = ({ isPlaying, track, onEnd, setProgress }) => {
   };
 
   const startPlayback = () => {
-    player.current.play();
+    player.current.play().catch((err) => console.log(err));
   };
 
   const endPlayback = () => {

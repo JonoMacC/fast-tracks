@@ -333,7 +333,7 @@ a:hover {
 }
 
 .SuccessScreen::before {
-  background: url(../TrackAction/vinyl_record.png) no-repeat;
+  background: url(../TrackAction/vinyl_record@2x.jpg) no-repeat;
   background-size: contain;
   background-position: 50% 50%;
   content: "";

@@ -18,7 +18,7 @@ class App extends React.Component {
       playlistName: "Fast Tracks",
       playlistTracks: [],
       isPlaying: false,
-      trackListIsOpen: false,
+      showPlaylist: false,
       theme: "light",
       playlistSaved: false,
       showSettings: false,
@@ -36,12 +36,12 @@ class App extends React.Component {
     this.removePlaylistTrack = this.removePlaylistTrack.bind(this);
     this.updatePlaylistName = this.updatePlaylistName.bind(this);
     this.savePlaylist = this.savePlaylist.bind(this);
-    this.togglePlaylist = this.togglePlaylist.bind(this);
+    this.toggleShowPlaylist = this.toggleShowPlaylist.bind(this);
 
     // Audio playback
     this.startPlayback = this.startPlayback.bind(this);
     this.pausePlayback = this.pausePlayback.bind(this);
-    this.endPlayback = this.endPlayback.bind(this);
+    this.setProgress = this.setProgress.bind(this);
 
     // Theme control (dark mode or light mode)
     this.toggleTheme = this.toggleTheme.bind(this);
@@ -49,9 +49,6 @@ class App extends React.Component {
     // Settings
     this.toggleShowSettings = this.toggleShowSettings.bind(this);
     this.setNumTracks = this.setNumTracks.bind(this);
-
-    this.setProgress = this.setProgress.bind(this);
-    this.isTrackPlaying = this.isTrackPlaying.bind(this);
   }
 
   // if the theme is stored in the user's browser cache, use
@@ -64,13 +61,34 @@ class App extends React.Component {
     Spotify.authorize(this.props.auth);
   }
 
+  componentDidUpdate(prevState, prevProps) {
+    if (prevProps.auth !== this.props.auth) {
+      Spotify.authorize(this.props.auth);
+    }
+  }
+
   // get list of suggested new tracks
   // update the set of tracks with those returned from Spotify
   getTracks() {
+    // if the currently playing track is in the suggested tracks list, stop playback
+    if (
+      this.state.suggestedTracks.includes(this.state.currentTrack) &&
+      this.state.isPlaying
+    ) {
+      this.pausePlayback();
+    }
+
+    // flush the list of suggested tracks
     this.resetTracks();
-    Spotify.getTracks(this.state.numTracks).then((suggestedTracks) => {
-      this.setState({ suggestedTracks: suggestedTracks });
-    });
+
+    // get recommended tracks from Spotify
+    Spotify.getTracks(this.state.numTracks)
+      .then((suggestedTracks) => {
+        this.setState({ suggestedTracks: suggestedTracks });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   // reset the state for a new list of suggested tracks
@@ -107,9 +125,12 @@ class App extends React.Component {
     this.setState({ playlistTracks: tracks });
   }
 
-  // pause playback for the current track
-  pausePlayback(track = "") {
-    if (track === this.state.currentTrack) {
+  // pause playback
+  // if a track is provided, playback stops if the provided track matches the
+  // currently playing track
+  // if no track is provided, playback stops
+  pausePlayback(track = null) {
+    if (track === this.state.currentTrack || track === null) {
       this.setState({
         isPlaying: false,
       });
@@ -122,17 +143,6 @@ class App extends React.Component {
       isPlaying: true,
       currentTrack: track,
     });
-  }
-
-  // end playback when the end of the current track is reached
-  endPlayback() {
-    this.setState({
-      isPlaying: false,
-    });
-  }
-
-  isTrackPlaying(track) {
-    return this.state.currentTrack === track && this.state.isPlaying;
   }
 
   // update the name of the playlist
@@ -157,21 +167,26 @@ class App extends React.Component {
         playlistTracks: [],
       });
     });
-    this.togglePlaylistSaved();
-  }
 
-  // toggle visibility of the playlist
-  togglePlaylist() {
-    this.setState((prevState) => {
-      return { trackListIsOpen: !prevState.trackListIsOpen };
+    // if the currently playing track is in the playlist, stop playback
+    if (
+      this.state.playlistTracks.includes(this.state.currentTrack) &&
+      this.state.isPlaying
+    ) {
+      this.pausePlayback();
+    }
+
+    // set playlistSaved to true, causing the celebration animation to play
+    // after a delay, set the state back to false
+    this.setState({ playlistSaved: true }, () => {
+      setTimeout(() => this.setState({ playlistSaved: false }), 1600);
     });
   }
 
-  // set playlistSaved to true, causing the celebration animation to play
-  // after a delay, set the state back to false
-  togglePlaylistSaved() {
-    this.setState({ playlistSaved: true }, () => {
-      setTimeout(() => this.setState({ playlistSaved: false }), 1600);
+  // toggle visibility of the playlist
+  toggleShowPlaylist() {
+    this.setState((prevState) => {
+      return { showPlaylist: !prevState.showPlaylist };
     });
   }
 
@@ -226,7 +241,7 @@ class App extends React.Component {
         <AudioPlayer
           track={this.state.currentTrack.preview}
           isPlaying={this.state.isPlaying}
-          onEnd={this.endPlayback}
+          onEnd={this.pausePlayback}
           setProgress={this.setProgress}
         />
 
@@ -235,13 +250,13 @@ class App extends React.Component {
           <NavBar
             theme={this.state.theme}
             toggleTheme={this.toggleTheme}
-            isVisible={this.state.showSettings}
+            showSettings={this.state.showSettings}
             toggleSettings={this.toggleShowSettings}
           />
           <Playlist
             onNameChange={this.updatePlaylistName}
-            onToggle={this.togglePlaylist}
-            trackListIsOpen={this.state.trackListIsOpen}
+            onToggle={this.toggleShowPlaylist}
+            showPlaylist={this.state.showPlaylist}
             tracks={this.state.playlistTracks}
             onRemove={this.removePlaylistTrack}
             onAdd={this.addTrack}

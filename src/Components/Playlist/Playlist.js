@@ -13,7 +13,7 @@ const transition = {
 export const Playlist = ({
   onToggle,
   onNameChange,
-  trackListIsOpen,
+  showPlaylist,
   tracks,
   ...props
 }) => {
@@ -27,8 +27,8 @@ export const Playlist = ({
   const stayOpen = windowWidth >= 768;
 
   // the playlist is open when either it is toggled to open
-  // ('trackListIsOpen') or it is set to always visible ('stayOpen')
-  const isOpen = trackListIsOpen || stayOpen;
+  // ('showPlaylist') or it is set to always visible ('stayOpen')
+  const isOpen = showPlaylist || stayOpen;
 
   // set the playlist to a 'collapsed' state on desktop when no
   // tracks have been added to it
