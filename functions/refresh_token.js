@@ -38,13 +38,14 @@ exports.handler = async function (event, context) {
         ? response.data.refresh_token
         : refresh_token;
 
-      // pass the tokens to the browser to make requests from there
+      // pass the tokens to the response body
       return {
-        statusCode: 302, // must be a redirect status code or the client won't be redirected
-        headers: {
-          Location: `${process.env.URL}/#/user/${access_token}/${refresh_token}/${expires_in}`,
-          "Cache-Control": "no-cache", // Disable caching of this response
-        },
+        statusCode: 200,
+        body: JSON.stringify({
+          access_token: access_token,
+          refresh_token: refresh_token,
+          expires_in: expires_in,
+        }),
       };
     })
     .catch((err) => {

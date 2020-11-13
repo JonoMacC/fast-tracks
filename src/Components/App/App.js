@@ -61,7 +61,7 @@ class App extends React.Component {
     Spotify.authorize(this.props.auth);
   }
 
-  componentDidUpdate(prevState, prevProps) {
+  componentDidUpdate(prevProps) {
     if (prevProps.auth !== this.props.auth) {
       Spotify.authorize(this.props.auth);
     }
