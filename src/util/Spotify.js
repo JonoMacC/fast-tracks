@@ -216,7 +216,7 @@ const Spotify = {
     const seedTrackList = this.getSeedTracks();
 
     return fetch(
-      `https://api.spotify.com/v1/recommendations?seed_tracks=${seedTrackList}&limit=${numTracks}`,
+      `https://api.spotify.com/v1/recommendations?seed_tracks=${seedTrackList}&limit=20`,
       { headers: this.headers }
     )
       .then((response) => {
@@ -226,17 +226,22 @@ const Spotify = {
         if (!jsonResponse.tracks) {
           return [];
         }
-        return jsonResponse.tracks
-          .map((track) => ({
-            id: track.id,
-            name: track.name,
-            artist: track.artists[0].name,
-            album: track.album.name,
-            uri: track.uri,
-            imageSrc: track.album.images[0].url,
-            preview: track.preview_url,
-          }))
-          .filter((track) => track.preview !== null || undefined);
+        return jsonResponse.tracks.map((track) => ({
+          id: track.id,
+          name: track.name,
+          artist: track.artists[0].name,
+          album: track.album.name,
+          uri: track.uri,
+          imageSrc: track.album.images[0].url,
+          preview: track.preview_url, // can be null
+        }));
+      })
+      .then((tracks) => {
+        // filter out any tracks where there is no preview
+        // trim the array to the requested size
+        return tracks
+          .filter((track) => track.preview !== null)
+          .slice(0, numTracks);
       })
       .catch((err) => {
         console.log(err);
