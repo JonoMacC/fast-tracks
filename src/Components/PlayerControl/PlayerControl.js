@@ -55,7 +55,12 @@ export const PlayerControl = ({ playing, progress = 0 }) => (
           </svg>
         </div>
         <div className="PlayerElement">
-          <ProgressRing radius={70} stroke={4} progress={progress} />
+          <ProgressRing
+            radius={70}
+            stroke={4}
+            progress={progress}
+            strokeColor="white"
+          />
         </div>
       </div>
     </motion.div>
