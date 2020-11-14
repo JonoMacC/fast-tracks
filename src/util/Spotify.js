@@ -58,18 +58,18 @@ const Spotify = {
       return true;
       // check if a simple request succeeds
     } else {
-      fetch(`https://api.spotify.com/v1/search?type=track&q=Miserlou`, {
+      return fetch(`https://api.spotify.com/v1/search?type=track&q=Miserlou`, {
         headers: this.headers,
       })
         .then((response) => {
           if (response.status === 401) {
             return true;
           }
+          return false;
         })
         .catch((err) => {
           console.log(err);
         });
-      return false;
     }
   },
 
