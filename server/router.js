@@ -79,11 +79,11 @@ router.get("/callback", (req, res) => {
     const authOptions = {
       method: "post",
       url: tokenPath,
-      data: querystring.stringify({
+      params: {
         code: code,
         redirect_uri: redirectUri,
         grant_type: "authorization_code",
-      }),
+      },
       headers: {
         Authorization:
           "Basic " +
@@ -101,7 +101,7 @@ router.get("/callback", (req, res) => {
         res.redirect(`/#/user/${access_token}/${refresh_token}/${expires_in}`);
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err.message);
         res.redirect("/#/error/invalid token");
       });
   }
@@ -123,10 +123,10 @@ router.get("/refresh_token", (req, res) => {
         Buffer.from(clientId + ":" + clientSecret).toString("base64"),
       "content-type": "application/x-www-form-urlencoded;charset=utf-8",
     },
-    data: querystring.stringify({
+    params: {
       grant_type: "refresh_token",
       refresh_token: refresh_token,
-    }),
+    },
   };
 
   axios(authOptions)
@@ -148,7 +148,7 @@ router.get("/refresh_token", (req, res) => {
       });
     })
     .catch((err) => {
-      console.log(err);
+      console.error(err.message);
     });
 });
 
