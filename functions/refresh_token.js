@@ -46,12 +46,18 @@ exports.handler = async function (event, context) {
           refresh_token: refresh_token,
           expires_in: expires_in,
         }),
+        headers: {
+          "content-type": "application/json",
+        },
       };
     })
     .catch((err) => {
       return {
         statusCode: 500,
         body: JSON.stringify({ err }),
+        headers: {
+          "content-type": "application/json",
+        },
       };
     });
 };

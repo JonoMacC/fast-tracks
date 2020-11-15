@@ -87,7 +87,7 @@ class App extends React.Component {
         this.setState({ suggestedTracks: suggestedTracks });
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err.message);
       });
   }
 

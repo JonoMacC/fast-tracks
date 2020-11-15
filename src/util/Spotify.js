@@ -1,4 +1,5 @@
 import { routerBasePath } from "./routerBasePath";
+import axios from "axios";
 
 const Spotify = {
   access_token: "",
@@ -25,7 +26,7 @@ const Spotify = {
 
   setAccessToken(access_token) {
     this.access_token = access_token;
-    this.setHeaders();
+    this.headers = { Authorization: `Bearer ${this.access_token}` };
   },
 
   setRefreshToken(refresh_token) {
@@ -35,10 +36,6 @@ const Spotify = {
   setExpiresIn(expires_in) {
     // set expiration time to a fixed time in the future
     this.expires_at = Date.now() + expires_in * 1000;
-  },
-
-  setHeaders() {
-    this.headers = { Authorization: `Bearer ${this.access_token}` };
   },
 
   setTopTracks(top_tracks) {
@@ -56,37 +53,62 @@ const Spotify = {
       this.access_token === undefined
     ) {
       return true;
-      // check if a simple request succeeds
-    } else {
-      return fetch(`https://api.spotify.com/v1/search?type=track&q=Miserlou`, {
-        headers: this.headers,
-      })
-        .then((response) => {
-          if (response.status === 401) {
-            return true;
-          }
-          return false;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
     }
+    return false;
   },
 
   /* Refresh the access token using the refresh token */
   refreshTokens() {
     console.log("refreshing authorization...");
-    return fetch(
-      `${routerBasePath}/refresh_token?refresh_token=${this.refresh_token}`
-    )
-      .then((response) => {
-        return response.json();
+    const options = {
+      method: "get",
+      url: `${routerBasePath}/refresh_token`,
+      params: {
+        refresh_token: this.refresh_token,
+      },
+    };
+
+    return axios(options)
+      .then((res) => {
+        this.authorize(res.data);
       })
-      .then((jsonResponse) => {
-        this.authorize(jsonResponse);
-      })
+      .catch((err) => console.error(err.message));
+  },
+
+  /*
+   * axios call that includes automatic retries when the
+   * call fails, it recursively calls itself until there
+   * are no more retry attempts
+   * If the call fails due to lack of authorization, it
+   * refreshes the authorization tokens
+   */
+  retryAxios(options, retries = 3) {
+    // response codes to attempt a retry without requiring a
+    // token refresh
+    const retryCodes = [408, 500, 502, 503, 504, 522, 524];
+
+    return axios(options)
+      .then((res) => res)
       .catch((err) => {
-        console.log(err);
+        console.error(err.message);
+
+        // attempt a retry if there are retries left and a response
+        // status code was received
+        if (retries > 0 && err.response) {
+          // refresh the authorization and retry the call with the
+          // updated authorization
+          if (err.response.status === 401) {
+            return this.refreshTokens().then(() => {
+              // update the options with the latest authorization headers
+              const retryOptions = { ...options, headers: this.headers };
+              return this.retryAxios(retryOptions, retries - 1);
+            });
+          } else if (retryCodes.includes(err.response.status)) {
+            return this.retryAxios(options, retries - 1);
+          }
+        } else {
+          throw new Error(err.response);
+        }
       });
   },
 
@@ -102,30 +124,39 @@ const Spotify = {
     this.setAccessToken("");
   },
 
-  /* Check whether authorization for api requests is granted */
+  /*
+   * Check whether authorization for api requests is granted
+   * if the expiration time has been reached, refresh the tokens
+   */
   async checkAuth() {
-    if (await this.isExpired()) {
+    if (this.isExpired()) {
       await this.refreshTokens();
     } else {
       return;
     }
   },
 
-  /* Retrieve the user's top tracks from the recent past */
-  async retrieveTopTracks() {
-    await this.checkAuth();
-    return fetch(
-      `https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50&offset=0`,
-      { headers: this.headers }
-    )
-      .then((response) => {
-        return response.json();
-      })
-      .then((jsonResponse) => {
-        if (!jsonResponse.items) {
+  /*
+   * Retrieve the user's top tracks from the recent past
+   */
+  retrieveTopTracks() {
+    const options = {
+      method: "get",
+      url: "https://api.spotify.com/v1/me/top/tracks",
+      params: {
+        time_range: "short_term",
+        limit: 50,
+        offset: 0,
+      },
+      headers: this.headers,
+    };
+
+    return this.retryAxios(options)
+      .then((res) => {
+        if (!res.data.items) {
           return [];
         }
-        return jsonResponse.items.map((track) => ({
+        return res.data.items.map((track) => ({
           id: track.id,
           name: track.name,
           artist: track.artists[0].name,
@@ -136,24 +167,30 @@ const Spotify = {
         }));
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err.message);
       });
   },
 
-  /* Search for a specific track using a term */
-  async search(term) {
-    await this.checkAuth();
-    return fetch(`https://api.spotify.com/v1/search?type=track&q=${term}`, {
+  /*
+   * Search for a specific track using a query term
+   */
+  search(term) {
+    const options = {
+      method: "get",
+      url: "https://api.spotify.com/v1/search",
+      params: {
+        type: "track",
+        q: term,
+      },
       headers: this.headers,
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((jsonResponse) => {
-        if (!jsonResponse.tracks) {
+    };
+
+    return this.retryAxios(options)
+      .then((res) => {
+        if (!res.data.tracks) {
           return [];
         }
-        return jsonResponse.tracks.items.map((track) => ({
+        return res.data.tracks.items.map((track) => ({
           id: track.id,
           name: track.name,
           artist: track.artists[0].name,
@@ -203,8 +240,6 @@ const Spotify = {
    * Get a list of recommended tracks
    */
   async getTracks(numTracks = 5) {
-    await this.checkAuth();
-
     // get a list of the user's top tracks
     // if no top tracks have been set, retrieve them
     // otherwise, leave the list as is
@@ -214,19 +249,22 @@ const Spotify = {
 
     // retrieve a list of 5 seed tracks based on the user's recent top tracks
     const seedTrackList = this.getSeedTracks();
+    const options = {
+      method: "get",
+      url: "https://api.spotify.com/v1/recommendations",
+      params: {
+        seed_tracks: seedTrackList,
+        limit: 20,
+      },
+      headers: this.headers,
+    };
 
-    return fetch(
-      `https://api.spotify.com/v1/recommendations?seed_tracks=${seedTrackList}&limit=20`,
-      { headers: this.headers }
-    )
-      .then((response) => {
-        return response.json();
-      })
-      .then((jsonResponse) => {
-        if (!jsonResponse.tracks) {
+    return this.retryAxios(options)
+      .then((res) => {
+        if (!res.data.tracks) {
           return [];
         }
-        return jsonResponse.tracks.map((track) => ({
+        return res.data.tracks.map((track) => ({
           id: track.id,
           name: track.name,
           artist: track.artists[0].name,
@@ -248,39 +286,48 @@ const Spotify = {
       });
   },
 
-  async savePlaylist(name, trackUris) {
-    await this.checkAuth();
+  savePlaylist(name, trackUris) {
     if (!name || !trackUris.length) {
       return;
     }
 
     let userID;
 
-    return fetch("https://api.spotify.com/v1/me", { headers: this.headers })
-      .then((response) => response.json())
-      .then((jsonResponse) => {
-        userID = jsonResponse.id;
-        return fetch(`https://api.spotify.com/v1/users/${userID}/playlists`, {
-          headers: this.headers,
-          method: "POST",
-          body: JSON.stringify({ name: name }),
+    const getUserID = {
+      method: "get",
+      url: "https://api.spotify.com/v1/me",
+      headers: this.headers,
+    };
+
+    const postPlaylistName = (userID) => {
+      return {
+        method: "post",
+        url: `https://api.spotify.com/v1/users/${userID}/playlists`,
+        headers: this.headers,
+        data: JSON.stringify({ name: name }),
+      };
+    };
+
+    const postPlaylistTracks = (userID, playlistID) => {
+      return {
+        method: "post",
+        url: `https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}/tracks`,
+        headers: this.headers,
+        data: JSON.stringify({ uris: trackUris }),
+      };
+    };
+
+    return this.retryAxios(getUserID).then((res) => {
+      userID = res.data.id;
+      return axios(postPlaylistName(userID))
+        .then((res) => {
+          const playlistID = res.data.id;
+          return axios(postPlaylistTracks(userID, playlistID));
         })
-          .then((response) => response.json())
-          .then((jsonResponse) => {
-            const playlistID = jsonResponse.id;
-            return fetch(
-              `https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}/tracks`,
-              {
-                headers: this.headers,
-                method: "POST",
-                body: JSON.stringify({ uris: trackUris }),
-              }
-            );
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      });
+        .catch((err) => {
+          console.error(err.message);
+        });
+    });
   },
 };
 
