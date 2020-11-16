@@ -1,14 +1,11 @@
 import React, { useContext } from "react";
 import { motion, AnimateSharedLayout } from "framer-motion";
-
 import { AuthContext } from "../../contexts/AuthContext";
 import { TableCell } from "../TableCell/TableCell";
 import { Icon } from "../Icons/Icons";
 import { StepInput } from "../StepInput/StepInput";
-
-import "./Settings.css";
 import { InfoListItem } from "./InfoListItem";
-import { routerBasePath } from "../../util/routerBasePath";
+import "./Settings.css";
 
 const spring = {
   type: "spring",
@@ -22,19 +19,15 @@ const minStep = 3,
 export const Settings = ({ toggleSettings, isVisible, ...props }) => {
   // const history = useHistory();
   // Subscribe to authentication context
-  const [auth, setAuthData] = useContext(AuthContext);
+  const [, setAuthData] = useContext(AuthContext);
 
-  // Reset server-side authorization
   // Reset client-side authorization
-  const onLogout = async () => {
-    const response = await fetch(`${routerBasePath}/logout`);
-    if (response.ok) {
-      // clear browser cache
-      window.localStorage.setItem("authData", null);
+  const onLogout = () => {
+    // clear browser cache
+    window.localStorage.setItem("authData", null);
 
-      // clear authorization context
-      setAuthData(null);
-    }
+    // clear authorization context
+    setAuthData(null);
   };
 
   // Settings decrement function, determines behavior for

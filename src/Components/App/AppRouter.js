@@ -6,11 +6,11 @@
  */
 
 // External libraries
-import React, { useContext, useEffect, useState } from "react";
-import { Switch, Route, useHistory } from "react-router-dom";
+import React, { useContext } from "react";
+import { Switch, Route } from "react-router-dom";
 
+// Utilities
 import { AuthContext } from "../../contexts/AuthContext";
-import { getHashParams } from "../../util/auth";
 import { routerBasePath } from "../../util/routerBasePath";
 
 // Components
@@ -24,44 +24,12 @@ import "./App.css";
 function AppRouter(props) {
   // component renders before the authentication data can be
   // retrieved from local storage, so it will initially be null
-  const [auth, setAuthData] = useContext(AuthContext);
-  const [params, setParams] = useState();
-  const history = useHistory();
-
-  // get authentication tokens from the URL
-  // returns null if no hash with parameters in URL
-  // allows Private Routes to be displayed on first login
-  let tokens = getHashParams(window.location);
-  if (tokens && tokens.path === "error") tokens = null;
-
-  // when the component mounts, check URL for authentication
-  // data, if it is present, update the parameters state
-  useEffect(() => {
-    const location = window.location;
-    const authData = getHashParams(location);
-    if (authData) {
-      if (authData.path === "error") {
-        alert("There was an error during the authentication.");
-      } else {
-        setParams(authData);
-      }
-    }
-  }, []);
-
-  // when the parameters state updates, update
-  // the authentication context
-  // clear parameters from the URL
-  useEffect(() => {
-    if (params) {
-      setAuthData(params);
-      history.replace("/");
-    }
-  }, [params]);
+  const [auth] = useContext(AuthContext);
 
   return (
     <Switch>
+      <PrivateRoute exact path="/" component={App} auth={auth} />
       <Route path="/login" component={Login} />
-      <PrivateRoute path="/" component={App} auth={auth} tokens={tokens} />
     </Switch>
   );
 }
