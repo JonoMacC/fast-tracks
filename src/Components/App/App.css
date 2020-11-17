@@ -299,6 +299,68 @@ a:hover {
   }
 }
 
+@media all and (min-width: 1024px) {
+  .Background {
+    background: #111111;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 0;
+    content: "";
+  }
+
+  .RecordContainer {
+    content: "";
+    position: absolute;
+    width: 90vh;
+    height: 90vh;
+    left: 92px;
+    animation: slide-in 1.5s ease-out;
+    overflow: hidden;
+    --travel-x: calc(
+      90vh / 2 * 0.5 * 1.5
+    ); /* radius (px) x rotational speed (rad/s) x animation duration (s) */
+  }
+
+  .Record {
+    content: "";
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-origin: 50% 50%;
+    background: center / contain no-repeat
+      url("../TrackAction/vinyl_record@2x.jpg");
+    animation: rotate-in 1.5s ease-out;
+  }
+
+  .LoginScreen {
+    background: var(--bg);
+    box-shadow: -16px 0px 32px rgba(0, 0, 0, 0.25);
+    position: absolute;
+    left: 510px;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .Screen {
+    align-items: flex-start;
+    width: 343px;
+  }
+
+  .titleText {
+    text-align: left;
+    align-items: flex-start;
+    height: 176px;
+  }
+}
+
 /* Playlist Saved Screen */
 .SuccessScreen {
   background: #111111;
@@ -390,5 +452,23 @@ a:hover {
   }
   100% {
     transform: scale(0.01);
+  }
+}
+
+@keyframes rotate-in {
+  0% {
+    transform: rotate(43deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes slide-in {
+  0% {
+    transform: translateX(var(--travel-x));
+  }
+  100% {
+    transform: translateX(0);
   }
 }

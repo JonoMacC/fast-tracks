@@ -16,19 +16,24 @@ const AuthProvider = (props) => {
     }));
   };
 
+  // retrieval function for parsing authentication data from
+  // local storage
+  const getAuthData = () => {
+    let localAuth = null;
+    try {
+      localAuth = JSON.parse(window.localStorage.getItem("authData"));
+    } catch (err) {
+      console.error(err.message);
+    }
+    return localAuth;
+  };
+
   // on component mount, set the authorization data to
   // what is found in local storage
   useEffect(() => {
     setAuth({
       loading: false,
-      data: () => {
-        try {
-          return JSON.parse(window.localStorage.getItem("authData"));
-        } catch (err) {
-          console.error(err.message);
-          return null;
-        }
-      },
+      data: getAuthData(),
     });
   }, []);
 
