@@ -2,7 +2,7 @@ import React from "react";
 import { routerBasePath } from "../../util/routerBasePath";
 
 const Login = (props) => (
-  <div className="App">
+  <div className="App" theme={props.theme}>
     <div className="Background"></div>
     <div className="RecordContainer">
       <div className="Record"></div>

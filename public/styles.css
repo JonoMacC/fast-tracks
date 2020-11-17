@@ -47,26 +47,6 @@ html,
   color: #ffffff;
 }
 
-/* Default Colors */
-.App * {
-  --text: var(--text-light);
-  --text-secondary: var(--text-light-secondary);
-  --icon: var(--icon-light);
-  --input: var(--input-light);
-  --bold: var(--bold-light);
-  --spacing: var(--spacing-light);
-  --scrollbar: var(--scrollbar-light);
-  --bg: var(--bg-light);
-  --bg-0: var(--bg-light-0);
-  --bg-surface: var(--surface-light);
-  --drop-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.08);
-  --bg-overlay: var(--overlay-light);
-  --btn-hover: var(--btn-hover-light);
-  --btn-focus: var(--btn-focus-light);
-  --btn-primary-hover: var(--btn-primary-hover-light);
-  --btn-primary-focus: var(--btn-primary-focus-light);
-}
-
 /* Dark Theme Colors */
 .App[theme="dark"] * {
   --text: var(--text-dark);
@@ -113,28 +93,6 @@ html,
 
 .App[theme="light"] h2 {
   font-weight: 700;
-}
-
-@media screen and (prefers-color-scheme: dark) {
-  /* Defaults to Dark Theme */
-  .App * {
-    --text: var(--text-dark);
-    --text-secondary: var(--text-dark-secondary);
-    --icon: var(--icon-dark);
-    --input: var(--input-dark);
-    --bold: var(--bold-dark);
-    --spacing: var(--spacing-dark);
-    --scrollbar: var(--scrollbar-dark);
-    --bg: var(--bg-dark);
-    --bg: var(--bg-dark-0);
-    --bg-surface: var(--surface-dark);
-    --drop-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.15);
-    --bg-overlay: var(--overlay-dark);
-    --btn-hover: var(--btn-hover-dark);
-    --btn-focus: var(--btn-focus-dark);
-    --btn-primary-hover: var(--btn-primary-hover-dark);
-    --btn-primary-focus: var(--btn-primary-focus-dark);
-  }
 }
 
 @media screen and (min-width: 768px) {

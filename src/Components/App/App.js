@@ -19,7 +19,6 @@ class App extends React.Component {
       playlistTracks: [],
       isPlaying: false,
       showPlaylist: false,
-      theme: "light",
       playlistSaved: false,
       showSettings: false,
       numTracks: 5,
@@ -43,21 +42,12 @@ class App extends React.Component {
     this.pausePlayback = this.pausePlayback.bind(this);
     this.setProgress = this.setProgress.bind(this);
 
-    // Theme control (dark mode or light mode)
-    this.toggleTheme = this.toggleTheme.bind(this);
-
     // Settings
     this.toggleShowSettings = this.toggleShowSettings.bind(this);
     this.setNumTracks = this.setNumTracks.bind(this);
   }
 
-  // if the theme is stored in the user's browser cache, use
-  // the previously set theme as the default
   componentDidMount() {
-    const localTheme = window.localStorage.getItem("theme");
-    localTheme && this.setState({ theme: localTheme });
-
-    // set up the Spotify authorization
     Spotify.authorize(this.props.auth);
   }
 
@@ -190,30 +180,8 @@ class App extends React.Component {
     });
   }
 
-  setMode(mode) {
-    // set the mode in the browser cache,
-    // allowing it to persist between sessions
-    window.localStorage.setItem("theme", mode);
-    this.setState({ theme: mode });
-  }
-
   setProgress(progress) {
     this.setState({ progress: progress });
-  }
-
-  // toggle the display mode between light and dark mode
-  toggleTheme() {
-    if (this.state.theme === "light") {
-      this.setMode("dark");
-
-      // change the background outside of "App"
-      document.body.style = "background: #111111";
-    } else {
-      this.setMode("light");
-
-      // change the background outside of "App"
-      document.body.style = "background: #ffffff";
-    }
   }
 
   // toggle visibility of the settings
@@ -237,7 +205,7 @@ class App extends React.Component {
       this.state.playlistTracks.length === 0 ? "collapsed" : "";
 
     return (
-      <div className="App" theme={this.state.theme}>
+      <div className="App" theme={this.props.theme}>
         <AudioPlayer
           track={this.state.currentTrack.preview}
           isPlaying={this.state.isPlaying}
@@ -248,8 +216,8 @@ class App extends React.Component {
         {this.state.playlistSaved && <div className="SuccessScreen"></div>}
         <section className={`Container ${isPlaylistCollapsed}`}>
           <NavBar
-            theme={this.state.theme}
-            toggleTheme={this.toggleTheme}
+            theme={this.props.theme}
+            toggleTheme={this.props.toggleTheme}
             showSettings={this.state.showSettings}
             toggleSettings={this.toggleShowSettings}
           />

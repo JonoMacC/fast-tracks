@@ -8,19 +8,26 @@ import React, { useContext } from "react";
 import { Switch, Route } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 import { PrivateRoute } from "../PrivateRoute/PrivateRoute";
+import { useTheme } from "../../util/useTheme";
 import Login from "./Login";
 import App from "./App";
 import "./App.css";
 
-function AppRouter(props) {
-  // component renders before the authentication data can be
-  // retrieved from local storage, so it will initially be null
+function AppRouter() {
   const [auth] = useContext(AuthContext);
+  const [theme, toggleTheme] = useTheme();
 
   return (
     <Switch>
-      <PrivateRoute exact path="/" component={App} auth={auth} />
-      <Route path="/login" component={Login} />
+      <PrivateRoute
+        exact
+        path="/"
+        component={App}
+        auth={auth}
+        theme={theme}
+        toggleTheme={toggleTheme}
+      />
+      <Route path="/login" render={() => <Login theme={theme} />} />
     </Switch>
   );
 }

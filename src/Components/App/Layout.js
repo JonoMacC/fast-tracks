@@ -2,10 +2,10 @@ import React from "react";
 
 import "./App.css";
 
-export const Layout = ({ children }) => {
+export const Layout = (props) => {
   return (
-    <div className="App">
-      <section className="Screen">{children}</section>
+    <div className="App" theme={props.theme}>
+      <section className="Screen">{props.children}</section>
     </div>
   );
 };

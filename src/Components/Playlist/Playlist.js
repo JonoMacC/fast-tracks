@@ -60,74 +60,65 @@ export const Playlist = ({
     };
   }, []);
 
-  if (collapsePlaylist) {
-    return null;
-  } else {
-    return (
-      <section className="Playlist">
-        <div className="PlaylistAction">
+  return collapsePlaylist ? null : (
+    <section className="Playlist">
+      <div className="PlaylistAction">
+        <motion.div
+          variants={{
+            closed: {
+              borderRadius: "16px",
+              width: "32px",
+            },
+            open: {
+              borderRadius: "8px",
+              width: "100%",
+            },
+          }}
+          transition={transition}
+          className="PlaylistInput"
+          initial={false}
+          animate={isOpen ? "open" : "closed"}
+        >
+          <input
+            className="PlaylistName"
+            defaultValue="Fast Tracks"
+            onChange={(event) => onNameChange(event.target.value)}
+            isopen={isOpen.toString()}
+          />
+
+          <button
+            className="PlaylistExpand "
+            onClick={() => onToggle()}
+            isopen={isOpen.toString()}
+          >
+            <div className="inner">
+              <Icon name="playlist" color="var(--text-light)" size="24px" />
+            </div>
+          </button>
+
+          <TrackCounter numTracks={tracks.length} />
+        </motion.div>
+        <button
+          className="PlaylistDropdown"
+          aria-label="Show/hide tracks"
+          onClick={() => onToggle()}
+          isopen={showToggle().toString()}
+        >
           <motion.div
+            className="iconContainer"
             variants={{
-              closed: {
-                borderRadius: "16px",
-                width: "32px",
-              },
-              open: {
-                borderRadius: "8px",
-                width: "100%",
-              },
+              closed: { rotate: 0 },
+              open: { rotate: -180 },
             }}
-            transition={transition}
-            className="PlaylistInput"
             initial={false}
             animate={isOpen ? "open" : "closed"}
           >
-            <input
-              className="PlaylistName"
-              defaultValue="Fast Tracks"
-              onChange={(event) => onNameChange(event.target.value)}
-              isopen={isOpen.toString()}
-            />
-
-            <button
-              className="PlaylistExpand "
-              onClick={() => onToggle()}
-              isopen={isOpen.toString()}
-            >
-              <div className="inner">
-                <Icon name="playlist" color="var(--text-light)" size="24px" />
-              </div>
-            </button>
-
-            <TrackCounter numTracks={tracks.length} />
+            <Icon name="dropdown" color="var(--text)" size="24px" />
           </motion.div>
-          <button
-            className="PlaylistDropdown"
-            aria-label="Show/hide tracks"
-            onClick={() => onToggle()}
-            isopen={showToggle().toString()}
-          >
-            <motion.div
-              className="iconContainer"
-              variants={{
-                closed: { rotate: 0 },
-                open: { rotate: -180 },
-              }}
-              initial={false}
-              animate={isOpen ? "open" : "closed"}
-            >
-              <Icon name="dropdown" color="var(--text)" size="24px" />
-            </motion.div>
-          </button>
-        </div>
+        </button>
+      </div>
 
-        <TrackList
-          tracks={tracks}
-          isRemoval={true}
-          isOpen={isOpen}
-          {...props}
-        />
-      </section>
-    );
-  }
+      <TrackList tracks={tracks} isRemoval={true} isOpen={isOpen} {...props} />
+    </section>
+  );
 };
