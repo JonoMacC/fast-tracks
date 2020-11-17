@@ -220,6 +220,7 @@ class App extends React.Component {
             toggleTheme={this.props.toggleTheme}
             showSettings={this.state.showSettings}
             toggleSettings={this.toggleShowSettings}
+            showPlaylist={this.state.showPlaylist}
           />
           <Playlist
             onNameChange={this.updatePlaylistName}
