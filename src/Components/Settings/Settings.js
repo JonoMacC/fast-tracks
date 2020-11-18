@@ -1,10 +1,9 @@
 import React, { useContext } from "react";
-import { motion, AnimateSharedLayout } from "framer-motion";
+import { motion } from "framer-motion";
 import { AuthContext } from "../../contexts/AuthContext";
 import { TableCell } from "../TableCell/TableCell";
 import { Icon } from "../Icons/Icons";
 import { StepInput } from "../StepInput/StepInput";
-import { InfoListItem } from "./InfoListItem";
 import "./Settings.css";
 
 const spring = {
@@ -97,6 +96,8 @@ export const Settings = ({ toggleSettings, isVisible, ...props }) => {
               <TableCell>
                 <a
                   className="Header"
+                  target="_blank"
+                  rel="noreferrer noopener"
                   href="https://github.com/JonoMacC/fast-tracks"
                 >
                   <p>Github</p>
@@ -113,24 +114,52 @@ export const Settings = ({ toggleSettings, isVisible, ...props }) => {
           <section className="SettingsGroup">
             <h2>Legal</h2>
             <section className="SettingsList">
-              <AnimateSharedLayout>
-                <motion.ul className="InfoList">
-                  <InfoListItem title="Terms & Conditions">
-                    <p>
-                      By using the app, "Fast Tracks", you agree to the TERMS &
-                      CONDITIONS, which represent an agreement between you and
-                      the author of the app "Jon MacCaull".
-                    </p>
-                    <p>
-                      You agree to not hold the author liable for any damages or
-                      loss occurring either directly or indirectly through the
-                      use of the app.
-                    </p>
-                  </InfoListItem>
-                  <InfoListItem title="Privacy Policy"></InfoListItem>
-                  <InfoListItem title="Cookie Use"></InfoListItem>
-                </motion.ul>
-              </AnimateSharedLayout>
+              <TableCell>
+                <a
+                  className="Header"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  href="/terms-and-conditions"
+                >
+                  <p>Terms & Conditions</p>
+                  <Icon
+                    name="next"
+                    color="var(--icon)"
+                    size="var(--icon-size)"
+                  />
+                </a>
+              </TableCell>
+
+              <TableCell>
+                <a
+                  className="Header"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  href="/privacy-policy"
+                >
+                  <p>Privacy Policy</p>
+                  <Icon
+                    name="next"
+                    color="var(--icon)"
+                    size="var(--icon-size)"
+                  />
+                </a>
+              </TableCell>
+              <TableCell>
+                <a
+                  className="Header"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  href="/cookie-use"
+                >
+                  <p>Cookie Use</p>
+                  <Icon
+                    name="next"
+                    color="var(--icon)"
+                    size="var(--icon-size)"
+                  />
+                </a>
+              </TableCell>
             </section>
           </section>
           <button

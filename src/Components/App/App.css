@@ -349,6 +349,11 @@ a:hover {
     justify-content: center;
   }
 
+  .InfoPage {
+    background: var(--bg);
+    max-width: 1200px;
+  }
+
   .Screen {
     align-items: flex-start;
     width: 343px;
