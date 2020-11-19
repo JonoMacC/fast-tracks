@@ -6,7 +6,6 @@ import { TrackStack } from "../TrackStack/TrackStack";
 import { ActionBar } from "../ActionBar/ActionBar";
 import { Settings } from "../Settings/Settings";
 import Spotify from "../../util/Spotify";
-import "./App.css";
 
 class App extends React.Component {
   constructor(props) {
@@ -51,9 +50,13 @@ class App extends React.Component {
     Spotify.authorize(this.props.auth);
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
     if (prevProps.auth !== this.props.auth) {
       Spotify.authorize(this.props.auth);
+    }
+
+    if (prevState.currentTrack !== this.state.currentTrack) {
+      this.setState({ progress: 0 });
     }
   }
 

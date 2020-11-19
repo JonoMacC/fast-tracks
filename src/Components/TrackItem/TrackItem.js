@@ -23,12 +23,12 @@ export const TrackItem = ({ onAdd, onRemove, track, isRemoval, ...props }) => {
       animate={{
         opacity: 1,
         x: 0,
-        transition: { duration: 0.07 },
+        transition: { duration: 0.07, ease: "easeOut" },
       }}
       exit={{
         opacity: 0,
         x: -375,
-        transition: { duration: 0.07 },
+        transition: { duration: 0.15, ease: "easeIn" },
       }}
     >
       <div className="TrackPlayerContainer">

@@ -21,8 +21,7 @@ export const TrackCard = ({
   });
 
   // if the card has closed, remove it from the list of tracks
-  // delay removing the card from the DOM to give time for
-  // "exit" animations to occur
+  // delay removing the card to give time for "exit" animations
   useEffect(() => {
     if (state.isClosed) {
       // set the timeout duration based on whether the track has been
@@ -37,12 +36,12 @@ export const TrackCard = ({
 
   // change the state of the card to change its appearance
   const addTrack = () => {
-    setState({ isAdded: true, isClosed: true });
+    setState({ isAdded: true, isDiscard: false, isClosed: true });
   };
 
   // change the state of the card to change its appearance
   const discardTrack = () => {
-    setState({ isDiscard: true, isClosed: true });
+    setState({ isAdded: false, isDiscard: true, isClosed: true });
   };
 
   const getTrackAction = () => {
