@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState, useEffect, useReducer, useCallback } from "react";
 import { Playlist } from "../Playlist/Playlist";
 import { NavBar } from "../NavBar/NavBar";
 import { AudioPlayer } from "../AudioPlayer/AudioPlayer";
@@ -86,9 +86,19 @@ const App = ({ auth, theme, toggleTheme }) => {
       .catch((err) => console.error(err.message));
   };
 
-  const pausePlayback = (track = null) => {
-    state.isPlaying && dispatch({ type: "PAUSE_PLAYBACK", payload: track });
-  };
+  const pausePlayback = useCallback(
+    (track = null) => {
+      state.isPlaying && dispatch({ type: "PAUSE_PLAYBACK", payload: track });
+    },
+    [state.isPlaying, dispatch]
+  );
+
+  const startPlayback = useCallback(
+    (track) => {
+      dispatch({ type: "START_PLAYBACK", payload: track });
+    },
+    [dispatch]
+  );
 
   // toggle visibility of the playlist
   const toggleShowPlaylist = () => {
@@ -104,25 +114,33 @@ const App = ({ auth, theme, toggleTheme }) => {
     dispatch({ type: "RENAME_PLAYLIST", payload: name });
   };
 
-  const addTrack = (track) => {
-    dispatch({ type: "ADD_TRACK", payload: track });
-  };
+  const addTrack = useCallback(
+    (track) => {
+      dispatch({ type: "ADD_TRACK", payload: track });
+    },
+    [dispatch]
+  );
 
-  const removePlaylistTrack = (track) => {
-    dispatch({ type: "REMOVE_PLAYLIST_TRACK", payload: track });
-  };
+  const removePlaylistTrack = useCallback(
+    (track) => {
+      dispatch({ type: "REMOVE_PLAYLIST_TRACK", payload: track });
+    },
+    [dispatch]
+  );
 
-  const removeSuggestedTrack = (track) => {
-    dispatch({ type: "REMOVE_SUGGESTED_TRACK", payload: track });
-  };
+  const removeSuggestedTrack = useCallback(
+    (track) => {
+      dispatch({ type: "REMOVE_SUGGESTED_TRACK", payload: track });
+    },
+    [dispatch]
+  );
 
-  const startPlayback = (track) => {
-    dispatch({ type: "START_PLAYBACK", payload: track });
-  };
-
-  const setProgress = (progress) => {
-    dispatch({ type: "SET_PROGRESS", payload: progress });
-  };
+  const setProgress = useCallback(
+    (progress) => {
+      dispatch({ type: "SET_PROGRESS", payload: progress });
+    },
+    [dispatch]
+  );
 
   // determine if the playlist should be in a collapsed state
   // based on whether there are zero tracks in the playlist
@@ -136,7 +154,7 @@ const App = ({ auth, theme, toggleTheme }) => {
       <AudioPlayer
         track={state.track.preview}
         isPlaying={state.isPlaying}
-        onEnd={() => dispatch({ type: "PAUSE_PLAYBACK" })}
+        onEnd={pausePlayback}
         setProgress={setProgress}
       />
 

@@ -2,15 +2,20 @@
   width: 100%;
   padding: 0 8px;
   overflow: hidden;
-  visibility: hidden;
-  display: none;
+  display: flex;
   flex: auto;
   position: relative;
 }
 
-.TrackListContainer[isopen="true"] {
-  visibility: visible;
-  display: flex;
+.TrackListContainer::after {
+  position: fixed;
+  content: "";
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(var(--bg-0), var(--bg));
+  transition: background 1s 1s ease-in;
 }
 
 .TrackListScrollContainer {
@@ -26,17 +31,6 @@
   display: flex;
   flex-direction: column;
   padding-bottom: 5rem;
-}
-
-.TrackListContainer[isopen="true"]::after {
-  position: fixed;
-  content: "";
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 80px;
-  background: linear-gradient(var(--bg-0), var(--bg));
-  transition: background 1s 1s ease-in;
 }
 
 .TrackList > li {
