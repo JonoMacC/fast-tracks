@@ -96,31 +96,33 @@ class App extends React.Component {
   // if the playlist already contains the track, do nothing
   // otherwise, append the track to the end of the playlist
   addTrack(track) {
-    let tracks = this.state.playlistTracks;
-    if (tracks.find((savedTrack) => savedTrack.id === track.id)) {
+    if (
+      this.state.playlistTracks.find((savedTrack) => savedTrack.id === track.id)
+    ) {
       return;
     }
-    tracks.push(track);
     this.setState((prevState) => ({
-      playlistTracks: tracks,
+      playlistTracks: [...prevState.playlistTracks, track],
       trackCount: prevState.trackCount + 1,
     }));
   }
 
   // remove a track from the suggested tracks list
   removeSuggestedTrack(track) {
-    let tracks = this.state.suggestedTracks;
-    tracks = tracks.filter((currentTrack) => currentTrack.id !== track.id);
-    this.setState({ suggestedTracks: tracks });
+    this.setState((prevState) => ({
+      suggestedTracks: prevState.suggestedTracks.filter(
+        (currentTrack) => currentTrack.id !== track.id
+      ),
+    }));
   }
 
   // remove a track from the playlist
   // filters the playlist and removes any occurrences of the passed in track
   removePlaylistTrack(track) {
-    let tracks = this.state.playlistTracks;
-    tracks = tracks.filter((currentTrack) => currentTrack.id !== track.id);
     this.setState((prevState) => ({
-      playlistTracks: tracks,
+      playlistTracks: prevState.playlistTracks.filter(
+        (currentTrack) => currentTrack.id !== track.id
+      ),
       trackCount: prevState.trackCount - 1,
     }));
   }
@@ -130,7 +132,10 @@ class App extends React.Component {
   // currently playing track
   // if no track is provided, playback stops
   pausePlayback(track = null) {
-    if (track === this.state.currentTrack || track === null) {
+    if (
+      this.state.isPlaying &&
+      (track === this.state.currentTrack || track === null)
+    ) {
       this.setState({
         isPlaying: false,
       });
