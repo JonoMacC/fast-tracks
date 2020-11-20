@@ -16,6 +16,7 @@ class App extends React.Component {
       nextTrack: "",
       playlistName: "Fast Tracks",
       playlistTracks: [],
+      trackCount: 0,
       isPlaying: false,
       showPlaylist: false,
       playlistSaved: false,
@@ -100,7 +101,10 @@ class App extends React.Component {
       return;
     }
     tracks.push(track);
-    this.setState({ playlistTracks: tracks });
+    this.setState((prevState) => ({
+      playlistTracks: tracks,
+      trackCount: prevState.trackCount + 1,
+    }));
   }
 
   // remove a track from the suggested tracks list
@@ -115,7 +119,10 @@ class App extends React.Component {
   removePlaylistTrack(track) {
     let tracks = this.state.playlistTracks;
     tracks = tracks.filter((currentTrack) => currentTrack.id !== track.id);
-    this.setState({ playlistTracks: tracks });
+    this.setState((prevState) => ({
+      playlistTracks: tracks,
+      trackCount: prevState.trackCount - 1,
+    }));
   }
 
   // pause playback
@@ -158,6 +165,7 @@ class App extends React.Component {
       this.setState({
         playlistName: "Fast Tracks",
         playlistTracks: [],
+        trackCount: 0,
       });
     });
 
@@ -237,6 +245,7 @@ class App extends React.Component {
             currentTrack={this.state.currentTrack}
             progress={this.state.progress}
             isPlaying={this.state.isPlaying}
+            numTracks={this.state.trackCount}
           />
           <Settings
             isVisible={this.state.showSettings}

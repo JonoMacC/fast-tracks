@@ -15,6 +15,7 @@ export const Playlist = ({
   onNameChange,
   showPlaylist,
   tracks,
+  numTracks,
   ...props
 }) => {
   // use the size of the window to determine whether to always show
@@ -96,7 +97,7 @@ export const Playlist = ({
             </div>
           </button>
 
-          <TrackCounter numTracks={tracks.length} />
+          <TrackCounter numTracks={numTracks} />
         </motion.div>
         <button
           className="PlaylistDropdown"
