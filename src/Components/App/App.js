@@ -258,7 +258,6 @@ class App extends React.Component {
             setNumTracks={this.setNumTracks}
             toggleSettings={this.toggleShowSettings}
           />
-
           <main className="TrackSelect">
             <TrackStack
               tracks={this.state.suggestedTracks}

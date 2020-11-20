@@ -133,15 +133,10 @@ a:hover {
   left: 0;
   top: 0;
   bottom: 0;
-  display: none;
-  visibility: hidden;
-  align-items: center;
-  background: none;
-}
-
-.PageContainer[isopen="true"] {
   display: flex;
   visibility: visible;
+  align-items: center;
+  background: none;
 }
 
 .Screen {
