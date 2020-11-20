@@ -16,6 +16,7 @@ const initialState = {
   track: {},
   isPlaying: false,
   progress: 0,
+  trackCount: 0,
 };
 
 const App = ({ auth, theme, toggleTheme }) => {
@@ -160,6 +161,7 @@ const App = ({ auth, theme, toggleTheme }) => {
           currentTrack={state.track}
           progress={state.progress}
           isPlaying={state.isPlaying}
+          numTracks={state.trackCount}
         />
         <Settings
           isVisible={showSettings}

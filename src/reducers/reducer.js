@@ -12,6 +12,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         playlistTracks: [...state.playlistTracks, action.payload],
+        trackCount: state.trackCount + 1,
       };
     case "REMOVE_SUGGESTED_TRACK":
       return {
@@ -26,6 +27,7 @@ const reducer = (state, action) => {
         playlistTracks: state.playlistTracks.filter(
           (track) => track.id !== action.payload.id
         ),
+        trackCount: state.trackCount - 1,
       };
     case "RENAME_PLAYLIST":
       return {
@@ -54,6 +56,7 @@ const reducer = (state, action) => {
         playlistSaved: true,
         playlistName: "Fast Tracks",
         playlistTracks: [],
+        trackCount: 0,
       };
     case "UNSAVE_PLAYLIST":
       return {
