@@ -16,6 +16,11 @@ export const AudioPlayer = ({ isPlaying, track }) => {
     }
   }, [isPlaying, track]);
 
+  // Reset progress when the track changes
+  useEffect(() => {
+    setProgress(0);
+  }, [track, setProgress]);
+
   const handleTimeUpdate = () => {
     setProgress(
       Math.floor((player.current.currentTime / player.current.duration) * 100)

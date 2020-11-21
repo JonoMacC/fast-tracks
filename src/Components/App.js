@@ -53,11 +53,6 @@ function App() {
     Spotify.authorize(auth.data);
   }, [auth]);
 
-  // reset the player progress when the track changes
-  useEffect(() => {
-    dispatch({ type: "SET_PROGRESS", payload: 0 });
-  }, [state.track, dispatch]);
-
   // Reset client-side authorization
   const onLogout = () => {
     console.log("Logging out...");
