@@ -4,32 +4,20 @@
  * if the user is not authenticated, redirect them to the login screen
  */
 
-import React, { useContext } from "react";
+import React from "react";
 import { Switch, Route } from "react-router-dom";
-import { AuthContext } from "../../contexts/AuthContext";
 import { PrivateRoute } from "../PrivateRoute/PrivateRoute";
-import { useTheme } from "../../util/useTheme";
 import Login from "./Login";
-import App from "./App";
+import App from "./AppFnc";
 import "./App.css";
 
-function AppRouter() {
-  const [auth] = useContext(AuthContext);
-  const [theme, toggleTheme] = useTheme();
-
+function Routes() {
   return (
     <Switch>
-      <PrivateRoute
-        exact
-        path="/"
-        component={App}
-        auth={auth}
-        theme={theme}
-        toggleTheme={toggleTheme}
-      />
-      <Route path="/login" render={() => <Login theme={theme} />} />
+      <PrivateRoute exact path="/" component={App} />
+      <Route path="/login" component={Login} />
     </Switch>
   );
 }
 
-export default AppRouter;
+export default Routes;

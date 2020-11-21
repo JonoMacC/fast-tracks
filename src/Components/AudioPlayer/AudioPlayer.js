@@ -1,8 +1,11 @@
-import React, { useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
+import { AppDispatch, ProgressContext } from "../../contexts/AppContext";
 
-export const AudioPlayer = ({ isPlaying, track, onEnd, setProgress }) => {
+export const AudioPlayer = ({ isPlaying, track }) => {
   // Create a reference to the player object
   const player = useRef();
+  const [, setProgress] = useContext(ProgressContext);
+  const dispatch = useContext(AppDispatch);
 
   // Toggle playback when isPlaying or track changes
   useEffect(() => {
@@ -25,6 +28,11 @@ export const AudioPlayer = ({ isPlaying, track, onEnd, setProgress }) => {
 
   const endPlayback = () => {
     player.current.pause();
+  };
+
+  const onEnd = () => {
+    dispatch({ type: "END_PLAYBACK" });
+    setProgress(0);
   };
 
   return (

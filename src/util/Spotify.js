@@ -107,7 +107,7 @@ const Spotify = {
             return this.retryAxios(options, retries - 1);
           }
         } else {
-          throw new Error(err.response);
+          throw new Error(err.response ? err.response : "No response.");
         }
       });
   },
@@ -201,7 +201,7 @@ const Spotify = {
         }));
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err.message);
       });
   },
 
@@ -240,11 +240,14 @@ const Spotify = {
    * Get a list of recommended tracks
    */
   async getTracks(numTracks = 5) {
-    // get a list of the user's top tracks
     // if no top tracks have been set, retrieve them
-    // otherwise, leave the list as is
     if (this.topTracks.length === 0) {
-      this.setTopTracks(await this.retrieveTopTracks());
+      let newTopTracks = await this.retrieveTopTracks();
+      if (newTopTracks) {
+        this.setTopTracks(newTopTracks);
+      } else {
+        throw new Error();
+      }
     }
 
     // retrieve a list of 5 seed tracks based on the user's recent top tracks
@@ -282,7 +285,7 @@ const Spotify = {
           .slice(0, numTracks);
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err.message);
       });
   },
 

@@ -1,17 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import { motion } from "framer-motion";
+import { AppDispatch } from "../../contexts/AppContext";
 import { Player } from "../Player/Player";
 import { Icon } from "../Icons/Icons";
 import "./TrackItem.css";
 
-export const TrackItem = ({ onAdd, onRemove, track, isRemoval, ...props }) => {
+export const TrackItem = ({ track, isRemoval }) => {
+  const dispatch = useContext(AppDispatch);
+
   const add = () => {
-    onAdd(track);
+    dispatch({ type: "ADD_TRACK", payload: track });
   };
 
   const remove = () => {
-    onRemove(track);
+    dispatch({ type: "REMOVE_PLAYLIST_TRACK", payload: track });
   };
+
+  console.log("TrackItem render", Date.now());
 
   return (
     <motion.li
@@ -32,12 +37,7 @@ export const TrackItem = ({ onAdd, onRemove, track, isRemoval, ...props }) => {
       }}
     >
       <div className="TrackPlayerContainer">
-        <Player
-          track={track}
-          img={track.imageSrc}
-          miniPlayer={true}
-          {...props}
-        />
+        <Player track={track} miniPlayer={true} />
       </div>
 
       <div className="TrackInformation">

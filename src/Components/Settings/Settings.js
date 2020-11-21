@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
+import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { AuthContext } from "../../contexts/AuthContext";
 import { TableCell } from "../TableCell/TableCell";
 import { Icon } from "../Icons/Icons";
 import { StepInput } from "../StepInput/StepInput";
+import { ListLink } from "./ListLink";
 import "./Settings.css";
 
 const spring = {
@@ -15,20 +15,7 @@ const spring = {
 const minStep = 3,
   maxStep = 7;
 
-export const Settings = ({ toggleSettings, isVisible, ...props }) => {
-  // const history = useHistory();
-  // Subscribe to authentication context
-  const [, setAuthData] = useContext(AuthContext);
-
-  // Reset client-side authorization
-  const onLogout = () => {
-    // clear browser cache
-    window.localStorage.setItem("authData", null);
-
-    // clear authorization context
-    setAuthData(null);
-  };
-
+export const Settings = ({ onClose, isVisible, onLogout, ...props }) => {
   // Settings decrement function, determines behavior for
   // settings stepper input
   const stepBack = () => {
@@ -68,7 +55,7 @@ export const Settings = ({ toggleSettings, isVisible, ...props }) => {
           >
             <div className="SettingsHeader">
               <h1>Settings</h1>
-              <button className="TapItem" onClick={toggleSettings}>
+              <button className="TapItem" onClick={onClose}>
                 <Icon
                   name="cancel"
                   color="var(--icon)"
@@ -80,7 +67,6 @@ export const Settings = ({ toggleSettings, isVisible, ...props }) => {
             <div className="SettingsContainer">
               <section className="SettingsGroup">
                 <h2>Preferences</h2>
-
                 <section className="SettingsList">
                   <TableCell>
                     <div className="Header">
@@ -103,74 +89,24 @@ export const Settings = ({ toggleSettings, isVisible, ...props }) => {
                   <TableCell>
                     <p>Version 0.0.0</p>
                   </TableCell>
-
-                  <TableCell>
-                    <a
-                      className="Header"
-                      target="_blank"
-                      rel="noreferrer noopener"
-                      href="https://github.com/JonoMacC/fast-tracks"
-                    >
-                      <p>Github</p>
-                      <Icon
-                        name="next"
-                        color="var(--icon)"
-                        size="var(--icon-size)"
-                      />
-                    </a>
-                  </TableCell>
+                  <ListLink url="https://github.com/JonoMacC/fast-tracks">
+                    <p>Github</p>
+                  </ListLink>
                 </section>
               </section>
 
               <section className="SettingsGroup">
                 <h2>Legal</h2>
                 <section className="SettingsList">
-                  <TableCell>
-                    <a
-                      className="Header"
-                      target="_blank"
-                      rel="noreferrer noopener"
-                      href="/terms-and-conditions"
-                    >
-                      <p>Terms & Conditions</p>
-                      <Icon
-                        name="next"
-                        color="var(--icon)"
-                        size="var(--icon-size)"
-                      />
-                    </a>
-                  </TableCell>
-
-                  <TableCell>
-                    <a
-                      className="Header"
-                      target="_blank"
-                      rel="noreferrer noopener"
-                      href="/privacy-policy"
-                    >
-                      <p>Privacy Policy</p>
-                      <Icon
-                        name="next"
-                        color="var(--icon)"
-                        size="var(--icon-size)"
-                      />
-                    </a>
-                  </TableCell>
-                  <TableCell>
-                    <a
-                      className="Header"
-                      target="_blank"
-                      rel="noreferrer noopener"
-                      href="/cookie-use"
-                    >
-                      <p>Cookie Use</p>
-                      <Icon
-                        name="next"
-                        color="var(--icon)"
-                        size="var(--icon-size)"
-                      />
-                    </a>
-                  </TableCell>
+                  <ListLink url="/terms-and-conditions">
+                    <p>Terms & Conditions</p>
+                  </ListLink>
+                  <ListLink url="/privacy-policy">
+                    <p>Privacy Policy</p>
+                  </ListLink>
+                  <ListLink url="/cookie-use">
+                    <p>Cookie Use</p>
+                  </ListLink>
                 </section>
               </section>
               <button

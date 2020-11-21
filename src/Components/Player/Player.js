@@ -1,53 +1,48 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
+import { AppDispatch, AppState } from "../../contexts/AppContext";
+import { useToggle } from "../../util/useToggle";
 import {
   PlayerControl,
   MiniPlayerControl,
 } from "../PlayerControl/PlayerControl";
 import "./Player.css";
 
-export const Player = ({
-  onStop,
-  onPlay,
-  track,
-  currentTrack,
-  isPlaying,
-  progress,
-  ...props
-}) => {
-  // get the player state from the props
-  const playing = isPlaying && currentTrack.id === track.id;
+export const Player = ({ track, miniPlayer }) => {
+  const dispatch = useContext(AppDispatch);
+  const appState = useContext(AppState);
+  const [playing, togglePlay] = useToggle(false);
 
-  const [localProgress, setProgress] = useState(0);
+  // toggling the player changes playback for
+  // the app audio player and toggles the player state
+  const onTogglePlay = () => {
+    if (playing) {
+      dispatch({ type: "PAUSE_PLAYBACK", payload: track });
+    } else {
+      dispatch({ type: "START_PLAYBACK", payload: track });
+    }
+    togglePlay();
+  };
 
   useEffect(() => {
-    if (playing) {
-      setProgress(progress);
-    } else if (isPlaying) {
-      setProgress(0);
-    }
-  }, [playing, isPlaying, progress]);
-
-  // toggle the player
-  const togglePlay = () => {
-    if (playing) {
-      onStop(track);
+    if (appState.track.id !== track.id) {
+      playing && togglePlay();
     } else {
-      onPlay(track);
+      !playing && appState.isPlaying && togglePlay();
     }
-  };
+  }, [playing, togglePlay, appState.track, appState.isPlaying, track]);
 
   return (
     <button
-      onClick={togglePlay}
+      onClick={onTogglePlay}
       className="Player"
       style={{
-        backgroundImage: `url(${props.img})`,
+        backgroundImage: `url(${track.imageSrc})`,
       }}
     >
-      {props.miniPlayer ? (
+      {miniPlayer ? (
         <MiniPlayerControl playing={playing} />
       ) : (
-        <PlayerControl playing={playing} progress={localProgress || 0} />
+        <PlayerControl playing={playing} />
       )}
     </button>
   );

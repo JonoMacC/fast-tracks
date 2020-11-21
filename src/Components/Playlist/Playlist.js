@@ -16,7 +16,6 @@ export const Playlist = ({
   showPlaylist,
   tracks,
   numTracks,
-  ...props
 }) => {
   // use the size of the window to determine whether to always show
   // the playlist (large displays) or to only show it when it is
@@ -120,12 +119,7 @@ export const Playlist = ({
           </button>
         </div>
 
-        <TrackList
-          tracks={tracks}
-          isRemoval={true}
-          isOpen={isOpen}
-          {...props}
-        />
+        <TrackList tracks={tracks} isRemoval={true} isOpen={isOpen} />
       </section>
     )
   );

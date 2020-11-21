@@ -14,37 +14,37 @@ const variants = {
   closed: { opacity: 0, y: "-100vh", transition: spring },
 };
 
-export const TrackList = ({ tracks, isOpen, ...props }) => {
-  return (
-    <AnimatePresence>
-      {isOpen && (
+export const TrackList = ({ tracks, isOpen }) => (
+  <AnimatePresence>
+    {isOpen && (
+      <motion.div
+        className="TrackListContainer overlay"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1, transition: spring }}
+        exit={{ opacity: 0, transition: spring }}
+      >
         <motion.div
-          className="TrackListContainer overlay"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1, transition: spring }}
-          exit={{ opacity: 0, transition: spring }}
+          className="TrackListScrollContainer"
+          variants={variants}
+          initial={"closed"}
+          animate={"open"}
+          exit={"closed"}
         >
-          <motion.div
-            className="TrackListScrollContainer"
-            variants={variants}
-            initial={"closed"}
-            animate={"open"}
-            exit={"closed"}
+          <motion.ul
+            className="TrackList"
+            layout
+            transition={{ duration: 0.1 }}
           >
-            <motion.ul
-              className="TrackList"
-              layout
-              transition={{ duration: 0.1 }}
-            >
-              <AnimatePresence>
-                {tracks.map((track) => {
-                  return <TrackItem key={track.id} track={track} {...props} />;
-                })}
-              </AnimatePresence>
-            </motion.ul>
-          </motion.div>
+            <AnimatePresence>
+              {tracks.map((track) => {
+                return (
+                  <TrackItem key={track.id} track={track} isRemoval={true} />
+                );
+              })}
+            </AnimatePresence>
+          </motion.ul>
         </motion.div>
-      )}
-    </AnimatePresence>
-  );
-};
+      </motion.div>
+    )}
+  </AnimatePresence>
+);

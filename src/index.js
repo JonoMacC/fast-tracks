@@ -1,8 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
-
 import AuthProvider from "./contexts/AuthContext";
+import ThemeProvider from "./contexts/ThemeContext";
+import AppProvider from "./contexts/AppContext";
 import App from "./Components/App/AppRouter";
 
 import * as serviceWorker from "./serviceWorker";
@@ -10,9 +11,13 @@ import * as serviceWorker from "./serviceWorker";
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <AuthProvider>
-        <App />
-      </AuthProvider>
+      <ThemeProvider>
+        <AuthProvider>
+          <AppProvider>
+            <App />
+          </AppProvider>
+        </AuthProvider>
+      </ThemeProvider>
     </Router>
   </React.StrictMode>,
   document.getElementById("root")

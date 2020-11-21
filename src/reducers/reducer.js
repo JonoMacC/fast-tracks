@@ -37,7 +37,10 @@ const reducer = (state, action) => {
     case "PAUSE_PLAYBACK":
       // if a track is provided, playback stops if the provided track matches the
       // currently playing track, if no track is provided, playback stops
-      if (action.payload === state.track || action.payload === null) {
+      if (
+        state.isPlaying &&
+        (action.payload === state.track || action.payload === undefined || null)
+      ) {
         return {
           ...state,
           isPlaying: false,
@@ -49,6 +52,12 @@ const reducer = (state, action) => {
         ...state,
         track: action.payload,
         isPlaying: true,
+      };
+    case "END_PLAYBACK":
+      return {
+        ...state,
+        track: {},
+        isPlaying: false,
       };
     case "SAVE_PLAYLIST":
       return {
@@ -69,15 +78,9 @@ const reducer = (state, action) => {
         suggestedTracks: action.payload,
       };
     case "RESET_TRACKS":
-      // reset the state for a new list of suggested tracks
       return {
         ...state,
         suggestedTracks: [],
-      };
-    case "SET_PROGRESS":
-      return {
-        ...state,
-        progress: action.payload,
       };
     default:
       return state;

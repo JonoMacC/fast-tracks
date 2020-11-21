@@ -1,0 +1,34 @@
+/* Playlist Saved Screen */
+.SaveActionContainer {
+  background: #111111;
+  z-index: 20;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.SaveAction {
+  background: url(../TrackAction/PlaylistSaved.svg) no-repeat;
+  background-size: auto;
+  background-position: 50% 50%;
+  content: "";
+  position: absolute;
+  width: 318px;
+  height: 154px;
+}
+
+.SaveRecord {
+  background: url(../TrackAction/vinyl_record@2x.jpg) no-repeat;
+  background-size: contain;
+  background-position: 50% 50%;
+  content: "Save Record";
+  width: 90vh;
+  height: 90vh;
+  position: absolute;
+}

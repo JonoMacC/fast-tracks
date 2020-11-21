@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Icon } from "../Icons/Icons";
-import { ProgressRing } from "./ProgressRing";
+import { PlayerProgress } from "./PlayerProgress";
 import "./PlayerControl.css";
 
 const Path = (props) => <motion.path fill="hsl(0, 0%, 100%)" {...props} />;
@@ -16,7 +16,7 @@ const playPaths = [
   "M 20 40 L 80 40 L 20 74.5 L 20 48.5 Z",
 ];
 
-export const PlayerControl = ({ playing, progress = 0 }) => (
+export const PlayerControl = ({ playing }) => (
   <motion.div
     className="TrackPlayer"
     variants={{
@@ -54,14 +54,7 @@ export const PlayerControl = ({ playing, progress = 0 }) => (
             />
           </svg>
         </div>
-        <div className="PlayerElement">
-          <ProgressRing
-            radius={70}
-            stroke={4}
-            progress={progress}
-            strokeColor="white"
-          />
-        </div>
+        <PlayerProgress playing={playing} />
       </div>
     </motion.div>
   </motion.div>

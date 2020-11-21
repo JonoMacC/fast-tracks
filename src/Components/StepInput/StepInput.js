@@ -1,5 +1,4 @@
 import React from "react";
-
 import { Icon } from "../Icons/Icons";
 import "./StepInput.css";
 
