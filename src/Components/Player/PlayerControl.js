@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Icon } from "../Icons/Icons";
+import { Icon } from "../Icons";
 import { PlayerProgress } from "./PlayerProgress";
 import "./PlayerControl.css";
 

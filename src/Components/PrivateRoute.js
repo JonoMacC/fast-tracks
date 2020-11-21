@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import { Route, Redirect } from "react-router-dom";
-import { AuthContext } from "../../contexts/AuthContext";
-import Layout from "../App/Layout";
+import { AuthContext } from "../contexts/AuthContext";
+import Layout from "./Layout";
 
-export const PrivateRoute = ({ component: Component }) => {
+const PrivateRoute = ({ component: Component }) => {
   const [auth] = useContext(AuthContext);
 
   // if loading is set to true, render loading text
@@ -25,3 +25,5 @@ export const PrivateRoute = ({ component: Component }) => {
   // otherwise redirect to the login screen
   return auth.data ? <Component /> : <Redirect to="/login" />;
 };
+
+export default PrivateRoute;

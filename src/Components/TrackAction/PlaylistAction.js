@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { TrackAction } from "./TrackAction";
 import "./PlaylistAction.css";
 
 const transition = {
@@ -19,14 +20,6 @@ export const PlaylistAction = () => (
       animate={{ opacity: [0, 1, 1, 0], scale: [0, 1, 1, 0] }}
       transition={transition}
     ></motion.div>
-    <motion.div
-      className="SaveAction"
-      animate={{
-        opacity: [0, 1, 1, 0],
-        scale: [0, 1, 1, 0],
-        rotate: [0, 720, 720, 0],
-      }}
-      transition={transition}
-    ></motion.div>
+    <TrackAction name="savePlaylist" transition={transition} />
   </motion.div>
 );

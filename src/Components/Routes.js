@@ -6,10 +6,10 @@
 
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import { PrivateRoute } from "../PrivateRoute/PrivateRoute";
+import PrivateRoute from "./PrivateRoute";
 import Login from "./Login";
-import App from "./AppFnc";
-import "./App.css";
+import App from "./App";
+import "../styles/global.css";
 
 function Routes() {
   return (

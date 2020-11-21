@@ -1,8 +1,8 @@
 import React from "react";
-import { TableCell } from "../TableCell/TableCell";
-import { Icon } from "../Icons/Icons";
+import { TableCell } from "./TableCell";
+import { Icon } from "../Icons";
 
-export const ListLink = ({ url, ...props }) => (
+export const ListItemLink = ({ url, ...props }) => (
   <TableCell>
     <a className="Header" target="_blank" rel="noreferrer noopener" href={url}>
       {props.children}

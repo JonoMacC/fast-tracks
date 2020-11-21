@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import AuthProvider from "./contexts/AuthContext";
 import ThemeProvider from "./contexts/ThemeContext";
 import AppProvider from "./contexts/AppContext";
-import App from "./Components/App/AppRouter";
+import App from "./Components/Routes";
 
 import * as serviceWorker from "./serviceWorker";
 

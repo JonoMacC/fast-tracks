@@ -10,7 +10,7 @@
 }
 
 .TrackStackContainer::before {
-  background: url("./vinyl_record_simple.png") no-repeat;
+  background: url("../../images/vinyl_record_simple.png") no-repeat;
   background-size: contain;
   background-position: left 0 top 50%;
   content: "";

@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { TrackCard } from "../TrackCard/TrackCard";
+import { TrackCard } from "./TrackCard";
 import "./TrackStack.css";
 
 export const TrackStack = ({ tracks }) => (

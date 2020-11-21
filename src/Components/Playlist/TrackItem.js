@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { motion } from "framer-motion";
 import { AppDispatch } from "../../contexts/AppContext";
 import { Player } from "../Player/Player";
-import { Icon } from "../Icons/Icons";
+import { Icon } from "../Icons";
 import "./TrackItem.css";
 
 export const TrackItem = ({ track, isRemoval }) => {

@@ -1,10 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { AppDispatch, AppState } from "../../contexts/AppContext";
 import { useToggle } from "../../util/useToggle";
-import {
-  PlayerControl,
-  MiniPlayerControl,
-} from "../PlayerControl/PlayerControl";
+import { PlayerControl, MiniPlayerControl } from "./PlayerControl";
 import "./Player.css";
 
 export const Player = ({ track, miniPlayer }) => {
@@ -38,6 +35,7 @@ export const Player = ({ track, miniPlayer }) => {
       style={{
         backgroundImage: `url(${track.imageSrc})`,
       }}
+      aria-label="Start/Stop Playback"
     >
       {miniPlayer ? (
         <MiniPlayerControl playing={playing} />

@@ -13,7 +13,7 @@
   overflow: hidden;
 }
 
-.SaveAction {
+/* .SaveAction {
   background: url(../TrackAction/PlaylistSaved.svg) no-repeat;
   background-size: auto;
   background-position: 50% 50%;
@@ -21,10 +21,10 @@
   position: absolute;
   width: 318px;
   height: 154px;
-}
+} */
 
 .SaveRecord {
-  background: url(../TrackAction/vinyl_record@2x.jpg) no-repeat;
+  background: url(../../images/vinyl_record@2x.jpg) no-repeat;
   background-size: contain;
   background-position: 50% 50%;
   content: "Save Record";

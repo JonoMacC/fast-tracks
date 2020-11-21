@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import { routerBasePath } from "../../util/routerBasePath";
-import { ThemeContext } from "../../contexts/ThemeContext";
+import { routerBasePath } from "../util/routerBasePath";
+import { ThemeContext } from "../contexts/ThemeContext";
 
 const Login = () => {
   const [theme] = useContext(ThemeContext);

@@ -1,6 +1,6 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { TrackItem } from "../TrackItem/TrackItem";
+import { TrackItem } from "./TrackItem";
 import "./TrackList.css";
 
 const spring = {

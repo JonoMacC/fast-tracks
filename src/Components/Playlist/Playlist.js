@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Icon } from "../Icons/Icons";
-import { TrackCounter } from "../TrackCounter/TrackCounter";
-import { TrackList } from "../TrackList/TrackList";
+import { Icon } from "../Icons";
+import { TrackCounter } from "./TrackCounter";
+import { TrackList } from "./TrackList";
 import "./Playlist.css";
 
 const transition = {
@@ -91,6 +91,7 @@ export const Playlist = ({
               className="PlaylistExpand"
               onClick={onToggle}
               isopen={isOpen.toString()}
+              aria-label="Playlist"
             >
               <div className="inner">
                 <Icon name="playlist" color="var(--text-light)" size="24px" />

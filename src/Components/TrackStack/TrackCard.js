@@ -145,10 +145,10 @@ export const TrackCard = ({ track, index }) => {
             initial="open"
             animate={state.isClosed ? "closed" : "open"}
           >
-            <button id="discardTrack" className="Btn" onClick={discardTrack}>
+            <button className="Btn" onClick={discardTrack}>
               <span className="label">Discard</span>
             </button>
-            <button id="addTrack" className="Btn" onClick={addTrack}>
+            <button className="Btn" onClick={addTrack}>
               <span className="label">Add Track</span>
             </button>
           </motion.div>

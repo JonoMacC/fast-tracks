@@ -1,3 +1,148 @@
+/* Custom Properties */
+:root {
+  --brand-primary: #ff3575;
+  --bg-light: #ffffff;
+  --text-light: #222222;
+  --text-light-secondary: #484848;
+  --surface-light: #ffffff;
+  --overlay-light: rgba(255, 255, 255, 0.92);
+  --bg-dark: #111111;
+  --text-dark: #ececec;
+  --text-dark-secondary: #b3b3b3;
+  --surface-dark: #1d1d1d;
+  --overlay-dark: rgba(17, 17, 17, 0.7);
+  --icon-light: #dddddd;
+  --input-light: #ededed;
+  --icon-dark: #797979;
+  --input-dark: #303030;
+  --bold-light: 700;
+  --bold-dark: 600;
+  --spacing-light: 1px;
+  --spacing-dark: 1.4px;
+  --scrollbar-light: rgba(0, 0, 0, 0.1);
+  --scrollbar-dark: rgba(255, 255, 255, 0.3);
+  --bg-light-0: rgba(255, 255, 255, 0);
+  --bg-dark-0: rgba(17, 17, 17, 0);
+  --btn-hover-light: rgba(0, 0, 0, 0.2);
+  --btn-focus-light: rgba(0, 0, 0, 0.3);
+  --btn-hover-dark: rgba(255, 255, 255, 0.1);
+  --btn-focus-dark: rgba(255, 255, 255, 0.15);
+  --btn-primary-hover-light: #e21e71;
+  --btn-primary-focus-light: #bd175d;
+  --btn-primary-hover-dark: #ff4882;
+  --btn-primary-focus-dark: #ff508f;
+  --scrim: rgba(0, 0, 0, 0.9);
+  --icon-size: 32px;
+}
+
+/* Dark Theme Colors */
+.App[theme="dark"] * {
+  --text: var(--text-dark);
+  --text-secondary: var(--text-dark-secondary);
+  --icon: var(--icon-dark);
+  --input: var(--input-dark);
+  --bold: var(--bold-dark);
+  --spacing: var(--spacing-dark);
+  --scrollbar: var(--scrollbar-dark);
+  --bg: var(--bg-dark);
+  --bg-0: var(--bg-dark-0);
+  --bg-surface: var(--surface-dark);
+  --drop-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.4);
+  --bg-overlay: var(--overlay-dark);
+  --btn-hover: var(--btn-hover-dark);
+  --btn-focus: var(--btn-focus-dark);
+  --btn-primary-hover: var(--btn-primary-hover-dark);
+  --btn-primary-focus: var(--btn-primary-focus-dark);
+}
+
+.App[theme="dark"] h2 {
+  font-weight: 600;
+}
+
+/* Light Theme Colors */
+.App[theme="light"] * {
+  --text: var(--text-light);
+  --text-secondary: var(--text-light-secondary);
+  --icon: var(--icon-light);
+  --input: var(--input-light);
+  --bold: var(--bold-light);
+  --spacing: var(--spacing-light);
+  --scrollbar: var(--scrollbar-light);
+  --bg: var(--bg-light);
+  --bg-0: var(--bg-light-0);
+  --bg-surface: var(--surface-light);
+  --drop-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.15);
+  --bg-overlay: var(--overlay-light);
+  --btn-hover: var(--btn-hover-light);
+  --btn-focus: var(--btn-focus-light);
+  --btn-primary-hover: var(--btn-primary-hover-light);
+  --btn-primary-focus: var(--btn-primary-focus-light);
+}
+
+.App[theme="light"] h2 {
+  font-weight: 700;
+}
+
+@media screen and (min-width: 768px) {
+  .App .overlay,
+  .App[theme="light"] .overlay,
+  .App[theme="dark"] .overlay {
+    --bg-overlay: none;
+  }
+}
+
+/* Basic Styles */
+html {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+* {
+  margin: 0;
+  padding: 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar) transparent;
+}
+
+/* Selected Text */
+::selection {
+  background: var(--brand-primary);
+  color: #ffffff;
+}
+
+/* Custom Scrollbar */
+*::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+
+*::-webkit-scrollbar-button {
+  width: 0;
+  height: 0;
+}
+
+*::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar);
+}
+
+*::-webkit-scrollbar-thumb {
+  border: 4px solid transparent;
+  background-clip: padding-box;
+}
+
+*::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
 body,
 html,
 #root {
@@ -16,10 +161,6 @@ input,
 
 html {
   font-size: 16px;
-}
-
-:root {
-  --icon-size: 32px;
 }
 
 h1 {
@@ -325,8 +466,7 @@ a:hover {
     width: 100%;
     height: 100%;
     transform-origin: 50% 50%;
-    background: center / contain no-repeat
-      url("../TrackAction/vinyl_record@2x.jpg");
+    background: center / contain no-repeat url("../images/vinyl_record@2x.jpg");
     animation: rotate-in 1.5s ease-out;
   }
 

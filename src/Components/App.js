@@ -1,16 +1,19 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Playlist } from "../Playlist/Playlist";
-import { NavBar } from "../NavBar/NavBar";
-import { AudioPlayer } from "../AudioPlayer/AudioPlayer";
-import { TrackStack } from "../TrackStack/TrackStack";
-import { ActionBar } from "../ActionBar/ActionBar";
-import { Settings } from "../Settings/Settings";
-import { PlaylistAction } from "./PlaylistAction";
-import { AuthContext } from "../../contexts/AuthContext";
-import { ThemeContext } from "../../contexts/ThemeContext";
-import { AppState, AppDispatch } from "../../contexts/AppContext";
-import { useToggle } from "../../util/useToggle";
-import Spotify from "../../util/Spotify";
+import { Playlist } from "./Playlist/Playlist";
+import { NavBar } from "./NavBar/NavBar";
+import { AudioPlayer } from "./AudioPlayer/AudioPlayer";
+import { TrackStack } from "./TrackStack/TrackStack";
+import { ActionBar } from "./ActionBar/ActionBar";
+import { Settings } from "./Settings/Settings";
+import { PlaylistAction } from "./TrackAction/PlaylistAction";
+import { AuthContext } from "../contexts/AuthContext";
+import { ThemeContext } from "../contexts/ThemeContext";
+import { AppState, AppDispatch } from "../contexts/AppContext";
+import { useToggle } from "../util/useToggle";
+import Spotify from "../util/Spotify";
+
+const minStep = 3,
+  maxStep = 7;
 
 function App() {
   const [auth, setAuthData] = useContext(AuthContext);
@@ -20,6 +23,18 @@ function App() {
   const [showPlaylist, togglePlaylist] = useToggle(false);
   const [showSettings, toggleSettings] = useToggle(false);
   const [numTracks, setNumTracks] = useState(5);
+
+  const stepUp = () => {
+    return numTracks < maxStep
+      ? setNumTracks((prevState) => prevState + 1)
+      : null;
+  };
+
+  const stepDown = () => {
+    return numTracks > minStep
+      ? setNumTracks((prevState) => prevState - 1)
+      : null;
+  };
 
   // when playlistSaved has been set to true
   // set it back to false after a delay
@@ -85,8 +100,7 @@ function App() {
       dispatch({ type: "PAUSE_PLAYBACK" });
     }
 
-    // save the playlist to Spotify
-    // reset the playlist name and tracks
+    // save the playlist to Spotify, reset the playlist name and tracks
     // set playlistSaved to true, causing the celebration animation to play
     Spotify.savePlaylist(state.playlistName, trackURIs)
       .then(() => dispatch({ type: "SAVE_PLAYLIST" }))
@@ -97,10 +111,7 @@ function App() {
     dispatch({ type: "RENAME_PLAYLIST", payload: name });
   };
 
-  // determine if the playlist should be in a collapsed state
-  // based on whether there are zero tracks in the playlist
-  // this only affects desktop, so applying the class without
-  // checking the screen width is harmless
+  // determine if the playlist should be in a collapsed state on desktop
   const isPlaylistCollapsed =
     state.playlistTracks.length === 0 ? "collapsed" : "";
 
@@ -124,9 +135,12 @@ function App() {
         <Settings
           isVisible={showSettings}
           numTracks={numTracks}
-          setNumTracks={setNumTracks}
+          stepUp={stepUp}
+          stepDown={stepDown}
           onClose={toggleSettings}
           onLogout={onLogout}
+          minStep={minStep}
+          maxStep={maxStep}
         />
 
         <main className="TrackSelect">

@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Icon } from "../Icons/Icons";
-
+import { Icon } from "../Icons";
 import "./Settings.css";
 import "../TableCell/TableCell.css";
 
-export const InfoListItem = (props) => {
+export const ListItem = (props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleOpen = () => setIsOpen(!isOpen);
