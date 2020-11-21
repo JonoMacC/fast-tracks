@@ -13,16 +13,6 @@
   overflow: hidden;
 }
 
-/* .SaveAction {
-  background: url(../TrackAction/PlaylistSaved.svg) no-repeat;
-  background-size: auto;
-  background-position: 50% 50%;
-  content: "";
-  position: absolute;
-  width: 318px;
-  height: 154px;
-} */
-
 .SaveRecord {
   background: url(../../images/vinyl_record@2x.jpg) no-repeat;
   background-size: contain;
