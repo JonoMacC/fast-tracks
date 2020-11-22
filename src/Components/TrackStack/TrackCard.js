@@ -7,9 +7,7 @@ import "./TrackCard.css";
 
 export const TrackCard = ({ track, index }) => {
   const dispatch = useContext(AppDispatch);
-  const trackName = track.name,
-    artist = track.artist,
-    album = track.album;
+
   const [state, setState] = useState({
     isAdded: false,
     isDiscard: false,
@@ -58,11 +56,6 @@ export const TrackCard = ({ track, index }) => {
     }
   };
 
-  const trackNameColor = state.isClosed ? "#ffffff" : "var(--text)";
-  const trackNameColorSecondary = state.isClosed
-    ? "#ffffff"
-    : "var(--text-secondary)";
-
   const variants = {
     addTrack: {
       transition: { ease: "easeOut", delay: 0.8, duration: 0.15 },
@@ -105,65 +98,92 @@ export const TrackCard = ({ track, index }) => {
         }}
       >
         {state.isClosed && (
-          <motion.div
-            className="TrackOverlay"
-            variants={{
-              open: { opacity: 0 },
-              closed: { opacity: 1 },
-            }}
-            initial={"open"}
-            animate={"closed"}
-          >
+          <TrackOverlay>
             <TrackAction name={getTrackAction()} />
-          </motion.div>
+          </TrackOverlay>
         )}
 
         <div className="TrackContent">
-          <motion.div
-            className="TrackPreview"
-            variants={{
-              open: { height: "70%" },
-              closed: { height: "100%", transition: { duration: 0.1 } },
-            }}
-            initial={"open"}
-            animate={state.isClosed ? "closed" : "open"}
-          >
+          <TrackPreview isClosed={state.isClosed}>
             <Player track={track} miniPlayer={false} />
-          </motion.div>
-
-          <motion.div
-            className="TrackControls"
-            variants={{
-              open: { opacity: 1 },
-              closed: { opacity: 0, height: 0, y: 400, visibility: "hidden" },
-            }}
-            initial="open"
-            animate={state.isClosed ? "closed" : "open"}
-          >
-            <button className="Btn" onClick={discardTrack}>
-              <span className="label">Discard</span>
-            </button>
-            <button className="Btn" onClick={addTrack}>
-              <span className="label">Add Track</span>
-            </button>
-          </motion.div>
+          </TrackPreview>
+          <TrackControls
+            isClosed={state.isClosed}
+            discardTrack={discardTrack}
+            addTrack={addTrack}
+          />
         </div>
-
-        <motion.div
-          className="TrackName"
-          variants={{
-            open: { top: "72%" },
-            closed: { top: "85%" },
-          }}
-          initial={"open"}
-          animate={state.isClosed ? "closed" : "open"}
-        >
-          <h2 style={{ color: trackNameColor }}>{trackName}</h2>
-          <p style={{ color: trackNameColorSecondary }}>
-            {artist} | {album}
-          </p>
-        </motion.div>
+        <TrackInfo track={track} isClosed={state.isClosed} />
       </motion.div>
     </motion.li>
+  );
+};
+
+const TrackPreview = ({ isClosed, ...props }) => (
+  <motion.div
+    className="TrackPreview"
+    variants={{
+      open: { height: "70%" },
+      closed: { height: "100%", transition: { duration: 0.1 } },
+    }}
+    initial={"open"}
+    animate={isClosed ? "closed" : "open"}
+  >
+    {props.children}
+  </motion.div>
+);
+
+const TrackOverlay = (props) => (
+  <motion.div
+    className="TrackOverlay"
+    variants={{
+      open: { opacity: 0 },
+      closed: { opacity: 1 },
+    }}
+    initial={"open"}
+    animate={"closed"}
+  >
+    {props.children}
+  </motion.div>
+);
+
+const TrackControls = ({ isClosed, discardTrack, addTrack }) => (
+  <motion.div
+    className="TrackControls"
+    variants={{
+      open: { opacity: 1 },
+      closed: { opacity: 0, height: 0, y: 400, visibility: "hidden" },
+    }}
+    initial="open"
+    animate={isClosed ? "closed" : "open"}
+  >
+    <button className="Btn" onClick={discardTrack}>
+      <span className="label">Discard</span>
+    </button>
+    <button className="Btn" onClick={addTrack}>
+      <span className="label">Add Track</span>
+    </button>
+  </motion.div>
+);
+
+const TrackInfo = ({ isClosed, track }) => {
+  const { name, artist, album } = track;
+  const primaryColor = isClosed ? "#ffffff" : "var(--text)";
+  const secondaryColor = isClosed ? "#ffffff" : "var(--text-secondary)";
+  return (
+    <motion.div
+      className="TrackName"
+      variants={{
+        open: { top: "72%" },
+        closed: { top: "85%" },
+      }}
+      initial={"open"}
+      animate={isClosed ? "closed" : "open"}
+    >
+      <h2 style={{ color: primaryColor }}>{name}</h2>
+      <p style={{ color: secondaryColor }}>
+        {artist} | {album}
+      </p>
+    </motion.div>
   );
 };
