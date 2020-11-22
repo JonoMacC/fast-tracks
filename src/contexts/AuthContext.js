@@ -57,6 +57,7 @@ const AuthProvider = (props) => {
 
   // when authorization data changes, update the local storage
   useEffect(() => {
+    console.table(auth.data); // log authentication data to console
     window.localStorage.setItem("authData", JSON.stringify(auth.data));
   }, [auth.data]);
 

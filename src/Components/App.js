@@ -34,16 +34,12 @@ function App() {
   // set up authorization on the Spotify API object
   // updates whenever the 'auth' prop is updated
   useEffect(() => {
-    console.table(auth.data);
     Spotify.authorize(auth.data);
   }, [auth]);
 
   // Reset client-side authorization
   const onLogout = () => {
     console.log("Logging out...");
-    // clear browser cache
-    window.localStorage.setItem("authData", null);
-
     // clear authorization context
     setAuthData(null);
   };
