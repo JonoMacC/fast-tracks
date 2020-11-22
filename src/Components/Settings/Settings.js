@@ -1,5 +1,7 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useToggle } from "../../util/useToggle";
+import { Toggle } from "../NavBar/Toggle";
 import { TableCell } from "./TableCell";
 import { Icon } from "../Icons";
 import { StepInput } from "./StepInput";
@@ -17,97 +19,122 @@ const variants = {
   closed: { opacity: 0, scale: 0, transition: spring },
 };
 
-export const Settings = ({
-  onClose,
-  isVisible,
-  onLogout,
-  stepUp,
-  stepDown,
-  numTracks,
-  minStep,
-  maxStep,
-}) => (
-  <AnimatePresence>
-    {isVisible && (
-      <motion.div
-        className="PageContainer"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1, transition: spring }}
-        exit={{ opacity: 0, transition: spring }}
-      >
-        <motion.section
-          variants={variants}
-          initial={"closed"}
-          animate={"open"}
-          exit={"closed"}
-          className="Settings surface"
-        >
-          <div className="SettingsHeader">
-            <h1>Settings</h1>
-            <button
-              className="TapItem"
-              onClick={onClose}
-              aria-label="Close Settings"
-            >
-              <Icon name="cancel" color="var(--icon)" size="var(--icon-size)" />
-            </button>
-          </div>
+const minStep = 3,
+  maxStep = 7;
 
-          <div className="SettingsContainer">
-            <section className="SettingsGroup">
-              <h2>Preferences</h2>
-              <section className="SettingsList">
-                <TableCell>
-                  <div className="Header">
-                    <p>Tracks per turn</p>
-                    <StepInput
-                      value={numTracks}
-                      stepUp={stepUp}
-                      stepDown={stepDown}
-                      min={minStep}
-                      max={maxStep}
+export const Settings = ({ onLogout, numTracks, setNumTracks }) => {
+  const [isVisible, toggleVisibility] = useToggle(false);
+  return (
+    <>
+      <SettingsToggle
+        isVisible={isVisible}
+        toggleVisibility={toggleVisibility}
+      />
+      {isVisible && (
+        <AnimatePresence>
+          {isVisible && (
+            <motion.div
+              className="PageContainer"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1, transition: spring }}
+              exit={{ opacity: 0, transition: spring }}
+            >
+              <motion.section
+                variants={variants}
+                initial={"closed"}
+                animate={"open"}
+                exit={"closed"}
+                className="Settings surface"
+              >
+                <div className="SettingsHeader">
+                  <h1>Settings</h1>
+                  <button
+                    className="TapItem"
+                    onClick={toggleVisibility}
+                    aria-label="Close Settings"
+                  >
+                    <Icon
+                      name="cancel"
+                      color="var(--icon)"
+                      size="var(--icon-size)"
                     />
-                  </div>
-                </TableCell>
-              </section>
-            </section>
+                  </button>
+                </div>
+                <SettingsList
+                  onLogout={onLogout}
+                  numTracks={numTracks}
+                  setNumTracks={setNumTracks}
+                />
+              </motion.section>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      )}
+    </>
+  );
+};
 
-            <section className="SettingsGroup">
-              <h2>About</h2>
-              <section className="SettingsList">
-                <TableCell>
-                  <p>Version 0.1.0</p>
-                </TableCell>
-                <ListItemLink url="https://github.com/JonoMacC/fast-tracks">
-                  <p>Github</p>
-                </ListItemLink>
-              </section>
-            </section>
+const SettingsToggle = ({ isVisible, toggleVisibility }) => (
+  <Toggle state={isVisible} onToggle={toggleVisibility} name="Settings">
+    <Icon
+      name="profile"
+      size="var(--icon-size)"
+      color={isVisible ? "var(--brand-primary)" : "var(--icon)"}
+    />
+  </Toggle>
+);
 
-            <section className="SettingsGroup">
-              <h2>Legal</h2>
-              <section className="SettingsList">
-                <ListItemLink url="/terms-and-conditions">
-                  <p>Terms & Conditions</p>
-                </ListItemLink>
-                <ListItemLink url="/privacy-policy">
-                  <p>Privacy Policy</p>
-                </ListItemLink>
-                <ListItemLink url="/cookie-use">
-                  <p>Cookie Use</p>
-                </ListItemLink>
-              </section>
-            </section>
-            <button
-              className="Btn large label rounded"
-              onClick={onLogout}
-              style={{ marginTop: "auto" }}
-            >
-              Logout
-            </button>
+const SettingsList = ({ onLogout, numTracks, setNumTracks }) => (
+  <div className="SettingsContainer">
+    <section className="SettingsGroup">
+      <h2>Preferences</h2>
+      <section className="SettingsList">
+        <TableCell>
+          <div className="Header">
+            <p>Tracks per turn</p>
+            <StepInput
+              value={numTracks}
+              setValue={setNumTracks}
+              min={minStep}
+              max={maxStep}
+            />
           </div>
-        </motion.section>
-      </motion.div>
-    )}
-  </AnimatePresence>
+        </TableCell>
+      </section>
+    </section>
+
+    <section className="SettingsGroup">
+      <h2>About</h2>
+      <section className="SettingsList">
+        <TableCell>
+          <p>Version 0.1.0</p>
+        </TableCell>
+        <ListItemLink url="https://github.com/JonoMacC/fast-tracks">
+          <p>Github</p>
+        </ListItemLink>
+      </section>
+    </section>
+
+    <section className="SettingsGroup">
+      <h2>Legal</h2>
+      <section className="SettingsList">
+        <ListItemLink url="/terms-and-conditions">
+          <p>Terms & Conditions</p>
+        </ListItemLink>
+        <ListItemLink url="/privacy-policy">
+          <p>Privacy Policy</p>
+        </ListItemLink>
+        <ListItemLink url="/cookie-use">
+          <p>Cookie Use</p>
+        </ListItemLink>
+      </section>
+    </section>
+    <button
+      className="Btn large label rounded"
+      onClick={onLogout}
+      style={{ marginTop: "auto" }}
+    >
+      Logout
+    </button>
+  </div>
 );

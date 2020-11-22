@@ -1,13 +1,12 @@
 import React, { useContext, useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { AppDispatch, AppState } from "../../contexts/AppContext";
+import { AppDispatch } from "../../contexts/AppContext";
 import { Player } from "../Player/Player";
 import { TrackAction } from "../TrackAction/TrackAction";
 import "./TrackCard.css";
 
 export const TrackCard = ({ track, index }) => {
   const dispatch = useContext(AppDispatch);
-  const appState = useContext(AppState);
   const trackName = track.name,
     artist = track.artist,
     album = track.album;
@@ -28,11 +27,7 @@ export const TrackCard = ({ track, index }) => {
         dispatch({ type: "ADD_TRACK", payload: track });
       };
       const onRemove = () => {
-        if (!state.isAdded) {
-          dispatch({ type: "PAUSE_PLAYBACK", payload: track });
-        } else if (track.id === appState.track.id && appState.isPlaying) {
-          dispatch({ type: "START_PLAYBACK", payload: track });
-        }
+        dispatch({ type: "PAUSE_PLAYBACK", payload: track });
         dispatch({ type: "REMOVE_SUGGESTED_TRACK", payload: track });
       };
 
@@ -41,7 +36,7 @@ export const TrackCard = ({ track, index }) => {
         state.isAdded && onAdd();
       }, timeout);
     }
-  }, [state, track, appState.track.id, appState.isPlaying, dispatch]);
+  }, [state, track, dispatch]);
 
   // change the state of the card to change its appearance
   const addTrack = () => {

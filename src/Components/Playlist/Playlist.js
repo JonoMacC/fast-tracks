@@ -10,6 +10,17 @@ const transition = {
   duration: 0.15,
 };
 
+const variants = {
+  closed: {
+    borderRadius: "16px",
+    width: "32px",
+  },
+  open: {
+    borderRadius: "8px",
+    width: "100%",
+  },
+};
+
 export const Playlist = ({
   onToggle,
   onNameChange,
@@ -43,34 +54,31 @@ export const Playlist = ({
   return (
     isVisible && (
       <section className="Playlist">
-        <div className="PlaylistAction">
-          <motion.div
-            variants={{
-              closed: {
-                borderRadius: "16px",
-                width: "32px",
-              },
-              open: {
-                borderRadius: "8px",
-                width: "100%",
-              },
-            }}
-            transition={transition}
-            className="PlaylistInput"
-            initial={false}
-            animate={isOpen ? "open" : "closed"}
-          >
-            {isOpen && <PlaylistInput onNameChange={onNameChange} />}
-            {!isOpen && <OpenPlaylist onToggle={onToggle} />}
-            {isOpen && <ClosePlaylist onToggle={onToggle} />}
-            <TrackCounter count={tracks.length} />
-          </motion.div>
-        </div>
+        <ActionBar isOpen={isOpen}>
+          {isOpen && <PlaylistInput onNameChange={onNameChange} />}
+          {!isOpen && <OpenPlaylist onToggle={onToggle} />}
+          {isOpen && <ClosePlaylist onToggle={onToggle} />}
+          <TrackCounter count={tracks.length} />
+        </ActionBar>
         <TrackList tracks={tracks} isVisible={isOpen} />
       </section>
     )
   );
 };
+
+const ActionBar = ({ isOpen, children }) => (
+  <div className="PlaylistAction">
+    <motion.div
+      variants={variants}
+      transition={transition}
+      className="PlaylistInput"
+      initial={false}
+      animate={isOpen ? "open" : "closed"}
+    >
+      {children}
+    </motion.div>
+  </div>
+);
 
 const ClosePlaylist = ({ onToggle }) => {
   return (

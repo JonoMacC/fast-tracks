@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Playlist } from "./Playlist/Playlist";
 import { NavBar } from "./NavBar/NavBar";
+import { ThemeToggle } from "./NavBar/ThemeToggle";
 import { AudioPlayer } from "./AudioPlayer/AudioPlayer";
 import { TrackStack } from "./TrackStack/TrackStack";
 import { ActionBar } from "./ActionBar/ActionBar";
@@ -12,29 +13,13 @@ import { AppState, AppDispatch } from "../contexts/AppContext";
 import { useToggle } from "../util/useToggle";
 import Spotify from "../util/Spotify";
 
-const minStep = 3,
-  maxStep = 7;
-
 function App() {
   const [auth, setAuthData] = useContext(AuthContext);
   const [theme] = useContext(ThemeContext);
   const state = useContext(AppState);
   const dispatch = useContext(AppDispatch);
   const [showPlaylist, togglePlaylist] = useToggle(false);
-  const [showSettings, toggleSettings] = useToggle(false);
   const [numTracks, setNumTracks] = useState(5);
-
-  const stepUp = () => {
-    return numTracks < maxStep
-      ? setNumTracks((prevState) => prevState + 1)
-      : null;
-  };
-
-  const stepDown = () => {
-    return numTracks > minStep
-      ? setNumTracks((prevState) => prevState - 1)
-      : null;
-  };
 
   // when playlistSaved has been set to true
   // set it back to false after a delay
@@ -115,27 +100,20 @@ function App() {
       <AudioPlayer track={state.track.preview} isPlaying={state.isPlaying} />
       {state.playlistSaved && <PlaylistAction />}
       <section className={`Container ${isPlaylistCollapsed}`}>
-        <NavBar
-          showSettings={showSettings}
-          toggleSettings={toggleSettings}
-          isVisible={!showPlaylist}
-        />
+        <NavBar isVisible={!showPlaylist}>
+          <Settings
+            numTracks={numTracks}
+            setNumTracks={setNumTracks}
+            onLogout={onLogout}
+          />
+          <ThemeToggle />
+        </NavBar>
         <Playlist
           onNameChange={setPlaylistName}
           onToggle={togglePlaylist}
           showPlaylist={showPlaylist}
           isVisible={state.playlistTracks.length !== 0}
           tracks={state.playlistTracks}
-        />
-        <Settings
-          isVisible={showSettings}
-          numTracks={numTracks}
-          stepUp={stepUp}
-          stepDown={stepDown}
-          onClose={toggleSettings}
-          onLogout={onLogout}
-          minStep={minStep}
-          maxStep={maxStep}
         />
 
         <main className="TrackSelect">

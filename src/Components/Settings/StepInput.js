@@ -2,9 +2,17 @@ import React from "react";
 import { Icon } from "../Icons";
 import "./StepInput.css";
 
-export const StepInput = ({ value, stepUp, stepDown, min, max }) => {
+export const StepInput = ({ value, setValue, min, max }) => {
   const stepBackDisabled = value === min;
   const stepForwardDisabled = value === max;
+
+  const stepUp = () => {
+    return value < max ? setValue((prevState) => prevState + 1) : null;
+  };
+
+  const stepDown = () => {
+    return value > min ? setValue((prevState) => prevState - 1) : null;
+  };
 
   return (
     <div className="StepInput">
