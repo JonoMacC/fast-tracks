@@ -7,7 +7,7 @@ import { ReactComponent as Discard } from "../../images/Discard.svg";
 
 export const TrackAction = (props) => {
   switch (props.name) {
-    case "addTrack":
+    case "add":
       return (
         <motion.div
           variants={{

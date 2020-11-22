@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 import { AppDispatch } from "../../contexts/AppContext";
 import { Player } from "../Player/Player";
@@ -22,20 +22,17 @@ const variants = {
 
 export const TrackCard = ({ track, index }) => {
   const dispatch = useContext(AppDispatch);
+  const [state, setState] = useState(null);
 
-  const [state, setState] = useState({
-    isAdded: false,
-    isDiscard: false,
-    isClosed: false,
-  });
+  const isClosed = useCallback(() => {
+    return state === "add" || state === "discard";
+  }, [state]);
 
   // if the card has closed, remove it from the list of tracks
   // delay removing the card to give time for "exit" animations
   useEffect(() => {
-    if (state.isClosed) {
-      // set the timeout duration based on whether the track has been
-      // added or discarded
-      let timeout = state.isAdded ? 1000 : 800;
+    if (isClosed()) {
+      let timeout = state === "add" ? 1000 : 800;
       const onAdd = () => {
         dispatch({ type: "ADD_TRACK", payload: track });
       };
@@ -46,29 +43,19 @@ export const TrackCard = ({ track, index }) => {
 
       setTimeout(() => {
         onRemove();
-        state.isAdded && onAdd();
+        state === "add" && onAdd();
       }, timeout);
     }
-  }, [state, track, dispatch]);
+  }, [state, track, dispatch, isClosed]);
 
   // change the state of the card to change its appearance
   const addTrack = () => {
-    setState({ isAdded: true, isDiscard: false, isClosed: true });
+    setState("add");
   };
 
   // change the state of the card to change its appearance
   const discardTrack = () => {
-    setState({ isAdded: false, isDiscard: true, isClosed: true });
-  };
-
-  const getTrackAction = () => {
-    if (state.isAdded) {
-      return "addTrack";
-    } else if (state.isDiscard) {
-      return "discard";
-    } else {
-      return null;
-    }
+    setState("discard");
   };
 
   return (
@@ -91,27 +78,27 @@ export const TrackCard = ({ track, index }) => {
         className={"TrackCard surface"}
         variants={variants}
         initial={"enter"}
-        animate={getTrackAction()}
+        animate={state}
         translateY={-index * 4}
         style={{
           zIndex: index + 1,
         }}
       >
-        {state.isClosed && (
+        {isClosed() && (
           <TrackOverlay>
-            <TrackAction name={getTrackAction()} />
+            <TrackAction name={state} />
           </TrackOverlay>
         )}
 
         <div className="TrackContent">
-          <TrackPreview isClosed={state.isClosed}>
+          <TrackPreview isClosed={isClosed()}>
             <Player track={track} miniPlayer={false} />
           </TrackPreview>
-          {!state.isClosed && (
+          {!isClosed() && (
             <TrackControls discardTrack={discardTrack} addTrack={addTrack} />
           )}
         </div>
-        <TrackInfo track={track} isClosed={state.isClosed} />
+        <TrackInfo track={track} isClosed={isClosed()} />
       </motion.div>
     </motion.li>
   );
