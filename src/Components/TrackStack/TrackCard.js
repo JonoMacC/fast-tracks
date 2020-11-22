@@ -5,6 +5,21 @@ import { Player } from "../Player/Player";
 import { TrackAction } from "../TrackAction/TrackAction";
 import "./TrackCard.css";
 
+const variants = {
+  addTrack: {
+    transition: { ease: "easeOut", delay: 0.8, duration: 0.15 },
+    y: "-120vh",
+    x: -20,
+    rotate: -5,
+  },
+  discard: {
+    transition: { ease: "easeOut", delay: 0.6, duration: 0.15 },
+    y: "120vh",
+    x: -20,
+    rotate: 5,
+  },
+};
+
 export const TrackCard = ({ track, index }) => {
   const dispatch = useContext(AppDispatch);
 
@@ -54,21 +69,6 @@ export const TrackCard = ({ track, index }) => {
     } else {
       return null;
     }
-  };
-
-  const variants = {
-    addTrack: {
-      transition: { ease: "easeOut", delay: 0.8, duration: 0.15 },
-      y: "-120vh",
-      x: -20,
-      rotate: -5,
-    },
-    discard: {
-      transition: { ease: "easeOut", delay: 0.6, duration: 0.15 },
-      y: "120vh",
-      x: -20,
-      rotate: 5,
-    },
   };
 
   return (
