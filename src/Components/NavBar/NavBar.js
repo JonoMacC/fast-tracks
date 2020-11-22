@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import { ThemeContext } from "../../contexts/ThemeContext";
 import { motion } from "framer-motion";
+import { ThemeContext } from "../../contexts/ThemeContext";
 import { Icon } from "../Icons";
 import { Toggle } from "./Toggle";
 import "./NavBar.css";

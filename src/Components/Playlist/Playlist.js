@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Icon } from "../Icons";
+import { useToggle } from "../../util/useToggle";
 import { TrackCounter } from "./TrackCounter";
 import { TrackList } from "./TrackList";
+import { Icon } from "../Icons";
 import "./Playlist.css";
 
 const transition = {
@@ -14,12 +15,9 @@ export const Playlist = ({
   onToggle,
   onNameChange,
   showPlaylist,
+  isVisible,
   tracks,
-  numTracks,
 }) => {
-  // use the size of the window to determine whether to always show
-  // the playlist (large displays) or to only show it when it is
-  // toggled to show (on smaller displays)
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   // the playlist input field and list of tracks is always visible
@@ -30,24 +28,7 @@ export const Playlist = ({
   // ('showPlaylist') or it is set to always visible ('stayOpen')
   const isOpen = showPlaylist || stayOpen;
 
-  // set the playlist to a 'collapsed' state on desktop when no
-  // tracks have been added to it
-  const collapsePlaylist = stayOpen && tracks.length === 0;
-
-  // the dropdown arrow that toggles the visibility of the playlist
-  // is not visible on larger displays ('stayOpen')
-  // on smaller displays it is visible when the playlist is toggled
-  // to the open state
-  const showToggle = () => {
-    if (stayOpen) {
-      return false;
-    } else {
-      return isOpen;
-    }
-  };
-
-  // use an effect hook to get the size of the window
-  // this will cause an update on window resize
+  // update the window width state on window resize
   useEffect(() => {
     const handleWindowResize = () => {
       setWindowWidth(window.innerWidth);
@@ -61,7 +42,7 @@ export const Playlist = ({
   }, []);
 
   return (
-    !collapsePlaylist && (
+    isVisible && (
       <section className="Playlist">
         <div className="PlaylistAction">
           <motion.div
@@ -80,48 +61,48 @@ export const Playlist = ({
             initial={false}
             animate={isOpen ? "open" : "closed"}
           >
-            <input
-              className="PlaylistName"
-              defaultValue="Fast Tracks"
-              onChange={(event) => onNameChange(event.target.value)}
-              isopen={isOpen.toString()}
-            />
-
-            <button
-              className="PlaylistExpand"
-              onClick={onToggle}
-              isopen={isOpen.toString()}
-              aria-label="Playlist"
-            >
-              <div className="inner">
-                <Icon name="playlist" color="var(--text-light)" size="24px" />
-              </div>
-            </button>
-
-            <TrackCounter numTracks={numTracks} />
+            {isOpen && <PlaylistInput onNameChange={onNameChange} />}
+            {!isOpen && <OpenPlaylist onToggle={onToggle} />}
+            {isOpen && <ClosePlaylist onToggle={onToggle} />}
+            <TrackCounter count={tracks.length} />
           </motion.div>
-          <button
-            className="PlaylistDropdown"
-            aria-label="Show/hide tracks"
-            onClick={onToggle}
-            isopen={showToggle().toString()}
-          >
-            <motion.div
-              className="iconContainer"
-              variants={{
-                closed: { rotate: 0 },
-                open: { rotate: -180 },
-              }}
-              initial={false}
-              animate={isOpen ? "open" : "closed"}
-            >
-              <Icon name="dropdown" color="var(--text)" size="24px" />
-            </motion.div>
-          </button>
         </div>
-
-        <TrackList tracks={tracks} isRemoval={true} isOpen={isOpen} />
+        <TrackList tracks={tracks} isVisible={isOpen} />
       </section>
     )
   );
 };
+
+const ClosePlaylist = ({ onToggle }) => {
+  return (
+    <button
+      className="PlaylistDropdown"
+      aria-label="Close Playlist"
+      onClick={onToggle}
+    >
+      <motion.div
+        className="iconContainer"
+        initial={{ rotate: -180, opacity: 0 }}
+        animate={{ rotate: -180, opacity: 1 }}
+      >
+        <Icon name="dropdown" color="var(--text)" size="24px" />
+      </motion.div>
+    </button>
+  );
+};
+
+const OpenPlaylist = ({ onToggle }) => (
+  <button className="PlaylistExpand" onClick={onToggle} aria-label="Playlist">
+    <div className="inner">
+      <Icon name="playlist" color="var(--text-light)" size="24px" />
+    </div>
+  </button>
+);
+
+const PlaylistInput = ({ onNameChange }) => (
+  <input
+    className="PlaylistName"
+    defaultValue="Fast Tracks"
+    onChange={(event) => onNameChange(event.target.value)}
+  />
+);

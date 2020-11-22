@@ -124,8 +124,8 @@ function App() {
           onNameChange={setPlaylistName}
           onToggle={togglePlaylist}
           showPlaylist={showPlaylist}
+          isVisible={state.playlistTracks.length !== 0}
           tracks={state.playlistTracks}
-          numTracks={state.trackCount}
         />
         <Settings
           isVisible={showSettings}

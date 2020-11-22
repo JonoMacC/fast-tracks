@@ -7,16 +7,16 @@ const animation = {
   transition: { duration: 0.2 },
 };
 
-export const TrackCounter = ({ numTracks }) => {
+export const TrackCounter = ({ count }) => {
   const controls = useAnimation();
 
   useEffect(() => {
     controls.start(animation);
-  }, [numTracks, controls]);
+  }, [count, controls]);
 
   return (
     <motion.div className="TrackCounter" animate={controls}>
-      {numTracks}
+      {count}
     </motion.div>
   );
 };

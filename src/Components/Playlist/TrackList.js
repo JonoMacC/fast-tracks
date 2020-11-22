@@ -14,9 +14,9 @@ const variants = {
   closed: { opacity: 0, y: "-100vh", transition: spring },
 };
 
-export const TrackList = ({ tracks, isOpen }) => (
+export const TrackList = ({ tracks, isVisible }) => (
   <AnimatePresence>
-    {isOpen && (
+    {isVisible && (
       <motion.div
         className="TrackListContainer overlay"
         initial={{ opacity: 0 }}

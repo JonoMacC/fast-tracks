@@ -59,11 +59,6 @@
   justify-content: center;
 }
 
-.PlaylistExpand[isopen="true"] {
-  visibility: hidden;
-  display: none;
-}
-
 .PlaylistName {
   width: 100%;
   background: none;
@@ -74,33 +69,15 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  display: none;
-  visibility: hidden;
-  opacity: 0;
   color: var(--text);
 }
 
-.PlaylistName[isopen="true"] {
-  visibility: visible;
-  display: block;
-  opacity: 1;
-}
-
 .PlaylistDropdown {
-  visibility: hidden;
-  display: none;
-  opacity: 0;
   margin-right: 8px;
   height: 44px;
   width: 44px;
   position: absolute;
   right: 0;
-}
-
-.PlaylistDropdown[isopen="true"] {
-  visibility: visible;
-  display: block;
-  opacity: 1;
 }
 
 @media all and (min-width: 360px) {

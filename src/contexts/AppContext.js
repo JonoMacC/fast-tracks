@@ -8,7 +8,6 @@ const initialState = {
   playlistName: "Fast Tracks",
   track: {},
   isPlaying: false,
-  trackCount: 0,
 };
 
 export const AppDispatch = createContext(null);

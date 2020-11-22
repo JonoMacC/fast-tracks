@@ -20,7 +20,6 @@ export const TrackItem = ({ track, isRemoval }) => {
 
   return (
     <motion.li
-      layout
       transition={{ duration: 0.07 }}
       key={track.id}
       className="TrackItem"
@@ -46,7 +45,11 @@ export const TrackItem = ({ track, isRemoval }) => {
           {track.artist} | {track.album}
         </p>
       </div>
-      <button className="TapItem" onClick={isRemoval ? remove : add}>
+      <button
+        className="TapItem"
+        onClick={isRemoval ? remove : add}
+        aria-label={isRemoval ? "Remove Track" : "Add Track"}
+      >
         <Icon
           name={isRemoval ? "remove" : "add"}
           color="var(--text-secondary)"
