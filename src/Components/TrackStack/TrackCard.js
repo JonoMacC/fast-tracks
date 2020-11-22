@@ -107,11 +107,9 @@ export const TrackCard = ({ track, index }) => {
           <TrackPreview isClosed={state.isClosed}>
             <Player track={track} miniPlayer={false} />
           </TrackPreview>
-          <TrackControls
-            isClosed={state.isClosed}
-            discardTrack={discardTrack}
-            addTrack={addTrack}
-          />
+          {!state.isClosed && (
+            <TrackControls discardTrack={discardTrack} addTrack={addTrack} />
+          )}
         </div>
         <TrackInfo track={track} isClosed={state.isClosed} />
       </motion.div>
@@ -147,23 +145,15 @@ const TrackOverlay = (props) => (
   </motion.div>
 );
 
-const TrackControls = ({ isClosed, discardTrack, addTrack }) => (
-  <motion.div
-    className="TrackControls"
-    variants={{
-      open: { opacity: 1 },
-      closed: { opacity: 0, height: 0, y: 400, visibility: "hidden" },
-    }}
-    initial="open"
-    animate={isClosed ? "closed" : "open"}
-  >
+const TrackControls = ({ discardTrack, addTrack }) => (
+  <div className="TrackControls">
     <button className="Btn" onClick={discardTrack}>
       <span className="label">Discard</span>
     </button>
     <button className="Btn" onClick={addTrack}>
       <span className="label">Add Track</span>
     </button>
-  </motion.div>
+  </div>
 );
 
 const TrackInfo = ({ isClosed, track }) => {
