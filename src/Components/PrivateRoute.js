@@ -13,7 +13,9 @@ const PrivateRoute = ({ component: Component }) => {
         render={() => {
           return (
             <Layout>
-              <h2>Loading...</h2>
+              <section className="Screen">
+                <h2>Loading...</h2>
+              </section>
             </Layout>
           );
         }}

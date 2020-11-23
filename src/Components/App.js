@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import { Layout } from "./Layout";
 import { Playlist } from "./Playlist/Playlist";
 import { NavBar } from "./NavBar/NavBar";
 import { ThemeToggle } from "./NavBar/ThemeToggle";
@@ -8,14 +9,12 @@ import { ActionBar } from "./ActionBar/ActionBar";
 import { Settings } from "./Settings/Settings";
 import { PlaylistAction } from "./TrackAction/PlaylistAction";
 import { AuthContext } from "../contexts/AuthContext";
-import { ThemeContext } from "../contexts/ThemeContext";
 import { AppState, AppDispatch } from "../contexts/AppContext";
 import { useToggle } from "../util/useToggle";
 import Spotify from "../util/Spotify";
 
 function App() {
   const [auth, setAuthData] = useContext(AuthContext);
-  const [theme] = useContext(ThemeContext);
   const state = useContext(AppState);
   const dispatch = useContext(AppDispatch);
   const [showPlaylist, togglePlaylist] = useToggle(false);
@@ -92,7 +91,7 @@ function App() {
     state.playlistTracks.length === 0 ? "collapsed" : "";
 
   return (
-    <div className="App" theme={theme}>
+    <Layout>
       <AudioPlayer track={state.track.preview} isPlaying={state.isPlaying} />
       {state.playlistSaved && <PlaylistAction />}
       <section className={`Container ${isPlaylistCollapsed}`}>
@@ -121,7 +120,7 @@ function App() {
           />
         </main>
       </section>
-    </div>
+    </Layout>
   );
 }
 

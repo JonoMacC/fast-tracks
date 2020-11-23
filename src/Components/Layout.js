@@ -5,7 +5,7 @@ export const Layout = (props) => {
   const [theme] = useContext(ThemeContext);
   return (
     <div className="App" theme={theme}>
-      <section className="Screen">{props.children}</section>
+      {props.children}
     </div>
   );
 };
