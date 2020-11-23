@@ -6,7 +6,7 @@ import { TrackAction } from "../TrackAction/TrackAction";
 import "./TrackCard.css";
 
 const variants = {
-  addTrack: {
+  add: {
     transition: { ease: "easeOut", delay: 0.8, duration: 0.15 },
     y: "-120vh",
     x: -20,
