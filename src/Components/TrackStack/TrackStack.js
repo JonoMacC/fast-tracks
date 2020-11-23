@@ -31,14 +31,6 @@ export const TrackStack = ({ tracks }) => (
 
 const SpinningRecord = () => (
   <div className="TrackStackRecordContainer">
-    <motion.div
-      className="TrackStackRecord"
-      animate={{ rotate: [0, 360] }}
-      transition={{
-        loop: Infinity,
-        duration: 1.6,
-        ease: "linear",
-      }}
-    ></motion.div>
+    <div className="TrackStackRecord" />
   </div>
 );
