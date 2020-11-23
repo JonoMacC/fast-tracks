@@ -17,14 +17,12 @@ const {
 /* Function to handle Spotify auth callback */
 exports.handler = async function (event, context) {
   const { code, state } = event.queryStringParameters || null;
-  console.log(event);
 
   // retrieve the auth state set on the cookie
   const storedState = event.headers.cookie
     ? event.headers.cookie.split(";")[0].split("=")[1]
     : null;
 
-  console.log("help", storedState, state);
   // first do state validation
   if (state === null || state !== storedState) {
     return {
