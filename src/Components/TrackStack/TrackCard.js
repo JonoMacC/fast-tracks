@@ -78,7 +78,7 @@ export const TrackCard = ({ track, index }) => {
         className={"TrackCard surface"}
         variants={variants}
         initial={"enter"}
-        animate={state ? state.toString() : "enter"}
+        animate={state ? state : "enter"}
         translateY={-index * 4}
         style={{
           zIndex: index + 1,
