@@ -1,7 +1,6 @@
 // enable reading from process.env
 require("dotenv").config();
 
-const routerBasePath = `/api`;
 const env = process.env.NODE_ENV || "development";
 const devMode = env === "development";
 const spotifyURL = "https://accounts.spotify.com";
@@ -20,7 +19,7 @@ const clientId = devMode
   authorizePath = `${spotifyURL}/authorize?`,
   tokenPath = `${spotifyURL}/api/token`,
   profilePath = `${spotifyURL}/v1/me/`,
-  redirectUri = `${siteUrl}${routerBasePath}/callback`;
+  redirectUri = `${siteUrl}/api/callback`;
 
 module.exports = {
   clientId,

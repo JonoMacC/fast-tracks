@@ -23,7 +23,7 @@ export const ActionBar = ({ onGet, onSave, disableSave }) => {
     <section className="ActionBar">
       <button
         className={`Btn ${wideBtns} rounded`}
-        onClick={() => onSave()}
+        onClick={onSave}
         disabled={disableSave}
         aria-label="Save Playlist"
       >
@@ -31,7 +31,7 @@ export const ActionBar = ({ onGet, onSave, disableSave }) => {
       </button>
       <button
         className={`Btn ${wideBtns} primary rounded`}
-        onClick={() => onGet()}
+        onClick={onGet}
         aria-label="Get Tracks"
       >
         <div className="label">Get Tracks</div>

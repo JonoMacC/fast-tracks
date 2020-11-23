@@ -1,6 +1,6 @@
 import React from "react";
-import { routerBasePath } from "../util/routerBasePath";
 import { Layout } from "./Layout";
+import { routerBasePath } from "../util/routerBasePath";
 
 const Login = () => (
   <Layout>

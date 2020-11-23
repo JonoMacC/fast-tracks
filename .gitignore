@@ -25,6 +25,7 @@
 .env.production.local
 /dev_assets
 .vscode
+.eslintcache
 
 # debug
 npm-debug.log*

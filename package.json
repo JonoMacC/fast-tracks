@@ -14,19 +14,19 @@
     "react-dom": "^16.13.1",
     "react-icons": "^3.10.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.0"
+    "react-scripts": "4.0.1"
   },
   "scripts": {
+    "start": "run-p server start:app",
     "netstart": "run-p start:**",
     "start:app": "react-scripts start",
     "start:functions": "netlify-lambda serve functions",
+    "server": "node server --exec nodemon",
     "build": "run-p build:**",
     "build:app": "react-scripts build",
     "build:functions": "netlify-lambda build functions",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "server": "node server --exec nodemon",
-    "start": "run-p server start:app"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"

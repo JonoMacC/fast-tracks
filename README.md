@@ -4,7 +4,13 @@
 
 > This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). <br />
 > It uses the [Spotify Web API](https://developer.spotify.com/documentation/web-api/). <br />
-> Animations using [Framer Motion](https://github.com/framer/motion). <br />
+
+## Deploy
+
+<br />
+<a href="https://app.netlify.com/start/deploy?repository=https://github.com/JonoMacC/fast-tracks">
+<img src="https://www.netlify.com/img/deploy/button.svg" alt="Deploy to Netlify" />
+</a>
 
 ## Spotify Client ID Setup
 
@@ -42,25 +48,4 @@ Be sure to set REACT_APP_NETLIFY=true in your .env file.
 
     yarn netstart
 
-### Running with Netlify CLI
-
-If you have not installed the Netlify CLI and linked your site you will need to do so:
-
-    npm install netlify-cli -g
-    ntl login
-    ntl link
-
-The environment variables set up on your Netlify site are injected into your development environment at build time. Use this to set REACT_APP_NETLIFY=true on your linked site.
-
-Once you are set up, you can run
-
-    ntl dev
-
-You can view the app by navigating to **http://localhost:8888/** in your browser.
-
-## Deploy
-
-<br />
-<a href="https://app.netlify.com/start/deploy?repository=https://github.com/JonoMacC/fast-tracks">
-<img src="https://www.netlify.com/img/deploy/button.svg" alt="Deploy to Netlify" />
-</a>
+You can view the app by navigating to **http://localhost:3000/** in your browser.

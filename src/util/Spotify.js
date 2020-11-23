@@ -1,5 +1,5 @@
-import { routerBasePath } from "./routerBasePath";
 import axios from "axios";
+import { routerBasePath } from "./routerBasePath";
 
 const Spotify = {
   access_token: "",

@@ -1,13 +1,12 @@
 // enable reading from process.env
 require("dotenv").config();
 
-const routerBasePath = `/.netlify/functions`;
-const env = process.env.NODE_ENV || "development";
-const devMode = env === "development" || process.env.NETLIFY_DEV;
+// Netlify sets process.env.URL on the deployed site, for local development it will be undefined
+// the build step of netlify-lambda will set process.env.NODE_ENV="production" even on local development
+const env = process.env.URL ? "production" : "development";
+const devMode = env === "development";
 const spotifyURL = "https://accounts.spotify.com";
-const devURL = process.env.NETLIFY_DEV
-  ? "http://localhost:8888"
-  : "http://localhost:3000";
+const devURL = "http://localhost:3000";
 
 /* process.env.URL from netlify BUILD environment variables */
 const siteUrl = process.env.URL || devURL;
@@ -22,7 +21,7 @@ const clientId = devMode
   authorizePath = `${spotifyURL}/authorize?`,
   tokenPath = `${spotifyURL}/api/token`,
   profilePath = `${spotifyURL}/v1/me/`,
-  redirectUri = `${siteUrl}${routerBasePath}/callback`;
+  redirectUri = `${siteUrl}/.netlify/functions/callback`;
 
 module.exports = {
   clientId,
@@ -33,4 +32,5 @@ module.exports = {
   profilePath,
   redirectUri,
   devMode,
+  siteUrl,
 };
