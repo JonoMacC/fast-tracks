@@ -30,7 +30,7 @@
     "workbox-streams": "^5.1.3"
   },
   "scripts": {
-    "startdev": "run-p server start:app",
+    "devstart": "run-p server start:app",
     "start": "run-p start:**",
     "start:app": "react-scripts start",
     "start:functions": "netlify-lambda serve functions",
