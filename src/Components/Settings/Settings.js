@@ -118,13 +118,13 @@ const SettingsList = ({ onLogout, numTracks, setNumTracks }) => (
     <section className="SettingsGroup">
       <h2>Legal</h2>
       <section className="SettingsList">
-        <ListItemLink url="https://github.com/JonoMacC/fast-tracks/legal/terms-and-conditions">
+        <ListItemLink url="https://github.com/JonoMacC/fast-tracks/blob/master/legal/termsandconditions.md">
           <p>Terms & Conditions</p>
         </ListItemLink>
-        <ListItemLink url="https://github.com/JonoMacC/fast-tracks/legal/privacy-policy">
+        <ListItemLink url="https://github.com/JonoMacC/fast-tracks/blob/master/legal/privacypolicy.md">
           <p>Privacy Policy</p>
         </ListItemLink>
-        <ListItemLink url="https://github.com/JonoMacC/fast-tracks/legal/cookie-use">
+        <ListItemLink url="https://github.com/JonoMacC/fast-tracks/blob/master/legal/cookiepolicy.md">
           <p>Cookie Use</p>
         </ListItemLink>
       </section>
