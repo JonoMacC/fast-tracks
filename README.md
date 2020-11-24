@@ -34,7 +34,7 @@ Install the dependencies
 
 Set REACT_APP_NETLIFY=false in your .env file or omit this variable altogether.
 
-    yarn start
+    yarn startdev
 
 You can view the app by navigating to **http://localhost:3000/** in your browser. The node server will be running on **http://localhost:4001/** and requests to **http://localhost:3000/api/** are proxied to the server.
 
@@ -42,6 +42,6 @@ You can view the app by navigating to **http://localhost:3000/** in your browser
 
 Be sure to set REACT_APP_NETLIFY=true in your .env file.
 
-    yarn netstart
+    yarn start
 
 You can view the app by navigating to **http://localhost:3000/** in your browser.
