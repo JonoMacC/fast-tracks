@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { motion, useAnimation } from "framer-motion";
+import React from "react";
+import { motion } from "framer-motion";
 import "./TrackCounter.css";
 
 const animation = {
@@ -7,16 +7,9 @@ const animation = {
   transition: { duration: 0.2 },
 };
 
-export const TrackCounter = ({ count }) => {
-  const controls = useAnimation();
-
-  useEffect(() => {
-    controls.start(animation);
-  }, [count, controls]);
-
-  return (
-    <motion.div className="TrackCounter" animate={controls}>
-      {count}
-    </motion.div>
-  );
-};
+// animates when the count prop is updated
+export const TrackCounter = ({ count }) => (
+  <motion.div className="TrackCounter" animate={count ? animation : null}>
+    {count}
+  </motion.div>
+);

@@ -16,7 +16,7 @@ export const TrackItem = ({ track, isRemoval }) => {
     dispatch({ type: "REMOVE_PLAYLIST_TRACK", payload: track });
   };
 
-  console.log("TrackItem render", Date.now());
+  // console.log("TrackItem render", Date.now());
 
   return (
     <motion.li
