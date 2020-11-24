@@ -24,19 +24,19 @@ We only share information with your consent, to comply with laws, to provide you
 
 We may process or share your data that we hold based on the following legal basis:
 
-    Consent: We may process your data if you have given us specific consent to use your personal information for a specific purpose.
-
-    Legitimate Interests: We may process your data when it is reasonably necessary to achieve our legitimate business interests.
-
-    Performance of a Contract: Where we have entered into a contract with you, we may process your personal information to fulfill the terms of our contract.
-
-    Legal Obligations: We may disclose your information where we are legally required to do so in order to comply with applicable law, governmental requests, a judicial proceeding, court order, or legal process, such as in response to a court order or a subpoena (including in response to public authorities to meet national security or law enforcement requirements).
-
-    Vital Interests: We may disclose your information where we believe it is necessary to investigate, prevent, or take action regarding potential violations of our policies, suspected fraud, situations involving potential threats to the safety of any person and illegal activities, or as evidence in litigation in which we are involved.
+> Consent: We may process your data if you have given us specific consent to use your personal information for a specific purpose.
+>
+> Legitimate Interests: We may process your data when it is reasonably necessary to achieve our legitimate business interests.
+>
+> Performance of a Contract: Where we have entered into a contract with you, we may process your personal information to fulfill the terms of our contract.
+>
+> Legal Obligations: We may disclose your information where we are legally required to do so in order to comply with applicable law, governmental requests, a judicial proceeding, court order, or legal process, such as in response to a court order or a subpoena (including in response to public authorities to meet national security or law enforcement requirements).
+>
+> Vital Interests: We may disclose your information where we believe it is necessary to investigate, prevent, or take action regarding potential violations of our policies, suspected fraud, situations involving potential threats to the safety of any person and illegal activities, or as evidence in litigation in which we are involved.
 
 More specifically, we may need to process your data or share your personal information in the following situations:
 
-    Business Transfers. We may share or transfer your information in connection with, or during negotiations of, any merger, sale of company assets, financing, or acquisition of all or a portion of our business to another company.
+> Business Transfers. We may share or transfer your information in connection with, or during negotiations of, any merger, sale of company assets, financing, or acquisition of all or a portion of our business to another company.
 
 ## 4. DO WE USE COOKIES AND OTHER TRACKING TECHNOLOGIES?
 

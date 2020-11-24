@@ -2,15 +2,12 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/a1b74fb2-f506-44c7-9966-f879403e2e04/deploy-status)](https://app.netlify.com/sites/fasttracks/deploys)
 
-> This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). <br />
-> It uses the [Spotify Web API](https://developer.spotify.com/documentation/web-api/). <br />
+> This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).  
+> It uses the [Spotify Web API](https://developer.spotify.com/documentation/web-api/).
 
 ## Deploy
 
-<br />
-<a href="https://app.netlify.com/start/deploy?repository=https://github.com/JonoMacC/fast-tracks">
-<img src="https://www.netlify.com/img/deploy/button.svg" alt="Deploy to Netlify" />
-</a>
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/JonoMacC/fast-tracks)
 
 ## Spotify Client ID Setup
 
@@ -18,9 +15,8 @@ Use your Spotify account on the [Spotify developer site](https://developer.spoti
 
 ### Redirect URIs for Local Development
 
-> http://localhost:3000/api/callback <br />
-> http://localhost:3000/.netlify/functions/callback <br />
-> http://localhost:8888/.netlify/functions/callback <br />
+> http://localhost:3000/api/callback  
+> http://localhost:3000/.netlify/functions/callback
 
 ## Local Development
 
