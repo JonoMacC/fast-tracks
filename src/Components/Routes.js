@@ -7,7 +7,7 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
-import Login from "./Login";
+import { Login } from "./Login";
 import App from "./App";
 import "../styles/global.css";
 
