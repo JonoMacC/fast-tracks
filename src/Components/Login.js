@@ -1,25 +1,19 @@
 import React from "react";
-import { Layout } from "./Layout";
+import { PageLayout } from "./Layout";
 import { routerBasePath } from "../util/routerBasePath";
 
-const Login = () => (
-  <Layout>
-    <div className="Background"></div>
-    <div className="RecordContainer">
-      <div className="Record"></div>
-    </div>
-    <div className="LoginScreen">
-      <div className="Screen">
-        <div className="titleText">
-          <span className="title">Fast Tracks</span>
-          <p className="subtitle">Discover new music now.</p>
-        </div>
-        <a href={`${routerBasePath}/login`} className="Btn large label rounded">
-          Log In With Spotify
-        </a>
+export const Login = () => (
+  <PageLayout>
+    <div className="Screen">
+      <div className="titleText">
+        <span className="title">Fast Tracks</span>
+        <p className="subtitle">Discover new music now.</p>
       </div>
+      <a href={`${routerBasePath}/login`} className="Btn large label rounded">
+        Log In With Spotify
+      </a>
     </div>
-  </Layout>
+  </PageLayout>
 );
 
 export default Login;

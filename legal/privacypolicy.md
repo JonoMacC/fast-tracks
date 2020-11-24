@@ -1,4 +1,5 @@
-#PRIVACY POLICY
+# PRIVACY POLICY
+
 Last updated October 25, 2020
 
 Thank you for choosing to be part of our community at Fast Tracks. We are committed to protecting your personal information and your right to privacy. If you have any questions or concerns about this privacy notice, or our practices with regards to your personal information, please contact us at hello@jonmaccaull.com.
@@ -9,15 +10,15 @@ This privacy notice applies to all information collected through our Services (w
 
 Please read this privacy notice carefully as it will help you understand what we do with the information that we collect.
 
-##1. WHAT INFORMATION DO WE COLLECT?
+## 1. WHAT INFORMATION DO WE COLLECT?
 
 When you log in to Fast Tracks with your Spotify account, Fast Tracks has access to your recently played songs and the ability to add playlists to your Spotify account.
 
-##2. HOW DO WE USE YOUR INFORMATION?
+## 2. HOW DO WE USE YOUR INFORMATION?
 
 We use your information to provide you with the Services of the App. Fast Tracks only works when its recommendations are relevant to what you enjoy listening to and when you can add those recommendations to a playlist on your account. Your information is used for these express purposes only.
 
-##3. WILL YOUR INFORMATION BE SHARED WITH ANYONE?
+## 3. WILL YOUR INFORMATION BE SHARED WITH ANYONE?
 
 We only share information with your consent, to comply with laws, to provide you with services, to protect your rights, or to fulfill business obligations.
 
@@ -37,13 +38,13 @@ More specifically, we may need to process your data or share your personal infor
 
     Business Transfers. We may share or transfer your information in connection with, or during negotiations of, any merger, sale of company assets, financing, or acquisition of all or a portion of our business to another company.
 
-##4. DO WE USE COOKIES AND OTHER TRACKING TECHNOLOGIES?
+## 4. DO WE USE COOKIES AND OTHER TRACKING TECHNOLOGIES?
 
 In Short: We may use cookies and other tracking technologies to collect and store your information.
 
 We may use cookies and similar tracking technologies (like web beacons and pixels) to access or store information. Specific information about how we use such technologies and how you can refuse certain cookies is set out in our Cookie Notice.
 
-##5. HOW DO WE HANDLE YOUR SOCIAL LOGINS?
+## 5. HOW DO WE HANDLE YOUR SOCIAL LOGINS?
 
 In Short: If you choose to register or log in to our services using a social media account, we may have access to certain information about you.
 
@@ -51,7 +52,7 @@ Our App offers you the ability to register and login using your Spotify account 
 
 We will use the information we receive only for the purposes that are described in this privacy notice or that are otherwise made clear to you on the relevant App. Please note that we do not control, and are not responsible for, other uses of your personal information by your third-party social media provider. We recommend that you review their privacy notice to understand how they collect, use and share your personal information, and how you can set your privacy preferences on their sites and apps.
 
-##6. IS YOUR INFORMATION TRANSFERRED INTERNATIONALLY?
+## 6. IS YOUR INFORMATION TRANSFERRED INTERNATIONALLY?
 
 We may transfer, store, and process your information in countries other than your own.
 
@@ -59,15 +60,15 @@ Fast Tracks is delivered to you via a Content Delivery Network (CDN) which is di
 
 If you are a resident in the European Economic Area, then these countries may not necessarily have data protection laws or other similar laws as comprehensive as those in your country. We will however take all necessary measures to protect your personal information in accordance with this privacy notice and applicable law.
 
-##7. HOW LONG DO WE KEEP YOUR INFORMATION?
+## 7. HOW LONG DO WE KEEP YOUR INFORMATION?
 
 We keep your information for as long as necessary to fulfill the purposes outlined in this privacy notice unless otherwise required by law.
 
-##8. HOW DO WE KEEP YOUR INFORMATION SAFE?
+## 8. HOW DO WE KEEP YOUR INFORMATION SAFE?
 
 Fast Tracks follows industry standard best practices for authentication by using the OAuth 2.0 Authentication Code Flow for connecting to Spotify. Every reasonable effort is made to keep Fast Tracks in line with best practices and as transparent as possible. You may view the source code for Fast Tracks by visiting the Github repository.
 
-##9. WHAT ARE YOUR PRIVACY RIGHTS?
+## 9. WHAT ARE YOUR PRIVACY RIGHTS?
 
 You can stop using Fast Tracks at any time.
 
@@ -77,11 +78,11 @@ If you are a resident in Switzerland, the contact details for the data protectio
 
 Cookies and similar technologies: Most Web browsers are set to accept cookies by default. If you prefer, you can usually choose to set your browser to remove cookies and to reject cookies. If you choose to remove cookies or reject cookies, the app will no longer work.
 
-##10. CONTROLS FOR DO-NOT-TRACK FEATURES
+## 10. CONTROLS FOR DO-NOT-TRACK FEATURES
 
 Most web browsers and some mobile operating systems and mobile applications include a Do-Not-Track ("DNT") feature or setting you can activate to signal your privacy preference not to have data about your online browsing activities monitored and collected. At this stage no uniform technology standard for recognizing and implementing DNT signals has been finalized. As such, we do not currently respond to DNT browser signals or any other mechanism that automatically communicates your choice not to be tracked online. If a standard for online tracking is adopted that we must follow in the future, we will inform you about that practice in a revised version of this privacy notice.
 
-##11. DO CALIFORNIA RESIDENTS HAVE SPECIFIC PRIVACY RIGHTS?
+## 11. DO CALIFORNIA RESIDENTS HAVE SPECIFIC PRIVACY RIGHTS?
 
 Yes, if you are a resident of California, you are granted specific rights regarding access to your personal information.
 
@@ -89,16 +90,16 @@ California Civil Code Section 1798.83, also known as the "Shine The Light" law, 
 
 If you are under 18 years of age, reside in California, and have a registered account with the App, you have the right to request removal of unwanted data that you publicly post on the App. To request removal of such data, please contact us using the contact information provided below, and include the email address associated with your account and a statement that you reside in California. We will make sure the data is not publicly displayed on the App, but please be aware that the data may not be completely or comprehensively removed from all our systems (e.g. backups, etc.).
 
-##12. DO WE MAKE UPDATES TO THIS NOTICE?
+## 12. DO WE MAKE UPDATES TO THIS NOTICE?
 
 Yes, we will update this notice as necessary to stay compliant with relevant laws.
 
 We may update this privacy notice from time to time. The updated version will be indicated by an updated "Revised" date and the updated version will be effective as soon as it is accessible. If we make material changes to this privacy notice, we may notify you either by prominently posting a notice of such changes or by directly sending you a notification. We encourage you to review this privacy notice frequently to be informed of how we are protecting your information.
 
-##13. HOW CAN YOU CONTACT US ABOUT THIS NOTICE?
+## 13. HOW CAN YOU CONTACT US ABOUT THIS NOTICE?
 
 If you have questions or comments about this notice, you may contact our Data Protection Officer (DPO), Jon MacCaull, by email at hello@jonmaccaull.com
 
-##14. HOW CAN YOU REVIEW, UPDATE, OR DELETE THE DATA WE COLLECT FROM YOU?
+## 14. HOW CAN YOU REVIEW, UPDATE, OR DELETE THE DATA WE COLLECT FROM YOU?
 
 Based on the applicable laws of your country, you may have the right to request access to the personal information we collect from you, change that information, or delete it in some circumstances. To request to review, update, or delete your personal information, please submit a request form by clicking here. We will respond to your request within 30 days.

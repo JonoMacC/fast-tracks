@@ -10,4 +10,14 @@ export const Layout = (props) => {
   );
 };
 
+export const PageLayout = (props) => (
+  <Layout>
+    <div className="Background"></div>
+    <div className="RecordContainer">
+      <div className="Record"></div>
+    </div>
+    <div className="LoginScreen">{props.children}</div>
+  </Layout>
+);
+
 export default Layout;
