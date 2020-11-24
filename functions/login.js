@@ -56,5 +56,6 @@ exports.handler = async function (event, context) {
       "Cache-Control": "no-cache", // Disable caching of this response
       "Set-Cookie": stateCookie, // sets a cookie @ (key, value)
     },
+    body: JSON.stringify({}),
   };
 };
