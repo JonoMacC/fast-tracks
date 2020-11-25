@@ -28,48 +28,48 @@ export const Settings = ({ onLogout, numTracks, setNumTracks }) => {
     <>
       <SettingsToggle
         isVisible={isVisible}
-        toggleVisibility={toggleVisibility}
+        toggleVisibility={() => toggleVisibility()}
       />
-      {isVisible && (
-        <AnimatePresence>
-          {isVisible && (
-            <motion.div
-              className="PageContainer"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1, transition: spring }}
-              exit={{ opacity: 0, transition: spring }}
+      <AnimatePresence>
+        {isVisible && (
+          <motion.div
+            key="modal-container"
+            className="PageContainer"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, transition: spring }}
+            exit={{ opacity: 0, transition: spring }}
+          >
+            <motion.section
+              key="modal"
+              variants={variants}
+              initial={"closed"}
+              animate={"open"}
+              exit={"closed"}
+              className="Settings surface"
             >
-              <motion.section
-                variants={variants}
-                initial={"closed"}
-                animate={"open"}
-                exit={"closed"}
-                className="Settings surface"
-              >
-                <div className="SettingsHeader">
-                  <h1>Settings</h1>
-                  <button
-                    className="TapItem"
-                    onClick={toggleVisibility}
-                    aria-label="Close Settings"
-                  >
-                    <Icon
-                      name="cancel"
-                      color="var(--icon)"
-                      size="var(--icon-size)"
-                    />
-                  </button>
-                </div>
-                <SettingsList
-                  onLogout={onLogout}
-                  numTracks={numTracks}
-                  setNumTracks={setNumTracks}
-                />
-              </motion.section>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      )}
+              <div className="SettingsHeader">
+                <h1>Settings</h1>
+                <button
+                  className="TapItem"
+                  onClick={() => toggleVisibility()}
+                  aria-label="Close Settings"
+                >
+                  <Icon
+                    name="cancel"
+                    color="var(--icon)"
+                    size="var(--icon-size)"
+                  />
+                </button>
+              </div>
+              <SettingsList
+                onLogout={onLogout}
+                numTracks={numTracks}
+                setNumTracks={setNumTracks}
+              />
+            </motion.section>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 };
