@@ -28,7 +28,7 @@ export const Settings = ({ onLogout, numTracks, setNumTracks }) => {
     <>
       <SettingsToggle
         isVisible={isVisible}
-        toggleVisibility={() => toggleVisibility()}
+        toggleVisibility={toggleVisibility}
       />
       <AnimatePresence>
         {isVisible && (
@@ -51,7 +51,7 @@ export const Settings = ({ onLogout, numTracks, setNumTracks }) => {
                 <h1>Settings</h1>
                 <button
                   className="TapItem"
-                  onClick={() => toggleVisibility()}
+                  onClick={toggleVisibility}
                   aria-label="Close Settings"
                 >
                   <Icon
