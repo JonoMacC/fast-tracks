@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { TrackCard } from "./TrackCard";
+import record from "../../images/vinyl_record_simple.png";
 import "./TrackStack.css";
 
 export const TrackStack = ({ tracks }) => (
@@ -30,7 +31,9 @@ export const TrackStack = ({ tracks }) => (
 );
 
 const SpinningRecord = () => (
-  <div className="TrackStackRecordContainer">
-    <div className="TrackStackRecord" />
-  </div>
+  <>
+    <div className="TrackStackRecordContainer">
+      <img className="TrackStackRecord" src={record} alt="Spinning Record" />
+    </div>
+  </>
 );

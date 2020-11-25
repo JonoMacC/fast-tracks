@@ -311,6 +311,7 @@ a:hover {
   color: var(--text);
   text-align: center;
   background: none;
+  user-select: none;
 }
 
 .Btn.rounded {
@@ -335,9 +336,10 @@ a:hover {
   letter-spacing: 2px;
 }
 
-.Btn:disabled {
+*:disabled {
   opacity: 0.5;
   pointer-events: none;
+  user-select: none;
 }
 
 .titleText {
