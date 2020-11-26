@@ -17,7 +17,6 @@ function App() {
   const [auth, setAuthData] = useContext(AuthContext);
   const state = useContext(AppState);
   const dispatch = useContext(AppDispatch);
-  const [showPlaylist, togglePlaylist] = useToggle(false);
   const [numTracks, setNumTracks] = useState(5);
   const [save, toggleSave] = useToggle(false);
 
@@ -97,7 +96,7 @@ function App() {
       <AudioPlayer track={state.track.preview} isPlaying={state.isPlaying} />
       <PlaylistAction isVisible={save} />
       <section className={`Container ${isPlaylistCollapsed}`}>
-        <NavBar isVisible={!showPlaylist}>
+        <NavBar>
           <Settings
             numTracks={numTracks}
             setNumTracks={setNumTracks}
@@ -107,8 +106,6 @@ function App() {
         </NavBar>
         <Playlist
           onNameChange={setPlaylistName}
-          onToggle={togglePlaylist}
-          showPlaylist={showPlaylist}
           isVisible={state.playlistTracks.length !== 0}
           tracks={state.playlistTracks}
         />

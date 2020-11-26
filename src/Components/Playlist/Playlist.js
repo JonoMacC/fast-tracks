@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { useToggle } from "../../util/useToggle";
 import { TrackCounter } from "./TrackCounter";
 import { TrackList } from "./TrackList";
 import { Icon } from "../Icons";
@@ -21,14 +22,9 @@ const variants = {
   },
 };
 
-export const Playlist = ({
-  onToggle,
-  onNameChange,
-  showPlaylist,
-  isVisible,
-  tracks,
-}) => {
+export const Playlist = ({ onNameChange, isVisible, tracks }) => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [showPlaylist, togglePlaylist] = useToggle(false);
 
   // the playlist input field and list of tracks is always visible
   //  ('stayOpen') on larger displays
@@ -56,8 +52,8 @@ export const Playlist = ({
       <section className="Playlist">
         <ActionBar isOpen={isOpen}>
           {isOpen && <PlaylistInput onNameChange={onNameChange} />}
-          {!isOpen && <OpenPlaylist onToggle={onToggle} />}
-          {isOpen && <ClosePlaylist onToggle={onToggle} />}
+          {!isOpen && <OpenPlaylist onToggle={togglePlaylist} />}
+          {isOpen && <ClosePlaylist onToggle={togglePlaylist} />}
           <TrackCounter count={tracks.length} />
         </ActionBar>
         <TrackList tracks={tracks} isVisible={isOpen} />
@@ -67,7 +63,7 @@ export const Playlist = ({
 };
 
 const ActionBar = ({ isOpen, children }) => (
-  <div className="PlaylistAction">
+  <div className="PlaylistAction" isopen={isOpen.toString()}>
     <motion.div
       variants={variants}
       transition={transition}
