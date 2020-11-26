@@ -14,8 +14,10 @@
   left: 0;
   right: 0;
   height: 80px;
-  background: linear-gradient(var(--bg-0), var(--bg));
-  transition: background 1s 1s ease-in;
+  background: linear-gradient(
+    transparent,
+    var(--bg)
+  ); /* linear-gradient can't be smoothly transitioned */
 }
 
 .TrackListScrollContainer {
