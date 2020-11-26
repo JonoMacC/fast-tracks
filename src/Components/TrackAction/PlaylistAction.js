@@ -9,17 +9,18 @@ const transition = {
   ease: "easeOut",
 };
 
-export const PlaylistAction = () => (
-  <motion.div
-    className="SaveActionContainer"
-    animate={{ opacity: [0, 1, 1, 0] }}
-    transition={transition}
-  >
+export const PlaylistAction = ({ isVisible }) =>
+  isVisible && (
     <motion.div
-      className="SaveRecord"
-      animate={{ opacity: [0, 1, 1, 0], scale: [0, 1, 1, 0] }}
+      className="SaveActionContainer"
+      animate={{ opacity: [0, 1, 1, 0] }}
       transition={transition}
-    ></motion.div>
-    <TrackAction name="savePlaylist" transition={transition} />
-  </motion.div>
-);
+    >
+      <motion.div
+        className="SaveRecord"
+        animate={{ opacity: [0, 1, 1, 0], scale: [0, 1, 1, 0] }}
+        transition={transition}
+      ></motion.div>
+      <TrackAction name="savePlaylist" transition={transition} />
+    </motion.div>
+  );

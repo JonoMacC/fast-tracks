@@ -19,22 +19,22 @@ function App() {
   const dispatch = useContext(AppDispatch);
   const [showPlaylist, togglePlaylist] = useToggle(false);
   const [numTracks, setNumTracks] = useState(5);
-
-  // when playlistSaved has been set to true
-  // set it back to false after a delay
-  useEffect(() => {
-    if (state.playlistSaved) {
-      setTimeout(() => {
-        dispatch({ type: "UNSAVE_PLAYLIST" });
-      }, 1600);
-    }
-  }, [state.playlistSaved, dispatch]);
+  const [save, toggleSave] = useToggle(false);
 
   // set up authorization on the Spotify API object
   // updates whenever the 'auth' prop is updated
   useEffect(() => {
     Spotify.authorize(auth.data);
   }, [auth]);
+
+  // on save, toggle the save playlist state after a delay to false
+  useEffect(() => {
+    if (save) {
+      setTimeout(() => {
+        toggleSave();
+      }, 1600);
+    }
+  }, [save, toggleSave]);
 
   // Reset client-side authorization
   const onLogout = () => {
@@ -76,9 +76,11 @@ function App() {
     }
 
     // save the playlist to Spotify, reset the playlist name and tracks
-    // set playlistSaved to true, causing the celebration animation to play
     Spotify.savePlaylist(state.playlistName, trackURIs)
-      .then(() => dispatch({ type: "SAVE_PLAYLIST" }))
+      .then(() => {
+        toggleSave(); // only tell the user it saved on success
+        dispatch({ type: "RESET_PLAYLIST" });
+      })
       .catch((err) => console.error(err.message));
   };
 
@@ -93,7 +95,7 @@ function App() {
   return (
     <Layout>
       <AudioPlayer track={state.track.preview} isPlaying={state.isPlaying} />
-      {state.playlistSaved && <PlaylistAction />}
+      <PlaylistAction isVisible={save} />
       <section className={`Container ${isPlaylistCollapsed}`}>
         <NavBar isVisible={!showPlaylist}>
           <Settings

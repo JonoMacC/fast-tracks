@@ -4,7 +4,6 @@ import reducer from "../reducers/reducer";
 const initialState = {
   playlistTracks: [],
   suggestedTracks: [],
-  playlistSaved: false,
   playlistName: "Fast Tracks",
   track: {},
   isPlaying: false,

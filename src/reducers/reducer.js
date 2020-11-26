@@ -57,17 +57,11 @@ const reducer = (state, action) => {
         track: {},
         isPlaying: false,
       };
-    case "SAVE_PLAYLIST":
+    case "RESET_PLAYLIST":
       return {
         ...state,
-        playlistSaved: true,
         playlistName: "Fast Tracks",
         playlistTracks: [],
-      };
-    case "UNSAVE_PLAYLIST":
-      return {
-        ...state,
-        playlistSaved: false,
       };
     case "SET_TRACKS":
       return {
