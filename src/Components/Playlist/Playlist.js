@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useToggle } from "../../util/useToggle";
 import { TrackCounter } from "./TrackCounter";
@@ -6,53 +5,19 @@ import { TrackList } from "./TrackList";
 import { Icon } from "../Icons";
 import "./Playlist.css";
 
-const transition = {
-  ease: "easeInOut",
-  duration: 0.15,
-};
-
-const variants = {
-  closed: {
-    borderRadius: "16px",
-    width: "32px",
-  },
-  open: {
-    borderRadius: "8px",
-    width: "100%",
-  },
-};
-
 export const Playlist = ({ onNameChange, isVisible, tracks }) => {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [showPlaylist, togglePlaylist] = useToggle(false);
-
-  // the playlist input field and list of tracks is always visible on larger displays
-  const stayOpen = windowWidth >= 768;
-
-  // the playlist is open when it is toggled to open or the display is large
-  const isOpen = showPlaylist || stayOpen;
-
-  // update the window width state on window resize
-  useEffect(() => {
-    const handleWindowResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-    window.addEventListener("resize", handleWindowResize);
-    return () => {
-      window.removeEventListener("resize", handleWindowResize);
-    };
-  }, []);
 
   return (
     isVisible && (
       <section className="Playlist">
-        <ActionBar isOpen={isOpen}>
-          {isOpen && <PlaylistInput onNameChange={onNameChange} />}
-          {!isOpen && <OpenPlaylist onToggle={togglePlaylist} />}
-          {isOpen && <ClosePlaylist onToggle={togglePlaylist} />}
+        <ActionBar isOpen={showPlaylist}>
+          <PlaylistInput onNameChange={onNameChange} />
+          {!showPlaylist && <OpenPlaylist onToggle={togglePlaylist} />}
+          {showPlaylist && <ClosePlaylist onToggle={togglePlaylist} />}
           <TrackCounter count={tracks.length} />
         </ActionBar>
-        <TrackList tracks={tracks} isVisible={isOpen} />
+        <TrackList tracks={tracks} isVisible={showPlaylist} />
       </section>
     )
   );
@@ -60,35 +25,27 @@ export const Playlist = ({ onNameChange, isVisible, tracks }) => {
 
 const ActionBar = ({ isOpen, children }) => (
   <div className="PlaylistAction" isopen={isOpen.toString()}>
-    <motion.div
-      variants={variants}
-      transition={transition}
-      className="PlaylistInput"
-      initial={false}
-      animate={isOpen ? "open" : "closed"}
-    >
+    <div className="PlaylistInput" isopen={isOpen.toString()}>
       {children}
-    </motion.div>
+    </div>
   </div>
 );
 
-const ClosePlaylist = ({ onToggle }) => {
-  return (
-    <button
-      className="PlaylistDropdown"
-      aria-label="Close Playlist"
-      onClick={onToggle}
+const ClosePlaylist = ({ onToggle }) => (
+  <button
+    className="PlaylistDropdown"
+    aria-label="Close Playlist"
+    onClick={onToggle}
+  >
+    <motion.div
+      className="iconContainer"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
     >
-      <motion.div
-        className="iconContainer"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-      >
-        <Icon name="collapse" color="var(--text)" size="24px" />
-      </motion.div>
-    </button>
-  );
-};
+      <Icon name="collapse" color="var(--text)" size="24px" />
+    </motion.div>
+  </button>
+);
 
 const OpenPlaylist = ({ onToggle }) => (
   <button className="PlaylistExpand" onClick={onToggle} aria-label="Playlist">
