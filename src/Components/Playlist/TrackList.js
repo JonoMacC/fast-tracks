@@ -30,19 +30,17 @@ export const TrackList = ({ tracks, isVisible }) => (
           animate={"open"}
           exit={"closed"}
         >
-          <motion.ul
-            className="TrackList"
-            layout
-            transition={{ duration: 0.1 }}
-          >
-            <AnimatePresence>
-              {tracks.map((track) => {
-                return (
-                  <TrackItem key={track.id} track={track} isRemoval={true} />
-                );
-              })}
-            </AnimatePresence>
-          </motion.ul>
+          <div className="TrackListWrapper">
+            <ul className="TrackList">
+              <AnimatePresence layout>
+                {tracks.map((track) => {
+                  return (
+                    <TrackItem key={track.id} track={track} isRemoval={true} />
+                  );
+                })}
+              </AnimatePresence>
+            </ul>
+          </div>
         </motion.div>
       </motion.div>
     )}

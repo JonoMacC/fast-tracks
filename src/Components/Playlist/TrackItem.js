@@ -20,7 +20,8 @@ export const TrackItem = ({ track, isRemoval }) => {
 
   return (
     <motion.li
-      transition={{ duration: 0.07 }}
+      layout
+      transition={{ duration: 0.07, layoutY: { duration: 0.07 } }}
       key={track.id}
       className="TrackItem"
       initial={{ opacity: 0, x: -375 }}
@@ -32,7 +33,7 @@ export const TrackItem = ({ track, isRemoval }) => {
       exit={{
         opacity: 0,
         x: -375,
-        transition: { duration: 0.15, ease: "easeIn" },
+        transition: { duration: 0.1, ease: "easeIn" },
       }}
     >
       <div className="TrackPlayerContainer">
