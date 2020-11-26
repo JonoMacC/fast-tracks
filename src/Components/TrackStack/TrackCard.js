@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, useCallback } from "react";
+import React, { useContext, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import { AppDispatch } from "../../contexts/AppContext";
 import { Player } from "../Player/Player";
@@ -28,34 +28,32 @@ export const TrackCard = ({ track, index }) => {
     return state === "add" || state === "discard";
   }, [state]);
 
-  // if the card has closed, remove it from the list of tracks
-  // delay removing the card to give time for "exit" animations
-  useEffect(() => {
-    if (isClosed()) {
-      let timeout = state === "add" ? 1000 : 800;
-      const onAdd = () => {
-        dispatch({ type: "ADD_TRACK", payload: track });
-      };
-      const onRemove = () => {
-        dispatch({ type: "PAUSE_PLAYBACK", payload: track });
-        dispatch({ type: "REMOVE_SUGGESTED_TRACK", payload: track });
-      };
+  const onAdd = () => {
+    dispatch({ type: "ADD_TRACK", payload: track });
+  };
 
-      setTimeout(() => {
-        onRemove();
-        state === "add" && onAdd();
-      }, timeout);
-    }
-  }, [state, track, dispatch, isClosed]);
-
-  // change the state of the card to change its appearance
-  const addTrack = () => {
-    setState("add");
+  const onRemove = () => {
+    dispatch({ type: "PAUSE_PLAYBACK", payload: track });
+    dispatch({ type: "REMOVE_SUGGESTED_TRACK", payload: track });
   };
 
   // change the state of the card to change its appearance
+  // delay removing the card to give time for "exit" animations
+  const addTrack = () => {
+    setState("add");
+    setTimeout(() => {
+      onRemove();
+      onAdd();
+    }, 1000);
+  };
+
+  // change the state of the card to change its appearance
+  // delay removing the card to give time for "exit" animations
   const discardTrack = () => {
     setState("discard");
+    setTimeout(() => {
+      onRemove();
+    }, 800);
   };
 
   return (
