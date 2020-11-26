@@ -1,4 +1,4 @@
-import { useContext, useState, useCallback } from "react";
+import { useContext, useState } from "react";
 import { motion } from "framer-motion";
 import { AppDispatch } from "../../contexts/AppContext";
 import { Player } from "../Player/Player";
@@ -23,10 +23,7 @@ const variants = {
 export const TrackCard = ({ track, index }) => {
   const dispatch = useContext(AppDispatch);
   const [state, setState] = useState(null);
-
-  const isClosed = useCallback(() => {
-    return state === "add" || state === "discard";
-  }, [state]);
+  const isClosed = state === "add" ? true : state === "discard" ? true : false;
 
   const onAdd = () => {
     dispatch({ type: "ADD_TRACK", payload: track });
@@ -89,14 +86,14 @@ export const TrackCard = ({ track, index }) => {
         )}
 
         <div className="TrackContent">
-          <TrackPreview isClosed={isClosed()}>
+          <TrackPreview isClosed={isClosed}>
             <Player track={track} miniPlayer={false} />
           </TrackPreview>
           {!isClosed() && (
             <TrackControls discardTrack={discardTrack} addTrack={addTrack} />
           )}
         </div>
-        <TrackInfo track={track} isClosed={isClosed()} />
+        <TrackInfo track={track} isClosed={isClosed} />
       </motion.div>
     </motion.li>
   );
