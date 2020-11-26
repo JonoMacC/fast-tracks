@@ -32,7 +32,7 @@ export const TrackList = ({ tracks, isVisible }) => (
         >
           <div className="TrackListWrapper">
             <ul className="TrackList">
-              <AnimatePresence layout>
+              <AnimatePresence>
                 {tracks.map((track) => {
                   return (
                     <TrackItem key={track.id} track={track} isRemoval={true} />
