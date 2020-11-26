@@ -81,10 +81,10 @@ const ClosePlaylist = ({ onToggle }) => {
     >
       <motion.div
         className="iconContainer"
-        initial={{ rotate: -180, opacity: 0 }}
-        animate={{ rotate: -180, opacity: 1 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
       >
-        <Icon name="dropdown" color="var(--text)" size="24px" />
+        <Icon name="collapse" color="var(--text)" size="24px" />
       </motion.div>
     </button>
   );
