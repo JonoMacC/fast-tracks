@@ -1,4 +1,3 @@
-import React from "react";
 import { TableCell } from "./TableCell";
 import { Icon } from "../Icons";
 

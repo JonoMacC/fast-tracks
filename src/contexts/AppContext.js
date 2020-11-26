@@ -1,4 +1,4 @@
-import React, { createContext, useState, useReducer } from "react";
+import { createContext, useState, useReducer } from "react";
 import reducer from "../reducers/reducer";
 
 const initialState = {

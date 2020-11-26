@@ -1,4 +1,4 @@
-import React, { useContext, useState, useCallback } from "react";
+import { useContext, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import { AppDispatch } from "../../contexts/AppContext";
 import { Player } from "../Player/Player";

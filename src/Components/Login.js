@@ -1,4 +1,3 @@
-import React from "react";
 import { PageLayout } from "./Layout";
 import { routerBasePath } from "../util/routerBasePath";
 

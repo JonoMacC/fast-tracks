@@ -28,4 +28,12 @@
     padding: 0 16px 24px 16px;
     width: 415px;
   }
+
+  .ActionBar .Btn,
+  .ActionBar .Btn.rounded {
+    border-radius: 1.5rem;
+    height: 3rem;
+    width: 100%;
+    letter-spacing: 2px;
+  }
 }

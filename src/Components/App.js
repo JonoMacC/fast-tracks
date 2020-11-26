@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Layout } from "./Layout";
 import { Playlist } from "./Playlist/Playlist";
 import { NavBar } from "./NavBar/NavBar";

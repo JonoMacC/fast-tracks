@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 import { TrackCard } from "./TrackCard";
 import record from "../../images/vinyl_record_simple.png";

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { AppDispatch, AppState } from "../../contexts/AppContext";
 import { useToggle } from "../../util/useToggle";
 import { PlayerControl, MiniPlayerControl } from "./PlayerControl";

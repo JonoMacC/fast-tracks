@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AppState, ProgressContext } from "../../contexts/AppContext";
 import { ProgressRing } from "./ProgressRing";
 

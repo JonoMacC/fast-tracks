@@ -1,4 +1,3 @@
-import React from "react";
 import "./ProgressRing.css";
 
 export const ProgressRing = ({ radius, stroke, progress, strokeColor }) => {
