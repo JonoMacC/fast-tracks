@@ -6,15 +6,8 @@ import {
   MdAddCircleOutline,
   MdRemoveCircleOutline,
   MdBrightnessMedium,
-  MdDone,
-  MdClear,
-  MdExpandMore,
-  MdSkipNext,
-  MdAlbum,
   MdAccountCircle,
   MdQueueMusic,
-  MdSave,
-  MdSettings,
   MdKeyboardArrowLeft,
   MdKeyboardArrowRight,
   MdKeyboardArrowDown,
@@ -35,24 +28,10 @@ function getIcon(name) {
       return <MdRemoveCircleOutline />;
     case "dark-mode":
       return <MdBrightnessMedium />;
-    case "add-track":
-      return <MdDone />;
-    case "discard":
-      return <MdClear />;
-    case "dropdown":
-      return <MdExpandMore />;
-    case "get-tracks":
-      return <MdSkipNext />;
     case "profile":
       return <MdAccountCircle />;
-    case "album":
-      return <MdAlbum />;
     case "playlist":
       return <MdQueueMusic />;
-    case "save":
-      return <MdSave />;
-    case "settings":
-      return <MdSettings />;
     case "next":
       return <MdKeyboardArrowRight />;
     case "back":
