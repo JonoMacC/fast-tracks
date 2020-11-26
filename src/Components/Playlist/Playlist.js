@@ -26,12 +26,10 @@ export const Playlist = ({ onNameChange, isVisible, tracks }) => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [showPlaylist, togglePlaylist] = useToggle(false);
 
-  // the playlist input field and list of tracks is always visible
-  //  ('stayOpen') on larger displays
+  // the playlist input field and list of tracks is always visible on larger displays
   const stayOpen = windowWidth >= 768;
 
-  // the playlist is open when either it is toggled to open
-  // ('showPlaylist') or it is set to always visible ('stayOpen')
+  // the playlist is open when it is toggled to open or the display is large
   const isOpen = showPlaylist || stayOpen;
 
   // update the window width state on window resize
@@ -39,9 +37,7 @@ export const Playlist = ({ onNameChange, isVisible, tracks }) => {
     const handleWindowResize = () => {
       setWindowWidth(window.innerWidth);
     };
-
     window.addEventListener("resize", handleWindowResize);
-
     return () => {
       window.removeEventListener("resize", handleWindowResize);
     };
