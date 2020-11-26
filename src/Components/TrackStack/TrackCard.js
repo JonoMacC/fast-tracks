@@ -79,7 +79,7 @@ export const TrackCard = ({ track, index }) => {
           zIndex: index + 1,
         }}
       >
-        {isClosed() && (
+        {isClosed && (
           <TrackOverlay>
             <TrackAction name={state} />
           </TrackOverlay>
@@ -89,7 +89,7 @@ export const TrackCard = ({ track, index }) => {
           <TrackPreview isClosed={isClosed}>
             <Player track={track} miniPlayer={false} />
           </TrackPreview>
-          {!isClosed() && (
+          {!isClosed && (
             <TrackControls discardTrack={discardTrack} addTrack={addTrack} />
           )}
         </div>

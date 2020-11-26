@@ -99,4 +99,8 @@
     visibility: hidden;
     display: none;
   }
+
+  .PlaylistAction[isopen="true"] {
+    background: none;
+  }
 }
