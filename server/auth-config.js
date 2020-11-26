@@ -4,10 +4,7 @@ require("dotenv").config();
 const env = process.env.NODE_ENV || "development";
 const devMode = env === "development";
 const spotifyURL = "https://accounts.spotify.com";
-const devUrl = "http://localhost:3000";
-
-/* process.env.URL from netlify BUILD environment variables */
-const siteUrl = process.env.URL || devUrl;
+const siteUrl = "http://localhost:3000";
 
 const clientId = devMode
     ? process.env.REACT_APP_TEST_CLIENT_ID

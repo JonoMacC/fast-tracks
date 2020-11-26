@@ -16,12 +16,11 @@ Use your Spotify account on the [Spotify developer site](https://developer.spoti
 ### Redirect URIs for Local Development
 
 > http://localhost:3000/api/callback  
-> http://localhost:3000/.netlify/functions/callback
+> http://localhost:8888/.netlify/functions/callback
 
 ## Local Development
 
-Create a file called .env to store environment variables. Follow the format in .env.sample to set up your client ID, client secret, and redirect URI for testing and production.
-
+Create a file called .env to store environment variables. Follow the format in .env.sample to set up your client ID and client secret.  
 Never share your Client ID in public such as in a git repository.
 
 ### Initialize
@@ -32,7 +31,7 @@ Install the dependencies
 
 ### Running with Node Express Server
 
-Set REACT_APP_NETLIFY=false in your .env file or omit this variable altogether.
+Set REACT_APP_NETLIFY=false in your .env file.
 
     yarn devstart
 
@@ -40,8 +39,13 @@ You can view the app by navigating to **http://localhost:3000/** in your browser
 
 ### Running with Netlify Functions
 
-Be sure to set REACT_APP_NETLIFY=true in your .env file.
+Be sure to set REACT_APP_NETLIFY=true in your .env file. You will need to have the Netlify CLI installed. If it is not set up, you can do so:
 
-    yarn start
+    npm install netlify-cli -g
+    ntl login
 
-You can view the app by navigating to **http://localhost:3000/** in your browser.
+Start the app
+
+    ntl dev
+
+You can view the app by navigating to **http://localhost:8888/** in your browser.
