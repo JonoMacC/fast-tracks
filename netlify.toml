@@ -7,4 +7,3 @@
   REACT_APP_CLIENT_ID = "your Spotify app client ID"
   REACT_APP_CLIENT_SECRET = "your Spotify app client secret"
   REACT_APP_NETLIFY = "true"
-  CI = ""
