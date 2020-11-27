@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
 import { motion } from "framer-motion";
 import { AppDispatch } from "../../contexts/AppContext";
-import { Player } from "../Player/Player";
 import { TrackAction } from "../TrackAction/TrackAction";
+import { Player } from "../Player/Player";
 import "./TrackCard.css";
 
 const variants = {
@@ -25,22 +25,12 @@ export const TrackCard = ({ track, index }) => {
   const [state, setState] = useState(null);
   const isClosed = state === "add" ? true : state === "discard" ? true : false;
 
-  const onAdd = () => {
-    dispatch({ type: "ADD_TRACK", payload: track });
-  };
-
-  const onRemove = () => {
-    dispatch({ type: "PAUSE_PLAYBACK", payload: track });
-    dispatch({ type: "REMOVE_SUGGESTED_TRACK", payload: track });
-  };
-
   // change the state of the card to change its appearance
   // delay removing the card to give time for "exit" animations
   const addTrack = () => {
     setState("add");
     setTimeout(() => {
-      onRemove();
-      onAdd();
+      dispatch({ type: "ADD_TRACK", payload: track });
     }, 1000);
   };
 
@@ -49,7 +39,7 @@ export const TrackCard = ({ track, index }) => {
   const discardTrack = () => {
     setState("discard");
     setTimeout(() => {
-      onRemove();
+      dispatch({ type: "REMOVE_SUGGESTED_TRACK", payload: track });
     }, 800);
   };
 

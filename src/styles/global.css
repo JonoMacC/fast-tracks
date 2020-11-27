@@ -1,6 +1,6 @@
 /* Custom Properties */
 :root {
-  --brand-primary: #ff0051;
+  --brand-primary: #ff3575;
   --bg-light: #ffffff;
   --text-light: #222222;
   --text-light-secondary: #484848;
@@ -25,8 +25,8 @@
   --btn-focus-light: rgba(0, 0, 0, 0.3);
   --btn-hover-dark: rgba(255, 255, 255, 0.1);
   --btn-focus-dark: rgba(255, 255, 255, 0.15);
-  --btn-primary-hover: #ff1962;
-  --btn-primary-focus: #ff3273;
+  --btn-primary-hover: #ff4983;
+  --btn-primary-focus: #ff5d90;
   --scrim: rgba(0, 0, 0, 0.9);
   --icon-size: 32px;
 }
@@ -205,8 +205,8 @@ button {
   cursor: pointer;
 }
 
-button:active,
-button:focus {
+*:active,
+*:focus {
   outline: none;
 }
 

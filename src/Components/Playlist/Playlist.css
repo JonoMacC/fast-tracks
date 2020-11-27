@@ -44,7 +44,9 @@
   align-items: center;
   justify-content: center;
   background: var(--input);
-  transition: width 0.15s ease-in-out, border-radius 0.15s ease-in-out;
+  transition: width 0.15s ease-in-out, border-radius 0.15s ease-in-out,
+    background 0.15s ease-in;
+  user-select: none;
 }
 
 .PlaylistInput[isopen="true"] {
