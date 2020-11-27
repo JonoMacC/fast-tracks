@@ -39,17 +39,30 @@
   flex: none;
   width: 100%;
   position: relative;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: var(--input);
+  transition: width 0.15s ease-in-out, border-radius 0.15s ease-in-out;
+}
+
+.PlaylistInput[isopen="true"] {
+  width: 100;
+}
+
+.PlaylistInput[isopen="false"] {
+  width: 32px;
+  border-radius: 16px;
 }
 
 .PlaylistExpand {
   visibility: visible;
   display: flex;
   z-index: 1;
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .PlaylistExpand .inner {
@@ -95,7 +108,13 @@
     grid-area: 1 / 1 / span 2 / span 1;
   }
 
-  .PlaylistDropdown {
+  .PlaylistInput[isopen="false"] {
+    width: 100%;
+    border-radius: 8px;
+  }
+
+  .PlaylistDropdown,
+  .PlaylistExpand {
     visibility: hidden;
     display: none;
   }

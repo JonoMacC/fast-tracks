@@ -1,6 +1,6 @@
 /* Custom Properties */
 :root {
-  --brand-primary: #ff3575;
+  --brand-primary: #ff0051;
   --bg-light: #ffffff;
   --text-light: #222222;
   --text-light-secondary: #484848;
@@ -21,16 +21,12 @@
   --spacing-dark: 1.4px;
   --scrollbar-light: rgba(0, 0, 0, 0.1);
   --scrollbar-dark: rgba(255, 255, 255, 0.3);
-  --bg-light-0: rgba(255, 255, 255, 0);
-  --bg-dark-0: rgba(17, 17, 17, 0);
   --btn-hover-light: rgba(0, 0, 0, 0.2);
   --btn-focus-light: rgba(0, 0, 0, 0.3);
   --btn-hover-dark: rgba(255, 255, 255, 0.1);
   --btn-focus-dark: rgba(255, 255, 255, 0.15);
-  --btn-primary-hover-light: #e21e71;
-  --btn-primary-focus-light: #bd175d;
-  --btn-primary-hover-dark: #ff4882;
-  --btn-primary-focus-dark: #ff508f;
+  --btn-primary-hover: #ff1962;
+  --btn-primary-focus: #ff3273;
   --scrim: rgba(0, 0, 0, 0.9);
   --icon-size: 32px;
 }
@@ -45,14 +41,11 @@
   --spacing: var(--spacing-dark);
   --scrollbar: var(--scrollbar-dark);
   --bg: var(--bg-dark);
-  --bg-0: var(--bg-dark-0);
   --bg-surface: var(--surface-dark);
   --drop-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.4);
   --bg-overlay: var(--bg-dark);
   --btn-hover: var(--btn-hover-dark);
   --btn-focus: var(--btn-focus-dark);
-  --btn-primary-hover: var(--btn-primary-hover-dark);
-  --btn-primary-focus: var(--btn-primary-focus-dark);
 }
 
 .App[theme="dark"] h2 {
@@ -69,14 +62,11 @@
   --spacing: var(--spacing-light);
   --scrollbar: var(--scrollbar-light);
   --bg: var(--bg-light);
-  --bg-0: var(--bg-light-0);
   --bg-surface: var(--surface-light);
   --drop-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.15);
   --bg-overlay: var(--bg-light);
   --btn-hover: var(--btn-hover-light);
   --btn-focus: var(--btn-focus-light);
-  --btn-primary-hover: var(--btn-primary-hover-light);
-  --btn-primary-focus: var(--btn-primary-focus-light);
 }
 
 .App[theme="light"] h2 {
@@ -149,6 +139,11 @@ html,
   height: 100%;
   background: var(--bg);
   transition: background 0.15s ease-in;
+}
+
+* {
+  transition: background 0.15s ease-in, color 0.15s ease-in,
+    background-color 0.15s ease-in, letter-spacing 0.15s ease-in;
 }
 
 html,
@@ -330,6 +325,10 @@ a:hover {
   border: none;
 }
 
+.Btn.primary:focus {
+  background: var(--btn-primary-focus);
+}
+
 .Btn.large {
   height: 3rem;
   width: 100%;
@@ -337,7 +336,7 @@ a:hover {
 }
 
 *:disabled {
-  opacity: 0.5;
+  opacity: 0.38;
   pointer-events: none;
   user-select: none;
 }

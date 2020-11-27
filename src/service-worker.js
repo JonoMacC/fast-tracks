@@ -11,7 +11,7 @@ import { clientsClaim } from "workbox-core";
 import { ExpirationPlugin } from "workbox-expiration";
 import { precacheAndRoute, createHandlerBoundToURL } from "workbox-precaching";
 import { registerRoute } from "workbox-routing";
-import { StaleWhileRevalidate } from "workbox-strategies";
+import { StaleWhileRevalidate, NetworkOnly } from "workbox-strategies";
 
 clientsClaim();
 
@@ -39,8 +39,14 @@ registerRoute(
 
     if (url.pathname.match(fileExtensionRegexp)) {
       return false;
-    } // Return true to signal that we want to use the handler.
+    }
 
+    // If this is a URL for a serverless function, skip
+    if (url.pathname.startsWith("/.netlify/functions")) {
+      return false;
+    }
+
+    // Return true to signal that we want to use the handler.
     return true;
   },
   createHandlerBoundToURL(process.env.PUBLIC_URL + "/index.html")
@@ -72,13 +78,8 @@ self.addEventListener("message", (event) => {
 
 // Any other custom service worker logic can go here.
 
-// self.addEventListener("fetch", (event) => {
-//   // path throw a 3xx - don’t cache
-//   if (event.response.type === "opaqueredirect") {
-//     return;
-//   }
-
-//   if (event.request.url.indexOf("/") > -1) {
-//     return;
-//   }
-// });
+// Require NetworkOnly strategy (no cached responses) for requests to serverless function endpoints
+// registerRoute(
+//   ({ url }) => url.pathname.startsWith("/.netlify/functions"),
+//   new NetworkOnly()
+// );
