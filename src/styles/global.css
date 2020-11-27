@@ -218,6 +218,11 @@ a:hover {
   color: var(--text);
 }
 
+*:focus,
+*:active {
+  -webkit-tap-highlight-color: transparent;
+}
+
 .TapItem {
   width: 44px;
   height: 44px;
