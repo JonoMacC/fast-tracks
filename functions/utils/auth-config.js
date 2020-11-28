@@ -8,7 +8,7 @@ const devMode = env === "development";
 const spotifyURL = "https://accounts.spotify.com";
 
 /* process.env.URL from netlify BUILD environment variables */
-const siteUrl = process.env.URL;
+const siteUrl = devMode ? process.env.URL : "https://fasttracks.app";
 
 const clientId = devMode
     ? process.env.REACT_APP_TEST_CLIENT_ID
