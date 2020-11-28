@@ -16,8 +16,9 @@ const variants = {
 
 export const TrackList = ({ tracks, isVisible }) => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [windowHeight, setWindowHeight] = useState(window.innerHeight);
   // the list of tracks is always visible on larger displays
-  const stayOpen = windowWidth >= 768;
+  const stayOpen = windowWidth >= 768 && windowHeight >= 500;
   // the playlist is open when it is toggled to open or the display is large
   const isOpen = isVisible || stayOpen;
 
@@ -25,6 +26,7 @@ export const TrackList = ({ tracks, isVisible }) => {
   useEffect(() => {
     const handleWindowResize = () => {
       setWindowWidth(window.innerWidth);
+      setWindowHeight(window.innerHeight);
     };
     window.addEventListener("resize", handleWindowResize);
     return () => {

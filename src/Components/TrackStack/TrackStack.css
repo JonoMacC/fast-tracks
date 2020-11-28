@@ -40,7 +40,21 @@
   }
 }
 
-@media all and (min-width: 360px) {
+@media all and (max-height: 500px) and (orientation: landscape) {
+  .TrackStackRecord {
+    width: 75%;
+  }
+
+  .TrackStackContainer {
+    grid-area: cards;
+    height: 100%;
+    padding: 44px 8px 16px 8px;
+    width: 100%;
+    margin: 0;
+  }
+}
+
+@media all and (min-width: 360px) and (orientation: portrait) {
   .TrackStackContainer {
     padding: 0 16px;
     margin-top: 32px;

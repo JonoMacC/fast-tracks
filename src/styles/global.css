@@ -75,7 +75,7 @@
   font-weight: 700;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 768px) and (min-height: 500px) {
   .App .overlay,
   .App[theme="light"] .overlay,
   .App[theme="dark"] .overlay {
@@ -369,13 +369,39 @@ a:hover {
 }
 
 .overlay {
-  backdrop-filter: blur(32px);
+  backdrop-filter: blur(0px);
   background: var(--bg-overlay);
 }
 
 .surface {
   background: var(--bg-surface);
   box-shadow: var(--drop-shadow);
+}
+
+/* Landscape orientation on mobile screens */
+@media all and (orientation: landscape) and (max-height: 500px) {
+  .App {
+    width: -webkit-fill-available;
+  }
+
+  .Container {
+    grid-template-columns: minmax(340px, 1fr) 1fr;
+    grid-template-areas:
+      "cards nav"
+      "cards controls";
+  }
+
+  .TrackSelect {
+    grid-area: 1 / 1 / span 2 / span 2;
+    display: grid;
+    grid-template-columns: minmax(340px, 1fr) 1fr;
+    grid-template-areas: "cards controls";
+    pointer-events: none;
+  }
+
+  .TrackSelect * {
+    pointer-events: all;
+  }
 }
 
 /* Media queries for larger screens */
@@ -415,14 +441,14 @@ a:hover {
 }
 
 /* Tablets and up */
-@media all and (min-width: 415px) {
+@media all and (min-width: 415px) and (min-height: 500px) {
   .Container {
     padding: 20px 20px;
   }
 }
 
 /* Large tablets and up */
-@media all and (min-width: 768px) {
+@media all and (min-width: 768px) and (min-height: 500px) {
   .Container {
     grid-template-columns: minmax(314px, 576px) minmax(414px, 1fr);
     gap: 1fr;

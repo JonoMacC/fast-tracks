@@ -93,11 +93,10 @@ const TrackPreview = ({ isClosed, ...props }) => (
   <motion.div
     className="TrackPreview"
     variants={{
-      open: { height: "70%" },
       closed: { height: "100%", transition: { duration: 0.1 } },
     }}
     initial={"open"}
-    animate={isClosed ? "closed" : "open"}
+    animate={isClosed ? "closed" : ""}
   >
     {props.children}
   </motion.div>
@@ -136,11 +135,10 @@ const TrackInfo = ({ isClosed, track }) => {
     <motion.div
       className="TrackName"
       variants={{
-        open: { top: "72%" },
-        closed: { top: "85%" },
+        closed: { top: "var(--top-offset)" },
       }}
       initial={"open"}
-      animate={isClosed ? "closed" : "open"}
+      animate={isClosed ? "closed" : ""}
     >
       <h2 style={{ color: primaryColor }}>{name}</h2>
       <p style={{ color: secondaryColor }}>
