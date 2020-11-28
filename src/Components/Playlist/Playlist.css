@@ -50,7 +50,7 @@
 }
 
 .PlaylistInput[isopen="true"] {
-  width: 100;
+  width: 100%;
 }
 
 .PlaylistInput[isopen="false"] {
@@ -105,7 +105,7 @@
   }
 }
 
-@media all and (min-width: 768px) {
+@media all and (min-width: 768px) and (min-height: 500px) {
   .Playlist {
     grid-area: 1 / 1 / span 2 / span 1;
   }
@@ -123,5 +123,11 @@
 
   .PlaylistAction[isopen="true"] {
     background: none;
+  }
+}
+
+@media all and (max-height: 500px) and (orientation: landscape) {
+  .PlaylistInput[isopen="false"] {
+    margin-right: auto;
   }
 }

@@ -40,6 +40,8 @@
   width: 100%;
   z-index: 3;
   user-select: none;
+  top: 75%;
+  --top-offset: 85%;
 }
 
 .TrackName h2,
@@ -66,4 +68,15 @@
 
 .TrackControls :last-child {
   border-bottom-right-radius: 1.5rem;
+}
+
+@media all and (max-height: 500px) and (orientation: landscape) {
+  .TrackPreview {
+    height: 55%;
+  }
+
+  .TrackName {
+    top: 60%;
+    --top-offset: 80%;
+  }
 }

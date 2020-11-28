@@ -14,8 +14,16 @@
   flex: none;
 }
 
-@media all and (min-width: 768px) {
+@media all and (min-width: 768px) and (min-height: 500px) {
   .NavBar {
     grid-area: 1 / 2;
+  }
+}
+
+@media all and (orientation: landscape) and (max-height: 500px) {
+  .NavBar {
+    grid-area: nav;
+    align-items: flex-end;
+    justify-self: flex-end;
   }
 }

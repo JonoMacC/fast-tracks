@@ -11,7 +11,6 @@ const {
   clientSecret,
   redirectUri,
   tokenPath,
-  siteUrl,
 } = require("./utils/auth-config");
 
 /* Function to handle Spotify auth callback */
@@ -28,7 +27,7 @@ exports.handler = async function (event, context) {
     return {
       statusCode: 302, // must be a redirect status code or the client won't be redirected
       headers: {
-        Location: `${siteUrl}/#/error/state%20mismatch`,
+        Location: `/#/error/state%20mismatch`,
         "Cache-Control": "no-cache", // Disable caching of this response
       },
     };
@@ -59,7 +58,7 @@ exports.handler = async function (event, context) {
         return {
           statusCode: 302, // must be a redirect status code or the client won't be redirected
           headers: {
-            Location: `${siteUrl}/#/user/${access_token}/${refresh_token}/${expires_in}`,
+            Location: `/#/user/${access_token}/${refresh_token}/${expires_in}`,
             "Cache-Control": "no-cache", // Disable caching of this response
           },
         };
@@ -69,7 +68,7 @@ exports.handler = async function (event, context) {
         return {
           statusCode: 302, // must be a redirect status code or the client won't be redirected
           headers: {
-            Location: `${siteUrl}/#/error/invalid token`,
+            Location: `/#/error/invalid token`,
             "Cache-Control": "no-cache", // Disable caching of this response
           },
         };

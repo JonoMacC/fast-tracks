@@ -1,10 +1,11 @@
 .TrackListContainer {
   width: 100%;
   padding: 0 8px;
-  overflow: hidden;
+  overflow-y: hidden;
   display: flex;
   flex: auto;
   position: relative;
+  height: 300px; /* Need a fixed height or Safari on iOS doesn't render correctly */
 }
 
 .TrackListContainer::after {
@@ -15,7 +16,7 @@
   right: 0;
   height: 80px;
   background: linear-gradient(
-    transparent,
+    var(--bg-0),
     var(--bg)
   ); /* linear-gradient can't be smoothly transitioned */
 }
@@ -23,13 +24,11 @@
 .TrackListScrollContainer {
   width: 100%;
   display: flex;
-  overflow-y: scroll;
-  flex: auto;
-  justify-content: flex-start;
 }
 
 .TrackListWrapper {
   width: 100%;
+  overflow-y: scroll;
 }
 
 .TrackList {

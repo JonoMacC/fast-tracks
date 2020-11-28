@@ -37,3 +37,17 @@
     letter-spacing: 2px;
   }
 }
+
+@media all and (max-height: 500px) and (orientation: landscape) {
+  .ActionBar {
+    grid-area: controls;
+    align-self: flex-end;
+    justify-content: flex-start;
+    width: 100%;
+    padding-bottom: 1rem;
+  }
+
+  .ActionBar > :first-child {
+    margin: 0 0 1rem 0;
+  }
+}
