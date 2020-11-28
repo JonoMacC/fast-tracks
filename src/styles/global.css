@@ -41,6 +41,7 @@
   --spacing: var(--spacing-dark);
   --scrollbar: var(--scrollbar-dark);
   --bg: var(--bg-dark);
+  --bg-0: rgba(17, 17, 17, 0);
   --bg-surface: var(--surface-dark);
   --drop-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.4);
   --bg-overlay: var(--bg-dark);
@@ -62,6 +63,7 @@
   --spacing: var(--spacing-light);
   --scrollbar: var(--scrollbar-light);
   --bg: var(--bg-light);
+  --bg-0: rgba(255, 255, 255, 0);
   --bg-surface: var(--surface-light);
   --drop-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.15);
   --bg-overlay: var(--bg-light);
