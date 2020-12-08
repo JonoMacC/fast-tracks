@@ -71,6 +71,9 @@
 }
 
 @media all and (max-height: 500px) and (orientation: landscape) {
+}
+
+@media all and (max-height: 600px) {
   .TrackPreview {
     height: 55%;
   }
@@ -78,5 +81,16 @@
   .TrackName {
     top: 60%;
     --top-offset: 80%;
+  }
+}
+
+@media all and (max-height: 450px) {
+  .TrackPreview {
+    height: 50%;
+  }
+
+  .TrackName {
+    top: 55%;
+    --top-offset: 75%;
   }
 }
