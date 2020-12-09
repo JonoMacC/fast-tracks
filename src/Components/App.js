@@ -3,7 +3,6 @@ import { Layout } from "./Layout";
 import { Playlist } from "./Playlist/Playlist";
 import { NavBar } from "./NavBar/NavBar";
 import { ThemeToggle } from "./NavBar/ThemeToggle";
-import { AudioPlayer } from "./AudioPlayer/AudioPlayer";
 import { TrackStack } from "./TrackStack/TrackStack";
 import { ActionBar } from "./ActionBar/ActionBar";
 import { Settings } from "./Settings/Settings";
@@ -93,7 +92,6 @@ function App() {
 
   return (
     <Layout>
-      <AudioPlayer track={state.track.preview} isPlaying={state.isPlaying} />
       <PlaylistAction isVisible={save} />
       <section className={`Container ${isPlaylistCollapsed}`}>
         <NavBar>
