@@ -139,12 +139,12 @@ const Spotify = {
   /*
    * Retrieve the user's top tracks from the recent past
    */
-  retrieveTopTracks() {
+  async retrieveTopTracks(timeRange = "short_term") {
     const options = {
       method: "get",
       url: "https://api.spotify.com/v1/me/top/tracks",
       params: {
-        time_range: "short_term",
+        time_range: timeRange,
         limit: 50,
         offset: 0,
       },
@@ -153,7 +153,7 @@ const Spotify = {
 
     return this.retryAxios(options)
       .then((res) => {
-        if (!res.data.items) {
+        if (!res?.data?.items) {
           return [];
         }
         return res.data.items.map((track) => ({
@@ -187,7 +187,7 @@ const Spotify = {
 
     return this.retryAxios(options)
       .then((res) => {
-        if (!res.data.tracks) {
+        if (!res?.data?.tracks) {
           return [];
         }
         return res.data.tracks.items.map((track) => ({
@@ -211,6 +211,7 @@ const Spotify = {
    * list of recent top tracks
    */
   getSeedTracks() {
+    let seedTracksList = "";
     // create an array for the indices in the topTracks array
     let a = [...Array(this.topTracks.length).keys()];
     // a = [0,1,2....49]
@@ -233,7 +234,31 @@ const Spotify = {
     }
 
     // return seed tracks as a comma-separated list
-    return seedTracks.join(",");
+    seedTracksList = seedTracks.join(",");
+    return seedTracksList;
+  },
+
+  /*
+   * Retrieve the user's top tracks for a given time range
+   */
+  async getNewTopTracks(timeRange) {
+    const timeRanges = {
+      short_term: "past 4 weeks",
+      medium_term: "past 6 months",
+      long_term: "past several years",
+    };
+
+    const timeString = timeRanges[timeRange];
+
+    let newTopTracks = await this.retrieveTopTracks(timeRange);
+
+    if (newTopTracks?.length > 0) {
+      return newTopTracks;
+    } else {
+      console.log(`Could not retrieve user's top tracks for ${timeString}.`);
+    }
+
+    return [];
   },
 
   /*
@@ -242,21 +267,39 @@ const Spotify = {
   async getTracks(numTracks = 5) {
     // if no top tracks have been set, retrieve them
     if (this.topTracks.length === 0) {
-      let newTopTracks = await this.retrieveTopTracks();
-      if (newTopTracks) {
+      const timeRanges = ["short_term", "medium_term", "long_term"];
+      let i = 0;
+      let newTopTracks = [];
+
+      do {
+        console.log(`Attempting to retrieve top tracks ${timeRanges[i]}`);
+        newTopTracks = await this.getNewTopTracks(timeRanges[i]);
+        i += 1;
+      } while (newTopTracks.length === 0 && i < timeRanges.length);
+
+      if (newTopTracks.length === 0 && i === timeRanges.length) {
+        console.log("Failed to retrieve user's top tracks. Cannot continue...");
+        return;
+      }
+
+      if (newTopTracks.length > 0) {
         this.setTopTracks(newTopTracks);
-      } else {
-        throw new Error();
       }
     }
 
     // retrieve a list of 5 seed tracks based on the user's recent top tracks
-    const seedTrackList = this.getSeedTracks();
+    const seedTracksList = this.getSeedTracks();
+
+    if (seedTracksList === "") {
+      console.log("Could not retrieve list of seed tracks. Cannot continue...");
+      return;
+    }
+
     const options = {
       method: "get",
       url: "https://api.spotify.com/v1/recommendations",
       params: {
-        seed_tracks: seedTrackList,
+        seed_tracks: seedTracksList,
         limit: 20,
       },
       headers: this.headers,
@@ -264,7 +307,7 @@ const Spotify = {
 
     return this.retryAxios(options)
       .then((res) => {
-        if (!res.data.tracks) {
+        if (!res?.data?.tracks) {
           return [];
         }
         return res.data.tracks.map((track) => ({

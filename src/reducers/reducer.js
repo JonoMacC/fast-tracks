@@ -81,7 +81,7 @@ const reducer = (state, action) => {
     case "SET_TRACKS":
       return {
         ...state,
-        suggestedTracks: action.payload,
+        suggestedTracks: action.payload || [],
       };
     case "RESET_TRACKS":
       return {
